@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <TheLists v-if="active === 1" :meigenns="mylists" @emiting="setStock" />
-    <VStock v-else-if="active === 2" :meigenns="mylists" />
+    <TheLists v-if="active === 1" :chilLists="lists" :chilFolders="folders" @emiting="setStock" />
+    <VStock v-else-if="active === 2" :lists="lists" :folders="folders" @removing="deleStock"/>
   </div>
 </template>
 
@@ -44,9 +44,7 @@ export default {
       ],
       folders: [
         {id: 3},
-      ],
-      mylists: [],
-      myfolders: []
+      ]
     }
   },
   components: {
@@ -54,54 +52,46 @@ export default {
   },
   methods: {
     setStock(stock) {
+      console.log('setStock!');
       const target = this.folders.find( folder => folder.id === stock.id);
       if (target) {
         // 既にストックされていたらtrue stockから削除する
         console.log(`tureらしいよ!`);
         const newfolers = this.folders.filter(folder => folder.id !== stock.id);
-        console.log(newfolers);
         this.folders = newfolers;
-        this.mylists.forEach(list => {
-          const f = this.folders.find(folder => folder.id === list.id);
-          list.stock = f ? true : false;
-        });
-        console.log(this.mylists);
-
       } else {
         //ストックされていなかったらfalse 追加してあげる
         console.log('falseらしいよ');
-
         this.folders.push(stock);
-        this.mylists.forEach(list => {
-          const f = this.folders.find(folder => folder.id === list.id);
-          list.stock = f ? true : false;
-        });
-        console.log(this.mylists);
-
       }
-
     },
+    deleStock(stock) {
+      console.log('呼ばれたよ');
+      const newfolers = this.folders.filter(folder => folder.id !== stock.id);
+      this.folders = newfolers;
+
+    }
 
   },
-  created() {
-    // const mylist = this.lists.slice();
+  // created() {
+  //   // // const mylist = this.lists.slice();
 
 
-    let mylists = this.lists.map(list => ({...list}));
-    mylists.forEach(list => {
-      list.stock = false;
-      const f = this.folders.find(folder => folder.id === list.id);
-      list.stock = f ? true : false;
-      });
+  //   // let mylists = this.lists.map(list => ({...list}));
+  //   // mylists.forEach(list => {
+  //   //   list.stock = false;
+  //   //   const f = this.folders.find(folder => folder.id === list.id);
+  //   //   list.stock = f ? true : false;
+  //   //   });
 
-    console.log(mylists);
-    console.log(this.lists);
-    this.mylists = mylists;
+  //   // console.log(mylists);
+  //   // console.log(this.lists);
+  //   // this.mylists = mylists;
 
-    // console.log(this.mylists);
-    // console.log(this.lists);
-    // console.log(this.folders);
-  }
+  //   // // console.log(this.mylists);
+  //   // // console.log(this.lists);
+  //   // // console.log(this.folders);
+  // }
 }
 </script>
 
