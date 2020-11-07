@@ -1,9 +1,9 @@
 <template>
   <div class="quote-wrapper">
-    <div class="quote-card" v-for="list in chilLists" :key= "list.id" >
-      <h3>{{list.title}}</h3>
-      <span @click="onStock(list.id)" :class="{nowstock : chilFolders.find(folder => folder.id === list.id)}">○</span>
-      <p>{{list.since}}{{list.name}}</p>
+    <div class="quote-card" v-for="meigenn in meigenns" :key= "meigenn.id">
+      <h3>{{meigenn.title}}</h3>
+      <span @click="onStock(meigenn.id)" :class="{nowstock : meigenn.stock}">○</span>
+      <p>{{meigenn.since}}{{meigenn.name}}</p>
     </div>
   </div>
 </template>
@@ -12,14 +12,7 @@
 // import BaseLayout from './BaseLayout';
 export default {
   props: {
-    chilLists: {
-      type: Array,
-      required: true,
-    },
-    chilFolders: {
-      type: Array,
-      required: true,
-    }
+    meigenns: Array
   },
   data() {
     return {
@@ -30,6 +23,7 @@ export default {
     onStock(num) {
       const stock = {id: num};
       this.$emit('emiting', stock)
+      // console.log(stock);
     }
   }
 
