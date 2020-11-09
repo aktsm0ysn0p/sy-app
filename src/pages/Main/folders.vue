@@ -1,13 +1,12 @@
 <template>
   <div>
     <div class="inner">
-      <span class="inner-title">ストック一覧</span>
+      <span class="inner-title">フォルダ一覧</span>
         <div class="inner-folder">
-          <div v-if="">
+          <div v-if="myfolder.length">
             <div class="quote-card" v-for="meigenn in meigenns" :key= "meigenn.id">
               <h3>{{meigenn.title}}</h3>
-              <span @click="onStock(meigenn.id)" :class="{nowstock : meigenn.stock}">削除</span>
-              <p>{{meigenn.since}}{{meigenn.name}}</p>
+              <span @click="onStock(meigenn.id)">削除</span>
             </div>
           </div>
           <p v-else>まだ何もありません</p>
@@ -20,9 +19,6 @@
 // import VStockItem from './VStockItem';
 export default {
   name: 'Folders',
-  props: {
-    meigenns: Array
-  },
 
 
 }

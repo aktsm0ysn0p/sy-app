@@ -3,8 +3,8 @@
     <TheHeader />
     <nav>
       <ul>
-        <li><button @click="tabClick(1)" :class="{active : isSelect === 1}">●</button></li>
-        <li><button @click="tabClick(2)" :class="{active : isSelect === 2}">☆</button></li>
+        <li><router-link to="/">●</router-link></li>
+        <li><router-link to="/stocks">☆</router-link></li>
       </ul>
     </nav>
     <!-- <BaseLayout :active="isSelect" /> -->
@@ -13,7 +13,7 @@
         <span class="inner-title">ストック一覧</span>
         <div class="inner-folder">
           <div v-if="folders.length">
-            <div class="quote-card" v-for="meigenn in meigenns" :key= "meigenn.id">
+            <div class="quote-card" v-for="meigenn in myStockFolders" :key= "meigenn.id">
               <h3>{{meigenn.title}}</h3>
               <span @click="removeStock(meigenn.id)">削除</span>
               <p>{{meigenn.since}}{{meigenn.name}}</p>
@@ -29,6 +29,7 @@
 <script>
 
 import TheHeader from '../../components/TheHeader';
+import { mapState } from 'vuex';
 
 
 export default {
@@ -36,9 +37,9 @@ export default {
   components: {
     TheHeader,
   },
-  props: {
-    lists: Array,
-    folders: Array
+  computed: {
+    ...mapState(['lists']),
+    ...mapState(['folders']),
   },
   data() {
     return {
@@ -47,8 +48,10 @@ export default {
   },
   methods: {
     removeStock(num) {
-      const stock = {id: num};
-      this.$emit('removing', stock);
+      // const stock = {id: num};
+      this.$store.commit('removeStock', num);
+
+      // this.myStockFolders = this.myStockFolders.filter(folder => folder.id !== num);
       this.myStockFolders = this.myStockFolders.filter(folder => folder.id !== num);
     },
     update() {

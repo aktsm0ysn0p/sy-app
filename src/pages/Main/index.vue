@@ -23,6 +23,7 @@
 
 import TheHeader from '../../components/TheHeader';
 // import TheLists from './components/TheLists';
+import { mapState } from 'vuex';
 
 
 
@@ -32,59 +33,25 @@ export default {
   components: {
     TheHeader,
   },
+  computed: {
+    ...mapState(['lists']),
+    ...mapState(['folders'])
+  },
   data() {
     return {
       isStock: false,
-      lists: [
-        {
-          id: 1,
-          title: "吾輩は猫である",
-          name: "夏目漱石",
-          since: "1996 ~ 2000"
-        },
-        {
-          id: 2,
-          title: "明日はきっと晴れるよ",
-          name: "高田愛佳",
-          since: "1996 ~ 1998"
-        },
-        {
-          id: 3,
-          title: "2番じゃだめなんですか？",
-          name: "蓮舫",
-          since: "889 ~ 1000"
-        },
-        {
-          id: 4,
-          title: "ちっちゃいことは気にすんな",
-          name: "ゆってぃー",
-          since: "2010 ~ 2011"
-        },
-      ],
-      folders: [
-        {id: 3},
-      ],
+
     }
   },
   methods: {
     setStock(id) {
-      const target = this.folders.find( folder => folder.id === id);
-      if (target) {
-        // 既にストックされていたらtrue stockから削除する
-        console.log(`tureらしいよ!`);
-        const newfolers = this.folders.filter(folder => folder.id !== id);
-        console.log(newfolers);
-        this.folders = newfolers;
-      } else {
-        //ストックされていなかったらfalse 追加してあげる
-        console.log('falseらしいよ');
-        const stock = {id: id};
-        this.folders.push(stock);
-      }
-    },
+      this.$store.commit('setStock', id);
+    }
+
   }
 
 }
+
 </script>
 
 <style>
