@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="stock-page">
     <TheHeader />
     <nav>
       <ul>
@@ -15,7 +15,7 @@
           <div v-if="folders.length">
             <div class="quote-card" v-for="meigenn in meigenns" :key= "meigenn.id">
               <h3>{{meigenn.title}}</h3>
-              <span @click="deleStock(meigenn.id)" :class="{nowstock : meigenn.stock}">削除</span>
+              <span @click="removeStock(meigenn.id)">削除</span>
               <p>{{meigenn.since}}{{meigenn.name}}</p>
             </div>
           </div>
@@ -28,11 +28,11 @@
 
 <script>
 
-import TheHeader from './components/TheHeader';
-// import VStock from './components/VStock';
+import TheHeader from '../../components/TheHeader';
 
 
 export default {
+  name: 'Stocks',
   components: {
     TheHeader,
   },
@@ -45,54 +45,61 @@ export default {
       myStockFolders: []
     }
   },
-  created() {
-    
-  },
   methods: {
-    deleStock(id) {
-      const stock = {id: id};
-      this.$emit('emiting', stock);
-    }
+    removeStock(num) {
+      const stock = {id: num};
+      this.$emit('removing', stock);
+      this.myStockFolders = this.myStockFolders.filter(folder => folder.id !== num);
+    },
+    update() {
+      this.folders.forEach(folder => {
+      const f = this.lists.find(list => list.id === folder.id);
+      this.myStockFolders.push(f);
+    });
+    },
+
+  },
+  created() {
+    this.update();
+    console.log('更新！');
   }
 
 }
 </script>
 
 <style>
-body {
-  margin: 0;
+.stock-page {
+  color: #2c3e50;
+  margin-top: 60px;
 }
 .container {
   width: 90%;
   margin: 10vh auto;
 }
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  color: #2c3e50;
-  margin-top: 60px;
+.inner-title {
+  border-bottom: 1px solid red;
 }
-.active {
-  color: red;
+.inner-folder {
+  background-color: #eeeeee;
+  padding: 10px;
+  min-height: 30vmin;
 }
-nav {
+
+.quote-card {
+  padding: 20px;
+  margin: 10px 0;
+  border: solid 1px #5ABD57;
+  background-color: #A9F791;
+}
+h3 {
   text-align: center;
+  font-size: .8rem;
 }
-nav > ul {
-  display: flex;
-  justify-content: space-around;
+p {
+  float: right;
+  font-size: .8em;
 }
-ul {
-  list-style: none;
-  padding: 0;
-}
-button{
-  background-color: transparent;
-  border: none;
+span {
   cursor: pointer;
-  padding: 0;
-  appearance: none;
 }
 </style>

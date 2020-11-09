@@ -3,8 +3,8 @@
     <TheHeader />
     <nav>
       <ul>
-        <li><button @click="tabClick(1)" :class="{active : isSelect === 1}">●</button></li>
-        <li><button @click="tabClick(2)" :class="{active : isSelect === 2}">☆</button></li>
+        <li><router-link to="/">●</router-link></li>
+        <li><router-link to="/stocks">☆</router-link></li>
       </ul>
     </nav>
     <div class="container">
@@ -21,11 +21,14 @@
 
 <script>
 
-import TheHeader from './components/TheHeader';
+import TheHeader from '../../components/TheHeader';
 // import TheLists from './components/TheLists';
 
 
+
+
 export default {
+  name: 'Home',
   components: {
     TheHeader,
   },

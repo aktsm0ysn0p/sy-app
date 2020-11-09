@@ -19,6 +19,7 @@
 <script>
 // import VStockItem from './VStockItem';
 export default {
+  name: 'Folders',
   props: {
     meigenns: Array
   },

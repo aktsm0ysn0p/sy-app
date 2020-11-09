@@ -1,36 +1,13 @@
 <template>
   <div id="app">
-    <TheHeader />
-    <nav>
-      <ul>
-        <li><button @click="tabClick(1)" :class="{active : isSelect === 1}">●</button></li>
-        <li><button @click="tabClick(2)" :class="{active : isSelect === 2}">☆</button></li>
-      </ul>
-    </nav>
-    <BaseLayout :active="isSelect" />
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 
-import TheHeader from './components/TheHeader';
-import BaseLayout from './components/BaseLayout';
-
-
 export default {
-  components: {
-    TheHeader, BaseLayout,
-  },
-  data() {
-    return {
-      isSelect: 1,
-    }
-  },
-  methods: {
-    tabClick(number) {
-      this.isSelect = number;
-    }
-  }
+
 
 }
 </script>
@@ -44,8 +21,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
-  color: #2c3e50;
-  margin-top: 60px;
 }
 .active {
   color: red;
