@@ -23,10 +23,7 @@
 <script>
 
 import TheHeader from '../../components/TheHeader';
-// import TheLists from './components/TheLists';
 import { mapState } from 'vuex';
-
-
 
 
 export default {
@@ -38,19 +35,11 @@ export default {
     ...mapState(['lists']),
     ...mapState(['folders'])
   },
-  data() {
-    return {
-      isStock: false,
-
-    }
-  },
   methods: {
     setStock(id) {
       this.$store.commit('setStock', id);
     }
-
   }
-
 }
 
 </script>

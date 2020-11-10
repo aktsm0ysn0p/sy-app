@@ -34,7 +34,7 @@ export default new Vuex.Store({
     folders: [
       {id: 3}
     ],
-    myStockFolders: [],
+    // myStockFolders: [],
 
     myfolders: [
       {
@@ -114,6 +114,11 @@ export default new Vuex.Store({
       state.myfolders =state.myfolders.filter(myfolder => myfolder.id !== id);
     }
 
-  }
+  },
+  // actions: {
+  //   up({ commit }) {
+  //     commit('update');
+  //   }
+  // }
 
 });
