@@ -5,6 +5,7 @@
       <ul>
         <li><router-link to="/">●</router-link></li>
         <li><router-link to="/stocks">☆</router-link></li>
+        <li><router-link to="/folders">▲</router-link></li>
       </ul>
     </nav>
     <div class="container">

@@ -34,7 +34,9 @@ export default new Vuex.Store({
     folders: [
       {id: 3}
     ],
-    myfolder: [
+    myStockFolders: [],
+
+    myfolders: [
       {
         id: 1,
         title: 'aika',
@@ -42,15 +44,25 @@ export default new Vuex.Store({
           {id: 3}
         ]
       },
-    ]
+      {
+        id: 2,
+        title: 'takada',
+        stocks: [
+          { id: 3 },
+          { id: 2 },
+        ]
+      },
+    ],
+    newfolder: '',
+
   },
   getters: {
     // myStockFolders(state) {
     //   state.folders.forEach(folder => {
     //     const f = state.lists.find(list => list.id === folder.id);
-    //     state.myfolder.push(f);
+    //     state.myfolders.push(f);
     //   });
-    //   return state.myfolder;
+    //   return state.myfolders;
     // }
 
   },
@@ -71,13 +83,35 @@ export default new Vuex.Store({
       }
 
     },
+    // update(state) {
+    //   state.folders.forEach(folder => {
+    //     const f = state.lists.find(list => list.id === folder.id);
+    //     state.myStockFolders.push(f);
+    //   });
+    // },
     removeStock(state, num) {
-      // const stock = { id: num };
       const newfolers = state.folders.filter(folder => folder.id !== num);
       console.log(newfolers);
       state.folders = newfolers;
-      // state.folders.filter(folder => folder.id !== state.lists.id)
-      // this.myStockFolders = this.myStockFolders.filter(folder => folder.id !== num);
+    },
+    newfoldertext(state, value) {
+      state.newfolder = value;
+    },
+    addFolder(state) {
+      let text = state.newfolder && state.newfolder.trim();
+      if (!text) {
+        return;
+      }
+      const id = state.myfolders.slice(-1)[0].id + 1;
+      state.myfolders.push({
+        id: id,
+        title: state.newfolder,
+        stocks: []
+      });
+      state.newfolder = '';
+    },
+    removeFolder(state, id) {
+      state.myfolders =state.myfolders.filter(myfolder => myfolder.id !== id);
     }
 
   }

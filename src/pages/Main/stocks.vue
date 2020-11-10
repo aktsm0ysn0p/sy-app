@@ -5,6 +5,7 @@
       <ul>
         <li><router-link to="/">●</router-link></li>
         <li><router-link to="/stocks">☆</router-link></li>
+        <li><router-link to="/folders">▲</router-link></li>
       </ul>
     </nav>
     <!-- <BaseLayout :active="isSelect" /> -->
@@ -50,8 +51,6 @@ export default {
     removeStock(num) {
       // const stock = {id: num};
       this.$store.commit('removeStock', num);
-
-      // this.myStockFolders = this.myStockFolders.filter(folder => folder.id !== num);
       this.myStockFolders = this.myStockFolders.filter(folder => folder.id !== num);
     },
     update() {
