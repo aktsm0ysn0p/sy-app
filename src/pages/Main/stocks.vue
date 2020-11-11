@@ -49,7 +49,6 @@ export default {
   },
   methods: {
     removeStock(num) {
-      // const stock = {id: num};
       this.$store.commit('removeStock', num);
       this.myStockFolders = this.myStockFolders.filter(folder => folder.id !== num);
     },

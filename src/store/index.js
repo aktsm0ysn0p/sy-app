@@ -32,7 +32,9 @@ export default new Vuex.Store({
       },
     ],
     folders: [
-      {id: 3}
+      { id: 3 },
+      { id: 1 },
+      { id: 2 },
     ],
     // myStockFolders: [],
 
@@ -41,7 +43,7 @@ export default new Vuex.Store({
         id: 1,
         title: 'aika',
         stocks: [
-          {id: 3}
+          { id: 3 },
         ]
       },
       {
@@ -112,13 +114,34 @@ export default new Vuex.Store({
     },
     removeFolder(state, id) {
       state.myfolders =state.myfolders.filter(myfolder => myfolder.id !== id);
+    },
+    myfolderAddStock(state, { myfolderId, addStockId }) {
+      console.log('store now');
+      // const selectFolder = state.myfolders.filter(myfolder => myfolder.id === myfolderId);
+      // const f = { id: addStockId };
+      state.myfolders.forEach((folder, index) => {
+        if (folder.id === myfolderId) {
+          const f = { id: addStockId };
+          state.myfolders[index].stocks.push(f);
+        }
+      });
+    },
+    myfolderDeleStock(state, {myfolderId, deleStockId}) {
+      state.myfolders.forEach((folder, index) => {
+        if (folder.id === myfolderId) {
+          state.myfolders[index].stocks = state.myfolders[index].stocks.filter(stock => stock.id !== deleStockId);
+        }
+      });
+    }
+  },
+  actions: {
+    myfolderAddStock({ commit }, { myfolderId, addStockId }) {
+      commit('myfolderAddStock', { myfolderId, addStockId});
+    },
+    myfolderDeleStock({ commit }, { myfolderId, deleStockId }) {
+      commit('myfolderDeleStock', { myfolderId, deleStockId  })
     }
 
-  },
-  // actions: {
-  //   up({ commit }) {
-  //     commit('update');
-  //   }
-  // }
+  }
 
 });

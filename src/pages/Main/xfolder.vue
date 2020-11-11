@@ -1,10 +1,12 @@
 <template>
   <div class="xfolder-page">
     <div class="container">
-      <h1>{{currentFolder[0].title}}</h1>
+      <h1>{{currentFolder.title}}</h1>
       <span><router-link to="/folders">もどる</router-link></span>
-      <button @click="onAdd">+</button>
-      <button @click="onDele">ゴミ</button>
+      <div>
+        <button @click="onAdd">+</button>
+        <button @click="onDele">ゴミ</button>
+      </div>
       <div class="inner">
         <span class="inner-title">ストック一覧</span>
         <p>{{ folderId  }} </p>
@@ -18,8 +20,9 @@
           <p v-else>まだ何もありません</p>
         </div>
       </div>
-      <TheAddmodal :isAdd="isAdd" @emitingadd="onAdd" :addStock="addStock"/>
-      <TheDelemodal  :isDele="isDele" @emitingdele="onDele" :addStock="addStock"/>
+      <TheAddmodal v-if="showAddModal" @emitingadd="onAdd" :addStock="addStock" @checkToggle="checkToggle" @onSubmit="onAddSubmit"/>
+      <TheDelemodal v-if="showDeleModal" @emitingdele="onDele" :deleStock="deleStock" @checkToggleDele="checkToggleDele"
+      @onDeleSubmit="onDeleSubmit"/>
     </div>
   </div>
 
@@ -52,46 +55,94 @@ export default {
       currentStock:[],
       addStock: [],
       deleStock: [],
-      isAdd: false,
-      isDele: false
+      showAddModal: false,
+      showDeleModal: false
     }
   },
   created() {
     this.selectFolder();
-    // console.log(this.currentFolder[0].stocks);
     this.selectStock();
-    // this.add();
+    this.selectAddStock();
+    this.selectDeleStock();
     console.log('更新！');
   },
   methods: {
     selectFolder() {
-    this.currentFolder = this.myfolders.filter(myfolder => myfolder.id === this.folderId );
+    this.currentFolder = this.myfolders.find(myfolder => myfolder.id === this.folderId );
     },
     selectStock() {
-
-      if (!this.currentFolder[0].stocks.length) {
+      if (!this.currentFolder.stocks.length) {
         return;
       }
-      this.currentFolder[0].stocks.forEach(stock => {
+      this.currentFolder.stocks.forEach(stock => {
         const f = this.lists.find(list => list.id === stock.id );
         this.currentStock.push(f);
+        console.log(this.currentStock);
       });
     },
-    add() {
-      this.addStock = this.currentStock.forEach(stock => {
-        const f = this.folders.filter(folder => folder.id !== stock.id);
-        this.addStock.push(f);
+    selectAddStock() {
+      const result = this.folders.filter(f =>
+        !this.currentStock.some(c => c.id === f.id)
+      );
+      if (!result.length) {
+        this.addStock = [];
+        return;
+      }
+      result.forEach(folder => {
+      let f = this.lists.find(list => list.id === folder.id);
+      // f.isDone = false;
+      this.$set(f, 'isDone', false);
+      this.addStock.push(f);
       });
+    },
+    selectDeleStock() {
+      const copy = this.currentStock.map(s => ({...s}));
+      copy.forEach(stock => {
+        this.$set(stock, 'isDone', false);
+        this.deleStock.push(stock);
+        });
+      console.log(this.deleStock);
     },
     onAdd() {
-      this.isAdd = !this.isAdd;
+      this.showAddModal = !this.showAddModal;
     },
     onDele() {
-      this.isDele = !this.isDele;
+      this.showDeleModal = !this.showDeleModal;
+    },
+    checkToggle(id) {
+      this.addStock.forEach(stock => {
+        if (stock.id === id) {
+          stock.isDone = !stock.isDone;
+        }
+      });
+    },
+    checkToggleDele(id) {
+      this.deleStock.forEach(stock => {
+        if (stock.id === id) {
+          stock.isDone = !stock.isDone;
+        }
+      });
+    },
+    onAddSubmit() {
+      const result = this.addStock.filter(stock => stock.isDone);
+      result.forEach(re => {
+        this.$store.dispatch('myfolderAddStock', {myfolderId: this.currentFolder.id, addStockId: re.id});
+        this.$delete(re, 'isDone');
+        this.currentStock.push(re);
+      });
+      this.selectAddStock();
+      this.onAdd();
+    },
+    onDeleSubmit() {
+      const result = this.deleStock.filter(stock => stock.isDone);
+      result.forEach(re => {
+        this.$store.dispatch('myfolderDeleStock', {myfolderId: this.currentFolder.id, deleStockId: re.id});
+        this.$delete(re, 'isDone');
+        this.currentStock = this.currentStock.filter(stock => stock.id !== re.id);
+      });
+      this.selectDeleStock();
+      this.onDele();
     }
-
-
-
   },
 
 }
@@ -131,5 +182,9 @@ p {
 }
 span {
   cursor: pointer;
+}
+
+button {
+  display: inline-block;
 }
 </style>
