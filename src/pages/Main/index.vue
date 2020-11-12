@@ -10,9 +10,9 @@
     </nav>
     <div class="container">
       <div class="quote-wrapper">
-        <div class="quote-card" v-for="list in lists" :key= "list.id">
+        <div class="quote-card" v-for="list in lists" :key= "list.lid">
           <h3>{{list.title}}</h3>
-          <span @click="setStock(list.id)" :class="{nowstock : folders.find(folder=> folder.id === list.id)}">○</span>
+          <span @click="setStock(list.id)" :class="{nowstock : folders.find(folder=> folder.id === list.lid)}">○</span>
           <p>{{list.since}}{{list.name}}</p>
         </div>
       </div>
@@ -38,7 +38,12 @@ export default {
   methods: {
     setStock(id) {
       this.$store.commit('setStock', id);
-    }
+    },
+
+  },
+  created() {
+    this.$store.commit('flists/dataGet');
+    console.log(this.$store.state.flists);
   }
 }
 

@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import flists from './modules/Lists'
+
+// import firestore from '@/firebase/firestore'
+
+// const listsRef = firestore.collection('lists');
 
 Vue.use(Vuex)
 
@@ -36,7 +41,6 @@ export default new Vuex.Store({
       { id: 1 },
       { id: 2 },
     ],
-    // myStockFolders: [],
 
     myfolders: [
       {
@@ -56,6 +60,7 @@ export default new Vuex.Store({
       },
     ],
     newfolder: '',
+    data: []
 
   },
   getters: {
@@ -85,12 +90,6 @@ export default new Vuex.Store({
       }
 
     },
-    // update(state) {
-    //   state.folders.forEach(folder => {
-    //     const f = state.lists.find(list => list.id === folder.id);
-    //     state.myStockFolders.push(f);
-    //   });
-    // },
     removeStock(state, num) {
       const newfolers = state.folders.filter(folder => folder.id !== num);
       console.log(newfolers);
@@ -132,7 +131,15 @@ export default new Vuex.Store({
           state.myfolders[index].stocks = state.myfolders[index].stocks.filter(stock => stock.id !== deleStockId);
         }
       });
-    }
+    },
+    // dataGet(state) {
+    //   listsRef.get().then(snapshot => {
+    //     snapshot.forEach(doc => {
+    //       state.data.push(doc.data())
+    //     })
+    //   })
+
+    // }
   },
   actions: {
     myfolderAddStock({ commit }, { myfolderId, addStockId }) {
@@ -142,6 +149,9 @@ export default new Vuex.Store({
       commit('myfolderDeleStock', { myfolderId, deleStockId  })
     }
 
+  },
+  modules: {
+    flists: flists
   }
 
 });

@@ -14,9 +14,9 @@
         <span class="inner-title">ストック一覧</span>
         <div class="inner-folder">
           <div v-if="folders.length">
-            <div class="quote-card" v-for="meigenn in myStockFolders" :key= "meigenn.id">
+            <div class="quote-card" v-for="meigenn in myStockFolders" :key= "meigenn.lid">
               <h3>{{meigenn.title}}</h3>
-              <span @click="removeStock(meigenn.id)">削除</span>
+              <span @click="removeStock(meigenn.lid)">削除</span>
               <p>{{meigenn.since}}{{meigenn.name}}</p>
             </div>
           </div>
@@ -50,11 +50,11 @@ export default {
   methods: {
     removeStock(num) {
       this.$store.commit('removeStock', num);
-      this.myStockFolders = this.myStockFolders.filter(folder => folder.id !== num);
+      this.myStockFolders = this.myStockFolders.filter(folder => folder.lid !== num);
     },
     update() {
       this.folders.forEach(folder => {
-      const f = this.lists.find(list => list.id === folder.id);
+      const f = this.lists.find(list => list.lid === folder.lid);
       this.myStockFolders.push(f);
     });
     },
