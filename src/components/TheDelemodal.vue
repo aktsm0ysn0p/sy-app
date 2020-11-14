@@ -3,10 +3,10 @@
     <div class="modal-inner">
       <div v-if="deleStock.length">
         <p>どの名言をに削除する？</p>
-          <div v-for="stock in deleStock" :key="stock.id" class="quote-card">
+          <div v-for="stock in deleStock" :key="stock.lid" class="quote-card">
             <label>
-              <input type="checkbox" @change="checkToggleDele(stock.id)" >
-              <h3 :class="{'done' : stock.isDone}">{{stock.title}}</h3>
+              <input type="checkbox" @change="checkToggleDele(stock.lid)" >
+              <h3 :class="{'active' : stock.isDone}">{{stock.title}}</h3>
               <p>{{stock.since}}{{stock.name}}</p>
             </label>
           </div>
@@ -33,7 +33,8 @@ export default {
       this.$emit('emitingdele');
     },
     checkToggleDele(id) {
-      this.$emit('checkToggleDele', id)
+      this.$emit('checkToggleDele', id);
+      // console.log('ktaaaaaa');
     },
     onDeleSubmit() {
       this.$emit('onDeleSubmit');
@@ -43,6 +44,9 @@ export default {
 </script>
 
 <style scoped>
+.active {
+  color: red;
+}
 .overlay {
   z-index:1;
   position:fixed;
@@ -61,9 +65,7 @@ export default {
   padding: 1em;
   background:#fff;
 }
-.done {
-  color: #5ABD57;
-}
+
 .quote-card {
   padding: 20px;
   margin: 10px 0;

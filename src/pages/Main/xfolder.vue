@@ -12,7 +12,7 @@
         <p>{{ folderId  }} </p>
         <div class="inner-folder">
           <div v-if="currentStock.length">
-            <div class="quote-card" v-for="stock in currentStock" :key= "stock.id">
+            <div class="quote-card" v-for="stock in currentStock" :key= "stock.lid">
               <h3>{{stock.title}}</h3>
               <p>{{stock.since}}{{stock.name}}</p>
             </div>
@@ -42,67 +42,121 @@ export default {
     TheAddmodal, TheDelemodal
   },
   computed: {
-    ...mapState(['lists']),
-    ...mapState(['folders']),
-    ...mapState(['myfolders']),
+    ...mapState('Lists',['lists']),
+    ...mapState('Stocks',['stocks']),
+    ...mapState('Folders',['folders']),
     folderId() {
       return this.$route.params.id;
+    },
+    currentFolder() {
+      let currentFolder = []
+      currentFolder = this.folders.find(myfolder => myfolder.fid === this.folderId )
+      console.log(currentFolder);
+      return currentFolder
+    },
+    currentStock() {
+      if (!this.currentFolder.stocks.length) {
+        return [];
+      }
+      const currentStock = [];
+      this.currentFolder.stocks.forEach(stock => {
+        const f = this.lists.find(list => list.lid === stock );
+        currentStock.push(f);
+      });
+      console.log(currentStock);
+      return currentStock
+    },
+    addStock() {
+      const result = this.stocks.filter(f =>
+        !this.currentStock.some(c => c.lid === f)
+      );
+      let addStock = [];
+      if (!result.length) {
+        addStock = [];
+        return;
+      }
+      result.forEach(stock => {
+      let f = this.lists.find(list => list.lid === stock);
+      // f.isDone = false;
+      this.$set(f, 'isDone', false);
+      addStock.push(f);
+      });
+      return addStock
+    },
+    deleStock() {
+      const copy = this.currentStock.map(s => ({...s}));
+      let deleStock = [];
+      copy.forEach(stock => {
+        this.$set(stock, 'isDone', false);
+        deleStock.push(stock);
+        });
+      return deleStock
     }
+
   },
   data() {
     return {
-      currentFolder: null,
-      currentStock:[],
-      addStock: [],
-      deleStock: [],
       showAddModal: false,
-      showDeleModal: false
+      showDeleModal: false,
     }
   },
   created() {
-    this.selectFolder();
-    this.selectStock();
-    this.selectAddStock();
-    this.selectDeleStock();
-    console.log('更新！');
+    // this.init();
+    // this.start();
+    // console.log('更新！');
+    console.log(this.$route.params.id);
   },
   methods: {
-    selectFolder() {
-    this.currentFolder = this.myfolders.find(myfolder => myfolder.id === this.folderId );
+    init() {
+      // this.$store.dispatch('Lists/clear');
+      // this.$store.dispatch('Stocks/clear');
+      // this.$store.dispatch('Folders/clear')
     },
-    selectStock() {
-      if (!this.currentFolder.stocks.length) {
-        return;
-      }
-      this.currentFolder.stocks.forEach(stock => {
-        const f = this.lists.find(list => list.id === stock.id );
-        this.currentStock.push(f);
-        console.log(this.currentStock);
-      });
+    start() {
+      // this.$store.dispatch('Lists/start');
+      // this.$store.dispatch('Stocks/start');
+      // this.$store.dispatch('Folders/start')
     },
-    selectAddStock() {
-      const result = this.folders.filter(f =>
-        !this.currentStock.some(c => c.id === f.id)
-      );
-      if (!result.length) {
-        this.addStock = [];
-        return;
-      }
-      result.forEach(folder => {
-      let f = this.lists.find(list => list.id === folder.id);
-      // f.isDone = false;
-      this.$set(f, 'isDone', false);
-      this.addStock.push(f);
-      });
-    },
-    selectDeleStock() {
-      const copy = this.currentStock.map(s => ({...s}));
-      copy.forEach(stock => {
-        this.$set(stock, 'isDone', false);
-        this.deleStock.push(stock);
-        });
-      console.log(this.deleStock);
-    },
+    // selectFolder() {
+    // this.currentFolder = this.myfolders.find(myfolder => myfolder.id === this.folderId );
+    // },
+    // selectStock() {
+    //   if (!this.currentFolder.stocks.length) {
+    //     return;
+    //   }
+    //   const currentStock
+    //   this.currentFolder.stocks.forEach(stock => {
+    //     const f = this.lists.find(list => list.id === stock.id );
+    //     this.currentStock.push(f);
+    //     console.log(this.currentStock);
+    //   });
+    // },
+    // selectAddStock() {
+    //   const result = this.stocks.filter(f =>
+    //     !this.currentStock.some(c => c.lid === f)
+    //   );
+    //   let addStock = [];
+    //   if (!result.length) {
+    //     addStock = [];
+    //     return;
+    //   }
+    //   result.forEach(stock => {
+    //   let f = this.lists.find(list => list.lid === stock);
+    //   // f.isDone = false;
+    //   this.$set(f, 'isDone', false);
+    //   addStock.push(f);
+    //   });
+    //   return addStock
+    // },
+    // selectDeleStock() {
+    //   const copy = this.currentStock.map(s => ({...s}));
+    //   let deleStock = [];
+    //   copy.forEach(stock => {
+    //     this.$set(stock, 'isDone', false);
+    //     deleStock.push(stock);
+    //     });
+    //   return deleStock
+    // },
     onAdd() {
       this.showAddModal = !this.showAddModal;
     },
@@ -111,36 +165,40 @@ export default {
     },
     checkToggle(id) {
       this.addStock.forEach(stock => {
-        if (stock.id === id) {
+        if (stock.lid === id) {
           stock.isDone = !stock.isDone;
         }
       });
     },
     checkToggleDele(id) {
       this.deleStock.forEach(stock => {
-        if (stock.id === id) {
-          stock.isDone = !stock.isDone;
+        if (stock.lid === id) {
+          // stock.isDone = !stock.isDone;
+          this.$set(stock, 'isDone', !stock.isDone)
+          console.log('kitaaaaaaaaaaaa');
+          console.log(stock.isDone);
         }
       });
     },
     onAddSubmit() {
       const result = this.addStock.filter(stock => stock.isDone);
+      console.log(result);
       result.forEach(re => {
-        this.$store.dispatch('myfolderAddStock', {myfolderId: this.currentFolder.id, addStockId: re.id});
-        this.$delete(re, 'isDone');
-        this.currentStock.push(re);
+        this.$store.dispatch('Folders/addFolderStock', {myfolderId: this.currentFolder.fid, addStockId: re.lid});
+        // this.$delete(re, 'isDone');
+        // this.currentStock.push(re);
       });
-      this.selectAddStock();
+      // this.selectAddStock();
       this.onAdd();
     },
     onDeleSubmit() {
       const result = this.deleStock.filter(stock => stock.isDone);
       result.forEach(re => {
-        this.$store.dispatch('myfolderDeleStock', {myfolderId: this.currentFolder.id, deleStockId: re.id});
-        this.$delete(re, 'isDone');
-        this.currentStock = this.currentStock.filter(stock => stock.id !== re.id);
+        this.$store.dispatch('Folders/deleFolderStock', {myfolderId: this.currentFolder.fid, deleStockId: re.lid});
+        // this.$delete(re, 'isDone');
+        // this.currentStock = this.currentStock.filter(stock => stock.id !== re.id);
       });
-      this.selectDeleStock();
+      // this.selectDeleStock();
       this.onDele();
     }
   },

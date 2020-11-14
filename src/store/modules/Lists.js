@@ -7,37 +7,35 @@ export default {
   // unsubscribe: null,
   state() {
     return {
-      flists: []
+      lists: []
     }
+  },
+  mutations: {
+    init(state, payload) {
+      state.lists = payload
+    },
+    fetchLists(state) {
+      listsRef.orderBy('lid').get().then(snapshot => {
+        snapshot.forEach(doc => {
+          state.lists.push(doc.data())
+        })
+        console.log('lists取れたよ');
+      }).catch(e => console.log(e))
+    },
+  },
+  getters: {
+    getterLists(state) {
+      return state.lists
+    },
   },
   actions: {
-
-  },
-  mutations:{
-    dataGet(state) {
-      listsRef.get().then(snapshot => {
-        snapshot.forEach(doc => {
-          state.flists.push(doc.data())
-        })
-      })
+    clear({ commit }) {
+      commit('init', [])
     },
-    setStock(state, id) {
-      const target = state.folders.find(folder => folder.lid === id);
-      if (target) {
-        // 既にストックされていたらtrue stockから削除する
-        console.log(`tureらしいよ!`);
-        const newfolers = state.folders.filter(folder => folder.lid !== id);
-        console.log(newfolers);
-        state.folders = newfolers;
-      } else {
-        //ストックされていなかったらfalse 追加してあげる
-        console.log('falseらしいよ');
-        const stock = { lid: id };
-        state.folders.push(stock);
-      }
-
+    start({ commit }) {
+      commit('fetchLists')
     }
-  }
+  },
 
 
 }

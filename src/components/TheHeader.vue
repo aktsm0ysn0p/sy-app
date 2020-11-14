@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="header-container">
-        <div class="logo">SY</div>
+        <div class="logo">App</div>
       </div>
   </header>
 </template>

@@ -14,14 +14,14 @@
         <input type="text" v-model="inputValue">
         <button @click="addFolder">add</button>
           <div class="inner-folder">
-            <div v-if="myfolders.length">
-              <div class="quote-card" v-for="myfolder in myfolders" :key= "myfolder.id">
-                <router-link :to="{name: 'xfolder', params: {id: myfolder.id}}"  >
-                <p>{{myfolder.id}}</p>
+            <div v-if="folders.length">
+              <div class="quote-card" v-for="myfolder in folders" :key= "myfolder.fid">
+                <router-link :to="{name: 'xfolder', params: {id: myfolder.fid}}"  >
+                <p>{{myfolder.fid}}</p>
                 <h3>{{myfolder.title}}</h3>
                 </router-link>
                 <router-view></router-view>
-                <span @click="removeFolder(myfolder.id)">削除</span>
+                <span @click="deleFolder(myfolder.fid)">削除</span>
               </div>
             </div>
             <p v-else>まだ何もありません</p>
@@ -40,19 +40,41 @@ export default {
     TheHeader,
   },
   computed: {
-    ...mapState(['myfolders', 'newfolder',]),
+    ...mapState('Folders',['newfolder']),
     inputValue: {
       get() {
         return this.newfolder;
       },
       set(value) {
-        this.newfoldertext(value);
+        this.setText(value);
       }
+    },
+    folders() {
+      return this.$store.getters['Folders/getterFolders']
     }
   },
   methods: {
-    ...mapMutations(['newfoldertext', 'addFolder', 'removeFolder'])
-  }
+    ...mapMutations('Folders',['setText']),
+    init() {
+      this.$store.dispatch('Folders/clear')
+    },
+    start() {
+      this.$store.dispatch('Folders/start')
+    },
+    addFolder() {
+      this.$store.dispatch('Folders/addData')
+    },
+    deleFolder(id) {
+      this.$store.dispatch('Folders/deleData', id)
+    }
+  },
+  created() {
+    // this.init();
+    // this.start();
+    // console.log(this.$store.state.lists);
+    // console.log(this.$store.state.stocks);
+    // console.log(this.$store.state.folders);
+  },
 
 
 }

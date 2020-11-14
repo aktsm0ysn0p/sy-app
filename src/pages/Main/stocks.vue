@@ -13,8 +13,8 @@
       <div class="inner">
         <span class="inner-title">ストック一覧</span>
         <div class="inner-folder">
-          <div v-if="folders.length">
-            <div class="quote-card" v-for="meigenn in myStockFolders" :key= "meigenn.lid">
+          <div v-if="my.length">
+            <div class="quote-card" v-for="meigenn in my" :key= "meigenn.lid">
               <h3>{{meigenn.title}}</h3>
               <span @click="removeStock(meigenn.lid)">削除</span>
               <p>{{meigenn.since}}{{meigenn.name}}</p>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-
+// import Firebase from "firebase/app";
 import TheHeader from '../../components/TheHeader';
 import { mapState } from 'vuex';
 
@@ -39,31 +39,59 @@ export default {
     TheHeader,
   },
   computed: {
-    ...mapState(['lists']),
-    ...mapState(['folders']),
-  },
-  data() {
-    return {
-      myStockFolders: []
+    ...mapState('Lists',['lists']),
+    ...mapState('Stocks',['stocks']),
+    // lists() {
+    //   return this.$store.getters['Lists/getterLists']
+    // },
+    // stocks() {
+    //   return this.$store.getters['Stocks/getterStocks']
+    // },
+    my() {
+      const m = [];
+      this.stocks.forEach(stock => {
+        const f = this.lists.find(list => list.lid === stock);
+        m.push(f)
+      })
+      return m
     }
   },
+  // data() {
+  //   return {
+  //     myStockFolders: []
+  //   }
+  // },
   methods: {
-    removeStock(num) {
-      this.$store.commit('removeStock', num);
-      this.myStockFolders = this.myStockFolders.filter(folder => folder.lid !== num);
+    init() {
+      // this.$store.dispatch('Lists/clear');
+      // this.$store.dispatch('Stocks/clear');
+    },
+    start() {
+      // this.$store.dispatch('Lists/start')
+      this.$store.dispatch('Stocks/start')
+    },
+    removeStock(id) {
+      this.$store.dispatch('Stocks/deleData', id);
     },
     update() {
-      this.folders.forEach(folder => {
-      const f = this.lists.find(list => list.lid === folder.lid);
+      this.stocks.forEach(stock => {
+      const f = this.lists.find(list => list.lid === stock);
       this.myStockFolders.push(f);
-    });
+      });
+      return this.myStockFolders
     },
-
   },
   created() {
-    this.update();
-    console.log('更新！');
-  }
+    // this.init();
+    // this.start();
+    // console.log(this.$store.state.lists);
+    // console.log(this.$store.state.stocks);
+    // console.log(this.$store.state.folders);
+
+  },
+  // mounted() {
+  //   this.update();
+  // }
 
 }
 </script>

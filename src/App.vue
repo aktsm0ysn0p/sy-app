@@ -5,11 +5,17 @@
 </template>
 
 <script>
-
 export default {
 
+  created() {
+    // this.$store.dispatch('Lists/clear');
+    this.$store.dispatch('Lists/start');
+    this.$store.dispatch('Stocks/start');
+    this.$store.dispatch('Folders/start')
+    console.log('Appで全部取得！！');
 
-}
+  }
+};
 </script>
 
 <style>
@@ -36,7 +42,7 @@ ul {
   list-style: none;
   padding: 0;
 }
-button{
+button {
   background-color: transparent;
   border: none;
   cursor: pointer;

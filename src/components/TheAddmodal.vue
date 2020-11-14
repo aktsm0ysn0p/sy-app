@@ -3,9 +3,9 @@
     <div class="modal-inner">
       <div v-if="addStock.length">
         <p>どの名言をに追加する？</p>
-          <div v-for="stock in addStock" :key="stock.id" class="quote-card">
+          <div v-for="stock in addStock" :key="stock.lid" class="quote-card">
             <label>
-              <input type="checkbox" @change="checkToggle(stock.id)" >
+              <input type="checkbox" @change="checkToggle(stock.lid)" >
               <h3 :class="{'done' : stock.isDone}">{{stock.title}}</h3>
               <p>{{stock.since}}{{stock.name}}</p>
             </label>
