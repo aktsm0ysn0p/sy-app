@@ -92,14 +92,22 @@ export default {
         }
       });
     },
-    deleFolderStock({ state }, { myfolderId, deleStockId}) {
-      state.folders.forEach((folder, index) => {
+    deleFolderStock({ state, dispatch }, { myfolderId, deleStockId}) {
+      state.folders.forEach((folder) => {
         if (folder.fid === myfolderId) {
-          state.folders[index].stocks = state.myfolders[index].stocks.filter(stock => stock !== deleStockId);
-          const copy = state.folders
-          console.log(copy);
+          const newfolderstock = folder.stocks.filter(stock => stock !== deleStockId)
+          folder.stocks = newfolderstock
+          console.log(folder);
+          const copy = state.folders.map(c => ({ ...c }))
+          myRef.update(
+            {
+              folders: copy
+            }
+          ).then(() => {
+            dispatch('start')
+          }).catch(e => console.log(e))
         }
-      });
+      })
     },
 
     deleData({ state, dispatch }, id) {

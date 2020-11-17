@@ -4,7 +4,6 @@ const myRef = firestore.collection('my').doc("cLME2ZkXIVYpUXb4Ta9w");
 
 export default {
   namespaced: true,
-  // unsubscribe: null,
   state() {
     return {
       stocks: [],

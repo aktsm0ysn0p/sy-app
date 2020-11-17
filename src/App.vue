@@ -8,12 +8,10 @@
 export default {
 
   created() {
-    // this.$store.dispatch('Lists/clear');
     this.$store.dispatch('Lists/start');
     this.$store.dispatch('Stocks/start');
     this.$store.dispatch('Folders/start')
     console.log('Appで全部取得！！');
-
   }
 };
 </script>

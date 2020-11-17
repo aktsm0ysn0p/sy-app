@@ -29,8 +29,6 @@
 </template>
 
 <script>
-
-// import TheHeader from '../../components/TheHeader';
 import { mapState } from 'vuex';
 import TheAddmodal from '../../components/TheAddmodal';
 import TheDelemodal from '../../components/TheDelemodal';
@@ -48,12 +46,14 @@ export default {
     folderId() {
       return this.$route.params.id;
     },
+
     currentFolder() {
       let currentFolder = []
       currentFolder = this.folders.find(myfolder => myfolder.fid === this.folderId )
       console.log(currentFolder);
       return currentFolder
     },
+
     currentStock() {
       if (!this.currentFolder.stocks.length) {
         return [];
@@ -66,30 +66,30 @@ export default {
       console.log(currentStock);
       return currentStock
     },
+
     addStock() {
       const result = this.stocks.filter(f =>
         !this.currentStock.some(c => c.lid === f)
       );
       let addStock = [];
-      if (!result.length) {
-        addStock = [];
-        return;
-      }
       result.forEach(stock => {
       let f = this.lists.find(list => list.lid === stock);
-      // f.isDone = false;
       this.$set(f, 'isDone', false);
       addStock.push(f);
       });
       return addStock
     },
+
     deleStock() {
-      const copy = this.currentStock.map(s => ({...s}));
       let deleStock = [];
-      copy.forEach(stock => {
-        this.$set(stock, 'isDone', false);
-        deleStock.push(stock);
-        });
+      this.currentFolder.stocks.forEach(stock => {
+        const f = this.lists.find(list => list.lid === stock );
+        deleStock.push(f);
+      });
+      deleStock.forEach(n => {
+        this.$set(n, 'isDone', false)
+      })
+      console.log(deleStock);
       return deleStock
     }
 
@@ -101,82 +101,34 @@ export default {
     }
   },
   created() {
-    // this.init();
-    // this.start();
-    // console.log('更新！');
     console.log(this.$route.params.id);
   },
   methods: {
-    init() {
-      // this.$store.dispatch('Lists/clear');
-      // this.$store.dispatch('Stocks/clear');
-      // this.$store.dispatch('Folders/clear')
-    },
-    start() {
-      // this.$store.dispatch('Lists/start');
-      // this.$store.dispatch('Stocks/start');
-      // this.$store.dispatch('Folders/start')
-    },
-    // selectFolder() {
-    // this.currentFolder = this.myfolders.find(myfolder => myfolder.id === this.folderId );
-    // },
-    // selectStock() {
-    //   if (!this.currentFolder.stocks.length) {
-    //     return;
-    //   }
-    //   const currentStock
-    //   this.currentFolder.stocks.forEach(stock => {
-    //     const f = this.lists.find(list => list.id === stock.id );
-    //     this.currentStock.push(f);
-    //     console.log(this.currentStock);
-    //   });
-    // },
-    // selectAddStock() {
-    //   const result = this.stocks.filter(f =>
-    //     !this.currentStock.some(c => c.lid === f)
-    //   );
-    //   let addStock = [];
-    //   if (!result.length) {
-    //     addStock = [];
-    //     return;
-    //   }
-    //   result.forEach(stock => {
-    //   let f = this.lists.find(list => list.lid === stock);
-    //   // f.isDone = false;
-    //   this.$set(f, 'isDone', false);
-    //   addStock.push(f);
-    //   });
-    //   return addStock
-    // },
-    // selectDeleStock() {
-    //   const copy = this.currentStock.map(s => ({...s}));
-    //   let deleStock = [];
-    //   copy.forEach(stock => {
-    //     this.$set(stock, 'isDone', false);
-    //     deleStock.push(stock);
-    //     });
-    //   return deleStock
-    // },
     onAdd() {
       this.showAddModal = !this.showAddModal;
+      this.addStock.forEach(stock  => {
+        stock.isDone = false
+      });
     },
     onDele() {
       this.showDeleModal = !this.showDeleModal;
+      this.deleStock.forEach(stock  => {
+        stock.isDone = false
+      });
     },
     checkToggle(id) {
       this.addStock.forEach(stock => {
         if (stock.lid === id) {
           stock.isDone = !stock.isDone;
+          console.log(this.addStock);
         }
       });
     },
     checkToggleDele(id) {
       this.deleStock.forEach(stock => {
         if (stock.lid === id) {
-          // stock.isDone = !stock.isDone;
           this.$set(stock, 'isDone', !stock.isDone)
-          console.log('kitaaaaaaaaaaaa');
-          console.log(stock.isDone);
+          console.log(this.deleStock);
         }
       });
     },
@@ -185,21 +137,16 @@ export default {
       console.log(result);
       result.forEach(re => {
         this.$store.dispatch('Folders/addFolderStock', {myfolderId: this.currentFolder.fid, addStockId: re.lid});
-        // this.$delete(re, 'isDone');
-        // this.currentStock.push(re);
       });
-      // this.selectAddStock();
-      this.onAdd();
+      this.showAddModal = !this.showAddModal;
     },
     onDeleSubmit() {
-      const result = this.deleStock.filter(stock => stock.isDone);
+      const result = this.deleStock.filter(stock => stock.isDone)
+      ;console.log(result);
       result.forEach(re => {
         this.$store.dispatch('Folders/deleFolderStock', {myfolderId: this.currentFolder.fid, deleStockId: re.lid});
-        // this.$delete(re, 'isDone');
-        // this.currentStock = this.currentStock.filter(stock => stock.id !== re.id);
       });
-      // this.selectDeleStock();
-      this.onDele();
+      this.showDeleModal = !this.showDeleModal;
     }
   },
 
