@@ -1,5 +1,5 @@
 <template>
-  <div class="stock-page">
+  <div class="stock-page" v-if="my">
     <TheHeader />
     <nav>
       <ul>
@@ -84,9 +84,10 @@ export default {
   created() {
     // this.init();
     // this.start();
-    // console.log(this.$store.state.lists);
-    // console.log(this.$store.state.stocks);
-    // console.log(this.$store.state.folders);
+    console.log(this.$store.state.lists);
+    console.log(this.$store.state.stocks);
+    console.log(this.$store.state.folders);
+    console.log(this.my);
 
   },
   // mounted() {

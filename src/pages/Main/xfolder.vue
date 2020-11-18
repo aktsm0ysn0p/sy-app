@@ -1,5 +1,6 @@
 <template>
-  <div class="xfolder-page">
+<div>
+  <div class="xfolder-page" v-if="currentFolder && currentStock">
     <div class="container">
       <h1>{{currentFolder.title}}</h1>
       <span><router-link to="/folders">もどる</router-link></span>
@@ -25,10 +26,16 @@
       @onDeleSubmit="onDeleSubmit"/>
     </div>
   </div>
+  <div v-else>
+    <p>読み込みに失敗しました。フォルダー一覧からもう一度やり直してください。</p>
+    <span><router-link to="/folders">もどる</router-link></span>
+  </div>
+</div>
 
 </template>
 
 <script>
+
 import { mapState } from 'vuex';
 import TheAddmodal from '../../components/TheAddmodal';
 import TheDelemodal from '../../components/TheDelemodal';
@@ -46,18 +53,14 @@ export default {
     folderId() {
       return this.$route.params.id;
     },
-
     currentFolder() {
       let currentFolder = []
       currentFolder = this.folders.find(myfolder => myfolder.fid === this.folderId )
-      console.log(currentFolder);
       return currentFolder
     },
 
     currentStock() {
-      if (!this.currentFolder.stocks.length) {
-        return [];
-      }
+      console.log(this.currentFolder);
       const currentStock = [];
       this.currentFolder.stocks.forEach(stock => {
         const f = this.lists.find(list => list.lid === stock );
@@ -101,9 +104,16 @@ export default {
     }
   },
   created() {
-    console.log(this.$route.params.id);
+    // console.log(this.$route.params.id);
+    // console.log(isNaN(this.$route.params.id));
   },
   methods: {
+    // init() {
+    //   this.$store.dispatch('Folders/clear')
+    // },
+    // start() {
+    //   this.$store.dispatch('Folders/start')
+    // },
     onAdd() {
       this.showAddModal = !this.showAddModal;
       this.addStock.forEach(stock  => {

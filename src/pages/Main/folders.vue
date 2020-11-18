@@ -1,5 +1,5 @@
 <template>
-  <div class="folders-page">
+  <div class="folders-page" v-if="folders">
     <TheHeader />
     <nav>
       <ul>
@@ -52,6 +52,7 @@ export default {
     folders() {
       return this.$store.getters['Folders/getterFolders']
     }
+
   },
   methods: {
     ...mapMutations('Folders',['setText']),
@@ -68,16 +69,10 @@ export default {
       this.$store.dispatch('Folders/deleData', id)
     }
   },
-  created() {
-    // this.init();
-    // this.start();
-    // console.log(this.$store.state.lists);
-    // console.log(this.$store.state.stocks);
-    // console.log(this.$store.state.folders);
-  },
 
 
 }
+
 </script>
 
 <style scoped>
