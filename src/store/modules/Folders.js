@@ -29,9 +29,6 @@ export default {
       }
     },
 
-    // newfoldertext(state, value) {
-
-    // }
   },
 
   getters: {
@@ -46,10 +43,11 @@ export default {
       commit('init', [])
     },
     //firestoreからfolders入手
-    start({ commit }) {
+    start({ commit, state }) {
       myRef.get().then(doSnapshot => {
         const payload = doSnapshot.data().folders;
         commit('init', payload)
+        state.newfolder = ''
         console.log('folders取れたよ');
       }).catch(e => console.log(e))
     },

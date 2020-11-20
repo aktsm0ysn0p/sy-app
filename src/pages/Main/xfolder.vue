@@ -1,6 +1,6 @@
 <template>
 <div>
-  <div class="xfolder-page" v-if="currentFolder && currentStock">
+  <div class="xfolder-page" v-if="currentFolder !== undefined">
     <div class="container">
       <h1>{{currentFolder.title}}</h1>
       <span><router-link to="/folders">もどる</router-link></span>
@@ -9,7 +9,7 @@
         <button @click="onDele">ゴミ</button>
       </div>
       <div class="inner">
-        <span class="inner-title">ストック一覧</span>
+        <!-- <span class="inner-title">ストック一覧</span> -->
         <p>{{ folderId  }} </p>
         <div class="inner-folder">
           <div v-if="currentStock.length">
@@ -26,10 +26,10 @@
       @onDeleSubmit="onDeleSubmit"/>
     </div>
   </div>
-  <div v-else>
+  <!-- <div v-else>
     <p>読み込みに失敗しました。フォルダー一覧からもう一度やり直してください。</p>
     <span><router-link to="/folders">もどる</router-link></span>
-  </div>
+  </div> -->
 </div>
 
 </template>
@@ -46,11 +46,17 @@ export default {
   components: {
     TheAddmodal, TheDelemodal
   },
+  // props: {
+  //   this.folderId!: number;
+  // },
   computed: {
     ...mapState('Lists',['lists']),
     ...mapState('Stocks',['stocks']),
     ...mapState('Folders',['folders']),
     folderId() {
+      if (typeof(this.$route.params.id) !== 'number') {
+        return Number(this.$route.params.id)
+      }
       return this.$route.params.id;
     },
     currentFolder() {
@@ -97,23 +103,22 @@ export default {
     }
 
   },
+  created() {
+    if (typeof(this.folderId) === 'number') {
+      console.log('number');
+    }else if (typeof(this.$route.params.id) === 'string') {
+        console.log('string');
+    }
+    console.log(typeof(this.folderId));
+    console.log('ugoita');
+  },
   data() {
     return {
       showAddModal: false,
       showDeleModal: false,
     }
   },
-  created() {
-    // console.log(this.$route.params.id);
-    // console.log(isNaN(this.$route.params.id));
-  },
   methods: {
-    // init() {
-    //   this.$store.dispatch('Folders/clear')
-    // },
-    // start() {
-    //   this.$store.dispatch('Folders/start')
-    // },
     onAdd() {
       this.showAddModal = !this.showAddModal;
       this.addStock.forEach(stock  => {
@@ -164,42 +169,58 @@ export default {
 </script>
 
 <style>
-.xfolder-page {
-  color: #2c3e50;
-  margin-top: 60px;
-}
-.container {
-  width: 90%;
-  margin: 10vh auto;
-}
-.inner-title {
-  border-bottom: 1px solid red;
-}
-.inner-folder {
-  background-color: #eeeeee;
-  padding: 10px;
-  min-height: 30vmin;
-}
+/* // .xfolder-page {
+//   padding-bottom: 20px;
+//   background: linear-gradient(#ccc 1px, transparent 2px);
+//   background-size: auto 2rem;
+// }
+// .container {
+//   width: 90%;
+//   margin: 10vh auto;
+//   h1 {
+//     font-weight: normal;
+//     padding: 20px 0 30px 0;
+//     text-align: center;
+//     font-size: 2rem;
+//   }
+// } */
 
-.quote-card {
+/* // .inner-folder {
+//   background-color: #eeeeee;
+//   padding: 10px;
+//   min-height: 30vmin;
+// } */
+
+/* .quote-card {
   padding: 20px;
   margin: 10px 0;
   border: solid 1px #5ABD57;
   background-color: #A9F791;
-}
-h3 {
+} */
+/* h3 {
   text-align: center;
   font-size: .8rem;
-}
-p {
-  float: right;
-  font-size: .8em;
-}
-span {
-  cursor: pointer;
-}
+} */
+/* // p {
+//   float: right;
+//   font-size: .8em;
+// }
+// span {
+//   cursor: pointer;
+// } */
 
-button {
-  display: inline-block;
-}
+/* button {
+  /* background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  appearance: none; */
+  /* // display: inline-block;
+  // padding: .75em 4em;
+  // border: 2px solid #333;
+  // border-radius: 3em .5em 2em .5em/.4em 2em .5em 3em;
+  // color: #333;
+  // text-decoration: none;
+  // text-align: center; */
+/* }  */
 </style>

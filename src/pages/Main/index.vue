@@ -1,6 +1,6 @@
 <template>
   <div class="lists-page">
-    <TheHeader />
+    <!-- <TheHeader /> -->
     <nav>
       <ul>
         <li><router-link to="/">●</router-link></li>
@@ -11,9 +11,16 @@
     <div class="container">
       <div class="quote-wrapper">
         <div class="quote-card" v-for="list in lists" :key= "list.lid">
-          <h3>{{list.title}}</h3>
-          <span @click="checkStock(list.lid)" :class="{nowstock : stocks.find(stock=> stock === list.lid)}">○</span>
-          <p>{{list.name}}   {{list.since}}</p>
+          <h3 class="frame-box-001">{{list.title}}</h3>
+          <div class="bottom-wrapper">
+            <div class="likes">
+              <div class="likes-icon" @click="checkStock(list.lid)" :class="{nowstock : stocks.find(stock=> stock === list.lid)}"></div>
+            </div>
+            <div class="text-wrapper">
+              <p>{{list.name}}</p>
+              <p>{{list.since}}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -22,14 +29,14 @@
 
 <script>
 
-import TheHeader from '../../components/TheHeader';
+// import TheHeader from '../../components/TheHeader';
 
 
 export default {
   name: 'Home',
-  components: {
-    TheHeader,
-  },
+  // components: {
+  //   TheHeader,
+  // },
   computed: {
     lists() {
     return this.$store.getters['Lists/getterLists']
@@ -74,36 +81,102 @@ export default {
 
 </script>
 
-<style>
+<style lang="scss">
+// @import '../../assets/scss/main.scss'
+$bar-style: solid;
+$bar-size: 2px;
+$bar-color: #ffffff;
 
 .lists-page {
   color: #2c3e50;
-  margin-top: 60px;
+  background: #F5F5F5;
+  padding-bottom: 20px;
+  .container {
+    width: 90%;
+    margin: 10vh auto;
+    .quote-card {
+      padding: 20px;
+      margin: 10px 0;
+      box-shadow: 0 .25rem .25rem hsla(0, 0%, 0%, .1);
+      background-image:
+      linear-gradient(180deg, hsla(0, 0%, 45%, .1) 2rem, hsla(0, 100%, 100%, 0) 2.5rem),
+      linear-gradient(180deg, hsla(200, 100%, 85%, 1), hsla(200, 100%, 85%, 1));
+      font-size: 1.125rem;
+      line-height: 1.8;
+      border-radius: 5px;
+
+      .frame-box-001 {
+        padding: 30px;
+        position: relative;
+        text-align: center;
+        font-size: 1rem;
+
+        &::before, &::after {
+          content:'';
+          width: 30px;
+          height: 30px;
+          position: absolute;
+        }
+
+        &::before {
+          border-left: $bar-style $bar-size $bar-color;
+          border-top: $bar-style $bar-size $bar-color;
+          top: 0;
+          left: 0;
+        }
+
+        &::after {
+          border-right: $bar-style $bar-size $bar-color;
+          border-bottom: $bar-style $bar-size $bar-color;
+          bottom: 0;
+          right: 0;
+        }
+      }
+
+      .bottom-wrapper {
+        display: flex;
+        justify-content: space-between;
+        .likes {
+          position: relative;
+
+          .likes-icon {
+            width: 100px;
+            height: 100px;
+            background: url(http://nelog.jp/wp-content/uploads/2016/03/heart_animation.png) no-repeat;
+            background-position: 0 0;
+            cursor: pointer;
+          }
+
+        }
+        .text-wrapper {
+          display: flex;
+          flex-direction: column;
+
+          p {
+            font-size: .8em;
+          }
+
+        }
+
+      }
+    }
+  }
 }
-.container {
-  width: 90%;
-  margin: 10vh auto;
-}
-.quote-card {
-  padding: 20px;
-  margin: 10px 0;
-  border: solid 1px #5ABD57;
-  background-color: #A9F791;
-}
-h3 {
-  text-align: center;
-  font-size: .8rem;
-}
-p {
-  float: right;
-  font-size: .8em;
-}
-span {
-  cursor: pointer;
-}
+
 .nowstock {
-  font-weight: bold;
-  background: pink;
+  background-position: -2800px 0;
+  -webkit-transition: background 1s steps(28);
+  transition: background 1s steps(28);
 }
+
+
+
+
+
+
+
+
+
+
 
 </style>

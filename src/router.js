@@ -25,8 +25,8 @@ const routes = [
     path: '/xfolder/:id',
     name: 'xfolder',
     component: XFolder,
-    props: true,
-    
+    props: (route) => ({ id: Number(route.params.id)})
+
   },
   {
     path: '*',

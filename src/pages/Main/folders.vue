@@ -1,6 +1,6 @@
 <template>
   <div class="folders-page" v-if="folders">
-    <TheHeader />
+    <!-- <TheHeader /> -->
     <nav>
       <ul>
         <li><router-link to="/">●</router-link></li>
@@ -33,12 +33,12 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-import TheHeader from '../../components/TheHeader';
+// import TheHeader from '../../components/TheHeader';
 export default {
   name: 'Folders',
-  components: {
-    TheHeader,
-  },
+  // components: {
+  //   TheHeader,
+  // },
   computed: {
     ...mapState('Folders',['newfolder']),
     inputValue: {
@@ -76,38 +76,28 @@ export default {
 </script>
 
 <style scoped>
-.folders-page {
-  color: #2c3e50;
-  margin-top: 60px;
+/* .folders-page {
+  padding-bottom: 20px;
+  background: linear-gradient(#ccc 1px, transparent 2px);
+  background-size: auto 2rem;
 }
 .container {
   width: 90%;
   margin: 10vh auto;
 }
-.inner-title {
-  border-bottom: 1px solid red;
-}
+
 .inner-folder {
   background-color: #eeeeee;
   padding: 10px;
   min-height: 30vmin;
 }
 
-.quote-card {
-  padding: 20px;
-  margin: 10px 0;
-  border: solid 1px #5ABD57;
-  background-color: #A9F791;
-}
-h3 {
-  text-align: center;
-  font-size: .8rem;
-}
+
 p {
   float: right;
   font-size: .8em;
 }
 span {
   cursor: pointer;
-}
+} */
 </style>
