@@ -1,6 +1,5 @@
 <template>
   <div class="stocks-page" v-if="my">
-    <!-- <TheHeader /> -->
     <nav>
       <ul>
         <li><router-link to="/">●</router-link></li>
@@ -8,7 +7,6 @@
         <li><router-link to="/folders">▲</router-link></li>
       </ul>
     </nav>
-    <!-- <BaseLayout :active="isSelect" /> -->
     <div class="container">
       <div class="inner">
         <h2 class="inner-title">ストック一覧</h2>
@@ -46,12 +44,6 @@ export default {
   computed: {
     ...mapState('Lists',['lists']),
     ...mapState('Stocks',['stocks']),
-    // lists() {
-    //   return this.$store.getters['Lists/getterLists']
-    // },
-    // stocks() {
-    //   return this.$store.getters['Stocks/getterStocks']
-    // },
     my() {
       const m = [];
       this.stocks.forEach(stock => {
@@ -61,20 +53,7 @@ export default {
       return m
     }
   },
-  // data() {
-  //   return {
-  //     myStockFolders: []
-  //   }
-  // },
   methods: {
-    init() {
-      // this.$store.dispatch('Lists/clear');
-      // this.$store.dispatch('Stocks/clear');
-    },
-    start() {
-      // this.$store.dispatch('Lists/start')
-      this.$store.dispatch('Stocks/start')
-    },
     removeStock(id) {
       this.$store.dispatch('Stocks/deleData', id);
     },
@@ -86,18 +65,6 @@ export default {
       return this.myStockFolders
     },
   },
-  created() {
-    // this.init();
-    // this.start();
-    console.log(this.$store.state.lists);
-    console.log(this.$store.state.stocks);
-    console.log(this.$store.state.folders);
-    console.log(this.my);
-
-  },
-  // mounted() {
-  //   this.update();
-  // }
 
 }
 </script>

@@ -17,11 +17,11 @@
             <div v-if="folders.length">
               <div class="quote-card" v-for="myfolder in folders" :key= "myfolder.fid">
                 <router-link :to="{name: 'xfolder', params: {id: myfolder.fid}}"  >
-                <p>{{myfolder.fid}}</p>
-                <h3>{{myfolder.title}}</h3>
+                <h3 class="frame-box-001">{{myfolder.title}}</h3>
                 </router-link>
-                <router-view></router-view>
-                <span @click="deleFolder(myfolder.fid)">削除</span>
+                <div class="bottom-wrapper">
+                  <span @click="deleFolder(myfolder.fid)">削除</span>
+                </div>
               </div>
             </div>
             <p v-else>まだ何もありません</p>
@@ -75,29 +75,85 @@ export default {
 
 </script>
 
-<style scoped>
-/* .folders-page {
+<style lang="scss">
+$bar-style: solid;
+$bar-size: 2px;
+$bar-color: #ffffff;
+.folders-page {
+  color: #2c3e50;
+  // background: #F5F5F5;
   padding-bottom: 20px;
   background: linear-gradient(#ccc 1px, transparent 2px);
   background-size: auto 2rem;
-}
-.container {
-  width: 90%;
-  margin: 10vh auto;
-}
+  .container {
+    width: 90%;
+    margin: 10vh auto;
 
-.inner-folder {
-  background-color: #eeeeee;
-  padding: 10px;
-  min-height: 30vmin;
+    .inner {
+      .inner-title {
+        font-weight: normal;
+        padding: 20px 0 30px 0;
+        text-align: center;
+        font-size: 2rem;
+      }
+      .inner-folder {
+        background-color: #eeeeee;
+        padding: 10px;
+        min-height: 30vmin;
+
+        .quote-card {
+          padding: 20px;
+          margin: 10px 0;
+          box-shadow: 0 .25rem .25rem hsla(0, 0%, 0%, .1);
+          background-image:
+          linear-gradient(180deg, hsla(0, 0%, 45%, .1) 2rem, hsla(0, 100%, 100%, 0) 2.5rem),
+          linear-gradient(180deg, hsla(200, 100%, 85%, 1), hsla(200, 100%, 85%, 1));
+          font-size: 1.125rem;
+          line-height: 1.8;
+          border-radius: 5px;
+
+          .frame-box-001 {
+            padding: 30px;
+            position: relative;
+            text-align: center;
+            font-size: 1rem;
+
+            &::before, &::after {
+              content:'';
+              width: 30px;
+              height: 30px;
+              position: absolute;
+            }
+
+            &::before {
+              border-left: $bar-style $bar-size $bar-color;
+              border-top: $bar-style $bar-size $bar-color;
+              top: 0;
+              left: 0;
+            }
+
+            &::after {
+              border-right: $bar-style $bar-size $bar-color;
+              border-bottom: $bar-style $bar-size $bar-color;
+              bottom: 0;
+              right: 0;
+            }
+          }
+
+          .bottom-wrapper {
+            span {
+              cursor: pointer;
+            }
+          }
+
+        }
+      }
+
+    }
+  }
 }
-
-
 p {
-  float: right;
   font-size: .8em;
 }
-span {
-  cursor: pointer;
-} */
+
 </style>

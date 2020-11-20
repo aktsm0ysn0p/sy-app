@@ -3,8 +3,8 @@
   <div class="xfolder-page" v-if="currentFolder !== undefined">
     <div class="container">
       <h1>{{currentFolder.title}}</h1>
-      <span><router-link to="/folders">もどる</router-link></span>
-      <div>
+      <span class="back"><router-link to="/folders">もどる</router-link></span>
+      <div class="edit-btns">
         <button @click="onAdd">+</button>
         <button @click="onDele">ゴミ</button>
       </div>
@@ -14,8 +14,13 @@
         <div class="inner-folder">
           <div v-if="currentStock.length">
             <div class="quote-card" v-for="stock in currentStock" :key= "stock.lid">
-              <h3>{{stock.title}}</h3>
-              <p>{{stock.since}}{{stock.name}}</p>
+              <h3 class="frame-box-001">{{stock.title}}</h3>
+              <div class="bottom-wrapper">
+                <div class="text-wrapper">
+                  <p>{{stock.name}}</p>
+                  <p>{{stock.since}}</p>
+                </div>
+              </div>
             </div>
           </div>
           <p v-else>まだ何もありません</p>
@@ -26,10 +31,6 @@
       @onDeleSubmit="onDeleSubmit"/>
     </div>
   </div>
-  <!-- <div v-else>
-    <p>読み込みに失敗しました。フォルダー一覧からもう一度やり直してください。</p>
-    <span><router-link to="/folders">もどる</router-link></span>
-  </div> -->
 </div>
 
 </template>
@@ -168,59 +169,108 @@ export default {
 }
 </script>
 
-<style>
-/* // .xfolder-page {
-//   padding-bottom: 20px;
-//   background: linear-gradient(#ccc 1px, transparent 2px);
-//   background-size: auto 2rem;
-// }
-// .container {
-//   width: 90%;
-//   margin: 10vh auto;
-//   h1 {
-//     font-weight: normal;
-//     padding: 20px 0 30px 0;
-//     text-align: center;
-//     font-size: 2rem;
-//   }
-// } */
+<style lang="scss">
+$bar-style: solid;
+$bar-size: 2px;
+$bar-color: #ffffff;
 
-/* // .inner-folder {
-//   background-color: #eeeeee;
-//   padding: 10px;
-//   min-height: 30vmin;
-// } */
+.xfolder-page {
+  color: #2c3e50;
+  background: linear-gradient(#ccc 1px, transparent 2px);
+  background-size: auto 2rem;
+  padding-bottom: 20px;
+  .container {
+    width: 90%;
+    margin: 10vh auto;
 
-/* .quote-card {
-  padding: 20px;
-  margin: 10px 0;
-  border: solid 1px #5ABD57;
-  background-color: #A9F791;
-} */
-/* h3 {
-  text-align: center;
-  font-size: .8rem;
-} */
-/* // p {
-//   float: right;
-//   font-size: .8em;
-// }
-// span {
-//   cursor: pointer;
-// } */
+    h1 {
+      font-weight: normal;
+      padding: 20px 0 30px 0;
+      text-align: center;
+      font-size: 2rem;
+    }
 
-/* button {
-  /* background-color: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  appearance: none; */
-  /* // display: inline-block;
-  // padding: .75em 4em;
-  // border: 2px solid #333;
-  // border-radius: 3em .5em 2em .5em/.4em 2em .5em 3em;
-  // color: #333;
-  // text-decoration: none;
-  // text-align: center; */
-/* }  */
+    .back {
+      text-decoration: none;
+    }
+
+    .edit-btn {
+      button {
+        display: inline-block;
+        padding: .75em 4em;
+        border: 2px solid #333;
+        border-radius: 3em .5em 2em .5em/.4em 2em .5em 3em;
+        color: #333;
+        text-decoration: none;
+        text-align: center;
+      }
+    }
+
+    .inner {
+      .inner-folder {
+        background-color: #eeeeee;
+        padding: 10px;
+        min-height: 30vmin;
+        .quote-card {
+          padding: 20px;
+          margin: 10px 0;
+          box-shadow: 0 .25rem .25rem hsla(0, 0%, 0%, .1);
+          background-image:
+          linear-gradient(180deg, hsla(0, 0%, 45%, .1) 2rem, hsla(0, 100%, 100%, 0) 2.5rem),
+          linear-gradient(180deg, hsla(200, 100%, 85%, 1), hsla(200, 100%, 85%, 1));
+          font-size: 1.125rem;
+          line-height: 1.8;
+          border-radius: 5px;
+
+          .frame-box-001 {
+            padding: 30px;
+            position: relative;
+            text-align: center;
+            font-size: 1rem;
+
+            &::before, &::after {
+              content:'';
+              width: 30px;
+              height: 30px;
+              position: absolute;
+            }
+
+            &::before {
+              border-left: $bar-style $bar-size $bar-color;
+              border-top: $bar-style $bar-size $bar-color;
+              top: 0;
+              left: 0;
+            }
+
+            &::after {
+              border-right: $bar-style $bar-size $bar-color;
+              border-bottom: $bar-style $bar-size $bar-color;
+              bottom: 0;
+              right: 0;
+            }
+          }
+
+          .bottom-wrapper {
+            display: flex;
+            justify-content: space-between;
+
+            .text-wrapper {
+              display: flex;
+              flex-direction: column;
+
+              p {
+                font-size: .8em;
+              }
+
+            }
+
+          }
+
+        }
+      }
+
+    }
+  }
+}
+
 </style>
