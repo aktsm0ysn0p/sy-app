@@ -1,4 +1,15 @@
-$bar-style: solid;
-$bar-size: 2px;
-$bar-color: #ffffff;
-
+// $bar-style: solid;
+// $bar-size: 2px;
+// $bar-color: #ffffff;
+@font-face {
+  font-family: 'zatsu';
+  src: url('../fonts/851tegaki_zatsu_normal_0883.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'uchiyama';
+  src: url('../fonts/uchiyama.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'shunnka';
+  src: url('../fonts/春夏秋冬㈼.ttf') format('truetype');
+}

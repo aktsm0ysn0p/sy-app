@@ -10,7 +10,6 @@
               <p>{{stock.since}}{{stock.name}}</p>
             </label>
           </div>
-          <!-- <p>{{isDones}}</p> -->
           <button @click="onDele">キャンセル</button>
           <button @click="onDeleSubmit"> 決定</button>
       </div>
@@ -24,28 +23,37 @@
 
 <script>
 export default {
+
   name: 'TheDelemodal',
+
+
   props: {
     deleStock: Array,
   },
+
+
   methods: {
     onDele() {
       this.$emit('emitingdele');
     },
+
     checkToggleDele(id) {
       this.$emit('checkToggleDele', id);
-      // console.log('ktaaaaaa');
     },
+
     onDeleSubmit() {
       this.$emit('onDeleSubmit');
     }
+
   }
+
+
 }
 </script>
 
 <style scoped>
 .active {
-  color: red;
+  color: #5ABD57;
 }
 .overlay {
   z-index:1;

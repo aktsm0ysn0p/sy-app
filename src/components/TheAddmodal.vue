@@ -5,7 +5,7 @@
         <p>どの名言をに追加する？</p>
           <div v-for="stock in addStock" :key="stock.lid" class="quote-card">
             <label>
-              <input type="checkbox" @change="checkToggle(stock.lid)" >
+              <input type="checkbox" @change="checkToggleAdd(stock.lid)" >
               <h3 :class="{'done' : stock.isDone}">{{stock.title}}</h3>
               <p>{{stock.since}}{{stock.name}}</p>
             </label>
@@ -24,25 +24,31 @@
 
 <script>
 export default {
+
   name: 'TheAddmodal',
+
+
   props: {
     addStock: Array,
   },
+
+
   methods: {
     onAdd() {
       this.$emit('emitingadd');
     },
+
     onSubmit() {
       this.$emit('onSubmit');
     },
-    checkToggle(id) {
-      this.$emit('checkToggle', id);
+
+    checkToggleAdd(id) {
+      this.$emit('checkToggleAdd', id);
     }
 
   },
-  created() {
-    // this.$emit('selectAddStock');
-  }
+
+
 }
 </script>
 

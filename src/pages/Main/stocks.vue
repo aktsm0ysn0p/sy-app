@@ -1,21 +1,15 @@
 <template>
   <div class="stocks-page" v-if="my">
-    <nav>
-      <ul>
-        <li><router-link to="/">●</router-link></li>
-        <li><router-link to="/stocks">☆</router-link></li>
-        <li><router-link to="/folders">▲</router-link></li>
-      </ul>
-    </nav>
+    <Navber />
     <div class="container">
       <div class="inner">
-        <h2 class="inner-title">ストック一覧</h2>
+        <h2 class="inner-title">LIKES</h2>
         <div class="inner-folder">
-          <div v-if="my.length">
+          <div v-if="my.length" class="quote-wrapper">
             <div class="quote-card" v-for="meigenn in my" :key= "meigenn.lid">
               <h3 class="frame-box-001">{{meigenn.title}}</h3>
               <div class="bottom-wrapper">
-                <div @click="removeStock(meigenn.lid)">削除</div>
+                <div @click="removeStock(meigenn.lid)"><font-awesome-icon icon="trash-alt" /></div>
                 <div class="text-wrapper">
                   <p>{{meigenn.name}}</p>
                   <p>{{meigenn.since}}</p>
@@ -31,19 +25,23 @@
 </template>
 
 <script>
-// import Firebase from "firebase/app";
-// import TheHeader from '../../components/TheHeader';
 import { mapState } from 'vuex';
-
+import Navber from '../../components/TheNavber'
 
 export default {
+
   name: 'Stocks',
-  // components: {
-  //   TheHeader,
-  // },
+
+
+  components: {
+    Navber
+  },
+
+
   computed: {
     ...mapState('Lists',['lists']),
     ...mapState('Stocks',['stocks']),
+
     my() {
       const m = [];
       this.stocks.forEach(stock => {
@@ -52,11 +50,15 @@ export default {
       })
       return m
     }
+
   },
+
+
   methods: {
     removeStock(id) {
       this.$store.dispatch('Stocks/deleData', id);
     },
+
     update() {
       this.stocks.forEach(stock => {
       const f = this.lists.find(list => list.lid === stock);
@@ -64,6 +66,7 @@ export default {
       });
       return this.myStockFolders
     },
+
   },
 
 }
@@ -74,21 +77,37 @@ $bar-style: solid;
 $bar-size: 2px;
 $bar-color: #ffffff;
 .stocks-page {
+  height: 100%;
   color: #2c3e50;
-  background: #F5F5F5;
+  // background: #F5F5F5;
   padding-bottom: 20px;
+  background: linear-gradient(#ccc 1px, transparent 2px);
+  background-size: auto 2rem;
   .container {
     width: 90%;
     margin: 10vh auto;
 
     .inner {
       .inner-title {
-        font-weight: normal;
-        padding: 20px 0 30px 0;
-        text-align: center;
+        // font-weight: normal;
+        padding: 1rem 0;
+        // text-align: center;
         font-size: 2rem;
+        font-family: 'uchiyama';
       }
       .inner-folder {
+        background-color: #FCEE83;
+        padding: 10px;
+        min-height: 30vmin;
+
+        .quote-wrapper {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, 280px);
+          grid-template-rows: 1fr;
+          justify-content: center;
+          grid-gap: 1rem 1rem;
+        }
+
         .quote-card {
           padding: 20px;
           margin: 10px 0;
@@ -105,6 +124,7 @@ $bar-color: #ffffff;
             position: relative;
             text-align: center;
             font-size: 1rem;
+            font-family: 'shunnka';
 
             &::before, &::after {
               content:'';

@@ -22,8 +22,12 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
+  height: 100%;
 }
 
+html, body {
+  height: 100%;
+}
   /*要素のフォントサイズやマージン・パディングをリセットしています*/
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
