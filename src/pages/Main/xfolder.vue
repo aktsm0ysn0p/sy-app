@@ -1,9 +1,8 @@
 <template>
-  <div>
     <div class="xfolder-page" v-if="currentFolder !== undefined">
       <div class="container">
         <div class="back"
-          ><router-link to="/folders"><font-awesome-icon icon="undo-alt" /></router-link></div
+          ><router-link to="/folders"><font-awesome-icon icon="long-arrow-alt-left" /><p>back</p></router-link></div
         >
         <h1>{{ currentFolder.title }}</h1>
         <div class="edit-btns">
@@ -48,7 +47,6 @@
         </transition>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -189,7 +187,7 @@ $bar-size: 2px;
 $bar-color: #ffffff;
 
 .xfolder-page {
-  height: 100%;
+  // height: 100vh;
   color: #2c3e50;
   background: linear-gradient(#ccc 1px, transparent 2px);
   background-size: auto 2rem;
@@ -197,7 +195,11 @@ $bar-color: #ffffff;
 
   .container {
     width: 90%;
-    margin: 5vh auto;
+    margin: 0 auto;
+    padding: 30px;
+    @media (max-width: 767px) {
+      padding-bottom: 60px;
+    }
 
     h1 {
       font-weight: normal;
@@ -210,6 +212,14 @@ $bar-color: #ffffff;
 
     .back {
       text-decoration: none;
+      padding: 20px 0;
+      a {
+        text-decoration: none;
+        color: #2c3e50;
+        p {
+          font-family: 'zatsu';
+        }
+      }
     }
 
     .edit-btns {
@@ -245,8 +255,8 @@ $bar-color: #ffffff;
         }
 
         .quote-card {
-          padding: 20px;
-          margin: 10px 0;
+          padding: 1rem 1rem 0;
+          // margin: 10px 0;
           box-shadow: 0 0.25rem 0.25rem hsla(0, 0%, 0%, 0.1);
           background-image: linear-gradient(
               180deg,
@@ -263,7 +273,7 @@ $bar-color: #ffffff;
           border-radius: 5px;
 
           .frame-box-001 {
-            padding: 30px;
+            padding: 1rem;
             position: relative;
             text-align: center;
             font-size: 1rem;
@@ -295,14 +305,17 @@ $bar-color: #ffffff;
 
           .bottom-wrapper {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
 
             .text-wrapper {
               display: flex;
               flex-direction: column;
+              justify-content: space-between;
+              padding: 1rem 0;
 
               p {
                 font-size: 0.8em;
+                text-align: center;
               }
             }
           }

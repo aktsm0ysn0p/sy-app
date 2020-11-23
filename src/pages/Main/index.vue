@@ -91,21 +91,18 @@ $bar-size: 2px;
 $bar-color: #ffffff;
 
 .lists-page {
-  height: 100%;
+  // height: 100vh;
   color: #2c3e50;
   background: #F5F5F5;
-  padding-bottom: 20px;
-  @media (max-width: 767px) {
-    // position: fixed;
-    top: 0;
-    // width: 100%;
-    // opacity: .8;
-    z-index: 5;
-  }
+  // padding-bottom: 20x;
 
   .container {
     width: 90%;
-    margin: 5vh auto;
+    margin: 0 auto;
+    padding: 30px;
+    @media (max-width: 767px) {
+      padding-bottom: 80px;
+    }
 
     .quote-img {
       display: block;
@@ -161,7 +158,7 @@ $bar-color: #ffffff;
     }
 
     .quote-card {
-      padding: 20px;
+      padding: 1rem 1rem 0;
       // margin: 10px 0;
       box-shadow: 0 .25rem .25rem hsla(0, 0%, 0%, .1);
       background-image:
@@ -172,7 +169,7 @@ $bar-color: #ffffff;
       border-radius: 5px;
 
       .frame-box-001 {
-        padding: 30px;
+        padding: 1rem;
         position: relative;
         text-align: center;
         font-size: 1rem;
@@ -223,8 +220,11 @@ $bar-color: #ffffff;
         .text-wrapper {
           display: flex;
           flex-direction: column;
+          justify-content: space-between;
+          padding: 1rem 0;
           p {
             font-size: .8em;
+            text-align: center;
           }
         }
 

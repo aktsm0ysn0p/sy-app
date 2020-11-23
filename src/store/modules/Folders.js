@@ -57,7 +57,12 @@ export default {
       if (!text) {
         return
       }
-      const id = state.folders.slice(-1)[0].fid + 1
+      let id;
+      if (!state.folders.length) {
+        id = 1
+      } else {
+        id = state.folders.slice(-1)[0].fid + 1
+      }
       const n = {
         fid: id,
         title: state.newfolder,

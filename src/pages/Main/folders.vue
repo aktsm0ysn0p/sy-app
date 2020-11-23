@@ -4,21 +4,32 @@
     <div class="container">
       <div class="inner">
         <h1 class="inner-title">Custom Lists</h1>
-        <input type="text" v-model="inputValue">
-        <button @click="addFolder">add</button>
+        <div class="pen-wrapper">
+          <button @click="onPen"><font-awesome-icon icon="pencil-alt" size="2x" class="pen" /></button>
+        </div>
           <div class="inner-folder">
             <div v-if="folders.length">
               <div class="quote-card" v-for="myfolder in folders" :key= "myfolder.fid">
                 <router-link :to="{name: 'xfolder', params: {id: myfolder.fid}}" class="link" >
                 <h3>{{myfolder.title}}</h3>
                 </router-link>
-                <div class="bottom-wrapper">
-                  <span @click="deleFolder(myfolder.fid)">削除</span>
+                <div class="dele-wrapper">
+                  <font-awesome-icon icon="trash-alt" @click="deleFolder(myfolder.fid)"  />
                 </div>
+
               </div>
             </div>
             <p v-else>まだ何もありません</p>
           </div>
+          <transition>
+            
+            <div v-show="openPen" class="edit-wrapper">
+              <div class="edit">
+                <input type="text" v-model="inputValue" ref="focusThis" >
+                <button @click="addFolder">add</button>
+              </div>
+            </div>
+          </transition>
       </div>
     </div>
   </div>
@@ -35,6 +46,13 @@ export default {
 
   components: {
     Navber
+  },
+
+  data() {
+    return {
+      openPen: false,
+
+    }
   },
 
 
@@ -60,15 +78,36 @@ export default {
   methods: {
     ...mapMutations('Folders',['setText']),
 
+    onPen() {
+      this.openPen = !this.openPen
+      console.log(this.openPen)
+      if (this.openPen) {
+        this.$nextTick(() => this.$refs.focusThis.focus())
+        console.log(this.$refs);
+      }
+
+
+
+    },
+    // fo() {
+    //   this.$refs.focusThis.focus()
+    // },
+
     addFolder() {
       this.$store.dispatch('Folders/addData')
+      // this.onPen();
     },
 
     deleFolder(id) {
+      if (!confirm('ほんとに消す？')) {
+        return
+      }
       this.$store.dispatch('Folders/deleData', id)
     }
 
+
   },
+
 
 
 }
@@ -80,7 +119,7 @@ $bar-style: solid;
 $bar-size: 2px;
 $bar-color: #ffffff;
 .folders-page {
-  height: 100%;
+  height: 100vh;
   color: #2c3e50;
   // background: #F5F5F5;
   padding-bottom: 20px;
@@ -88,7 +127,11 @@ $bar-color: #ffffff;
   background-size: auto 2rem;
   .container {
     width: 90%;
-    margin: 10vh auto;
+    margin: 0 auto;
+    padding: 20px;
+    @media (max-width: 767px) {
+      padding-bottom: 60px;
+    }
 
     .inner {
       .inner-title {
@@ -97,6 +140,15 @@ $bar-color: #ffffff;
         // text-align: center;
         font-size: 2rem;
         font-family: 'uchiyama';
+      }
+      .pen-wrapper {
+        display: flex;
+        justify-content: flex-end;
+
+        .pen {
+          color: #2c3e50;
+        }
+
       }
       .inner-folder {
         // background-color: #eeeeee;
@@ -113,16 +165,33 @@ $bar-color: #ffffff;
           // font-size: 1.125rem;
           // line-height: 1.8;
           // border-radius: 5px;
-          padding: 0.5em;
-          margin-bottom: 5px;
-          line-height: 1.5;
-          border-left: 6px solid #FFA000;
-          border-bottom: 2px solid #E0E0E0;
-          background: #FFE082;
-          color:#FFA000;
+
+          // padding: 0.5em;
+          // margin-bottom: 5px;
+          // line-height: 1.5;
+          // border-left: 6px solid #FFA000;
+          // border-bottom: 2px solid #E0E0E0;
+          // background: #FFE082;
+
+          // color:#FFA000;
+          display: flex;
+          justify-content: space-between;
 
           .link {
             text-decoration: none;
+            display: block;
+            padding: 0.5em;
+            margin-bottom: 5px;
+            line-height: 1.5;
+            border-left: 6px solid #FFA000;
+            border-bottom: 2px solid #E0E0E0;
+            // background: #FFE082;
+            // background: #F0E590;
+            // background: #FFF5AE;
+            background: #FFF475;
+            // background: #F0D793;
+            color:#FFA000;
+            flex-grow: 2;
 
             &:hover {
               text-decoration: red;
@@ -138,7 +207,21 @@ $bar-color: #ffffff;
             color: #2c3e50;
           }
 
+          .dele-wrapper {
+            padding-left: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            svg {
+              font-size: 1rem;
+            }
+
+          }
+
           .bottom-wrapper {
+            flex-grow: 1;
+
             span {
               cursor: pointer;
               float: right;
@@ -147,6 +230,58 @@ $bar-color: #ffffff;
 
         }
       }
+      .v-enter-active, .v-leave-active {
+        transform: translate(0px, 0px);
+        transition: transform .5s;
+      }
+
+      .v-enter, .v-leave-to {
+        transform: translateX(100vw) translateX(0px);
+      }
+
+      .edit-wrapper {
+
+        .edit {
+          padding: 0.5em;
+          margin-bottom: 5px;
+          line-height: 1.5;
+          border-left: 6px solid #FFA000;
+          border-bottom: 2px solid #E0E0E0;
+          background: #FFE082;
+          color:#FFA000;
+          display: flex;
+          // justify-content: space-between;
+
+          input {
+            display: block;
+            border: none;
+            outline: none;
+            // background: #FFE082;
+            line-height: 1.5;
+            font-family: 'zatsu';
+          }
+
+          button {
+            font-family: 'zatsu';
+            font-weight: bold;
+            display: inline-block;
+            padding: 0.5em .75em;
+            border: 2px solid #FFA000;
+            border-radius: 3em 0.5em 2em 0.5em/.4em 2em 0.5em 3em;
+            color: #333;
+            // text-decoration: none;
+            text-align: center;
+            font-family: 'zatsu';
+            margin-left: .5rem;
+
+            &:hover {
+              background: yellow;
+            }
+          }
+        }
+      }
+
+
 
     }
   }
