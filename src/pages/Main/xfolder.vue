@@ -26,7 +26,7 @@
                 </div>
               </div>
             </div>
-            <p v-else>まだ何もありません</p>
+            <p v-else>このフォルダまだ何もありません</p>
           </div>
         </div>
         <transition name="fade">
@@ -187,32 +187,30 @@ $bar-size: 2px;
 $bar-color: #ffffff;
 
 .xfolder-page {
-  // height: 100vh;
   color: #2c3e50;
   background: linear-gradient(#ccc 1px, transparent 2px);
   background-size: auto 2rem;
-  padding-bottom: 20px;
+  padding-bottom: 60px;
 
   .container {
+    min-height: 100vh;
     width: 90%;
     margin: 0 auto;
     padding: 30px;
-    @media (max-width: 767px) {
-      padding-bottom: 60px;
-    }
+    // @media (max-width: 767px) {
+    //   padding-bottom: 60px;
+    // }
 
     h1 {
       font-weight: normal;
-      padding: 20px 0 30px 0;
-      // text-align: center;
+      padding: 20px 0 10px;
       font-size: 2rem;
       font-family: 'zatsu';
-      display: inline-block;
     }
 
     .back {
       text-decoration: none;
-      padding: 20px 0;
+      // padding: 20px 0;
       a {
         text-decoration: none;
         color: #2c3e50;
@@ -225,16 +223,20 @@ $bar-color: #ffffff;
     .edit-btns {
       display: flex;
       justify-content: flex-end;
-      padding: 10px;
+      padding: 0 10px 10px;
       button {
         display: inline-block;
         padding: 0.75em 1em;
-        border: 2px solid skyblue;
+        border: 2px solid #29D9A7;
         border-radius: 3em 0.5em 2em 0.5em/.4em 2em 0.5em 3em;
         color: #333;
-        // text-decoration: none;
         text-align: center;
         font-family: 'zatsu';
+        transition: all .5s;
+
+        &:hover {
+          background: #29D9A7;
+        }
 
 
       }
@@ -242,7 +244,7 @@ $bar-color: #ffffff;
 
     .inner {
       .inner-folder {
-        background-color: #eeeeee;
+        // background-color: #eeeeee;
         padding: 10px;
         min-height: 30vmin;
 

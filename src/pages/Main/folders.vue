@@ -5,7 +5,7 @@
       <div class="inner">
         <h1 class="inner-title">Custom Lists</h1>
         <div class="pen-wrapper">
-          <button @click="onPen"><font-awesome-icon icon="pencil-alt" size="2x" class="pen" /></button>
+          <button @click="onPen"><font-awesome-icon icon="plus-circle" size="2x" class="pen" /></button>
         </div>
           <div class="inner-folder">
             <div v-if="folders.length">
@@ -14,22 +14,25 @@
                 <h3>{{myfolder.title}}</h3>
                 </router-link>
                 <div class="dele-wrapper">
-                  <font-awesome-icon icon="trash-alt" @click="deleFolder(myfolder.fid)"  />
+                  <font-awesome-icon icon="trash-alt" @click="deleFolder(myfolder.fid, myfolder.title)"  />
                 </div>
 
               </div>
             </div>
             <p v-else>まだ何もありません</p>
           </div>
-          <transition>
-            
+
+            <transition>
             <div v-show="openPen" class="edit-wrapper">
-              <div class="edit">
-                <input type="text" v-model="inputValue" ref="focusThis" >
-                <button @click="addFolder">add</button>
-              </div>
+                <div class="edit">
+                  <input type="text" v-model="inputValue" ref="focusThis" >
+                  <button @click="addFolder">add</button>
+                  <!-- <button @click="chansellNewFolder">cansell</button> -->
+                </div>
+
             </div>
-          </transition>
+            </transition>
+
       </div>
     </div>
   </div>
@@ -98,8 +101,13 @@ export default {
       // this.onPen();
     },
 
-    deleFolder(id) {
-      if (!confirm('ほんとに消す？')) {
+    chansellNewFolder() {
+      this.openPen = false
+
+    },
+
+    deleFolder(id, title) {
+      if (!confirm(title + 'リストを本当に消しますか？')) {
         return
       }
       this.$store.dispatch('Folders/deleData', id)
@@ -119,13 +127,12 @@ $bar-style: solid;
 $bar-size: 2px;
 $bar-color: #ffffff;
 .folders-page {
-  height: 100vh;
   color: #2c3e50;
-  // background: #F5F5F5;
   padding-bottom: 20px;
   background: linear-gradient(#ccc 1px, transparent 2px);
   background-size: auto 2rem;
   .container {
+    min-height: 100vh;
     width: 90%;
     margin: 0 auto;
     padding: 20px;
@@ -135,15 +142,14 @@ $bar-color: #ffffff;
 
     .inner {
       .inner-title {
-        font-weight: normal;
         padding: 1rem 0;
-        // text-align: center;
         font-size: 2rem;
         font-family: 'uchiyama';
       }
       .pen-wrapper {
         display: flex;
         justify-content: flex-end;
+        padding-right: 2rem;
 
         .pen {
           color: #2c3e50;
@@ -156,24 +162,6 @@ $bar-color: #ffffff;
         min-height: 30vmin;
 
         .quote-card {
-          // padding: 20px;
-          // margin: 10px 0;
-          // box-shadow: 0 .25rem .25rem hsla(0, 0%, 0%, .1);
-          // background-image:
-          // linear-gradient(180deg, hsla(0, 0%, 45%, .1) 2rem, hsla(0, 100%, 100%, 0) 2.5rem),
-          // linear-gradient(180deg, hsla(200, 100%, 85%, 1), hsla(200, 100%, 85%, 1));
-          // font-size: 1.125rem;
-          // line-height: 1.8;
-          // border-radius: 5px;
-
-          // padding: 0.5em;
-          // margin-bottom: 5px;
-          // line-height: 1.5;
-          // border-left: 6px solid #FFA000;
-          // border-bottom: 2px solid #E0E0E0;
-          // background: #FFE082;
-
-          // color:#FFA000;
           display: flex;
           justify-content: space-between;
 
@@ -183,14 +171,10 @@ $bar-color: #ffffff;
             padding: 0.5em;
             margin-bottom: 5px;
             line-height: 1.5;
-            border-left: 6px solid #FFA000;
+            border-left: 6px solid #77F895;
             border-bottom: 2px solid #E0E0E0;
-            // background: #FFE082;
-            // background: #F0E590;
-            // background: #FFF5AE;
-            background: #FFF475;
-            // background: #F0D793;
-            color:#FFA000;
+            background: #9DFFB4;
+            color:#2c3e50;
             flex-grow: 2;
 
             &:hover {
@@ -204,7 +188,7 @@ $bar-color: #ffffff;
             // text-align: center;
             font-size: 1rem;
             font-family: 'zatsu';
-            color: #2c3e50;
+            color: #6A7274;
           }
 
           .dele-wrapper {
@@ -231,32 +215,44 @@ $bar-color: #ffffff;
         }
       }
       .v-enter-active, .v-leave-active {
-        transform: translate(0px, 0px);
-        transition: transform .5s;
+        // transform: translate(0px);
+        // opacity: 1;
+        // transition: all .5s;
+        // transition: all .8s ease-out;
+        transition: opacity .5s;
       }
 
       .v-enter, .v-leave-to {
-        transform: translateX(100vw) translateX(0px);
+        opacity: 0
       }
 
       .edit-wrapper {
 
         .edit {
-          padding: 0.5em;
-          margin-bottom: 5px;
-          line-height: 1.5;
-          border-left: 6px solid #FFA000;
-          border-bottom: 2px solid #E0E0E0;
-          background: #FFE082;
-          color:#FFA000;
+          // padding: 0.5em;
+          // margin-bottom: 5px;
+          // line-height: 1.5;
+          // border-left: 6px solid #FFA000;
+          // border-bottom: 2px solid #E0E0E0;
+          // background: #FFE082;
+          // color:#FFA000;
           display: flex;
+          text-decoration: none;
+            // display: block;
+            padding: 0.5em;
+            margin-bottom: 5px;
+            line-height: 1.5;
+            border-left: 6px solid #77F895;
+            border-bottom: 2px solid #E0E0E0;
+            background: #9DFFB4;
+            color:#2c3e50;
           // justify-content: space-between;
 
           input {
             display: block;
             border: none;
             outline: none;
-            // background: #FFE082;
+            background: #9DFFB4;
             line-height: 1.5;
             font-family: 'zatsu';
           }
@@ -266,16 +262,15 @@ $bar-color: #ffffff;
             font-weight: bold;
             display: inline-block;
             padding: 0.5em .75em;
-            border: 2px solid #FFA000;
+            border: 2px solid #77F895;
             border-radius: 3em 0.5em 2em 0.5em/.4em 2em 0.5em 3em;
             color: #333;
-            // text-decoration: none;
             text-align: center;
             font-family: 'zatsu';
             margin-left: .5rem;
 
             &:hover {
-              background: yellow;
+              background: #eeeeee;
             }
           }
         }

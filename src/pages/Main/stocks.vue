@@ -77,13 +77,12 @@ $bar-style: solid;
 $bar-size: 2px;
 $bar-color: #ffffff;
 .stocks-page {
-  height: 100vh;
   color: #2c3e50;
-  // background: #F5F5F5;
   padding-bottom: 20px;
   background: linear-gradient(#ccc 1px, transparent 2px);
   background-size: auto 2rem;
   .container {
+    min-height: 100vh;
     width: 90%;
     margin: 0 auto;
     padding: 30px;
@@ -93,19 +92,13 @@ $bar-color: #ffffff;
 
     .inner {
       .inner-title {
-        // font-weight: normal;
         padding: 1rem 0;
-        // text-align: center;
         font-size: 2rem;
         font-family: 'uchiyama';
       }
       .inner-folder {
-        // background-color: #FCEE83;
-        // background: #D29EF0;
-        // background: #F09BAE;
         padding: 10px;
         min-height: 30vmin;
-        // width: 90%;
 
         .quote-wrapper {
           display: grid;
@@ -121,8 +114,8 @@ $bar-color: #ffffff;
           box-shadow: 0 .25rem .25rem hsla(0, 0%, 0%, .1);
           background-image:
           linear-gradient(180deg, hsla(0, 0%, 45%, .1) 2rem, hsla(0, 100%, 100%, 0) 2.5rem),
-          // linear-gradient(180deg, hsla(200, 100%, 85%, 1), hsla(200, 100%, 85%, 1))
-          linear-gradient(180deg, #F0BCD6, #F0BCD6);
+          linear-gradient(180deg, hsla(200, 100%, 85%, 1), hsla(200, 100%, 85%, 1));
+          // linear-gradient(180deg, #F0BCD6, #F0BCD6);
           font-size: 1.125rem;
           line-height: 1.8;
           border-radius: 5px;
@@ -165,6 +158,7 @@ $bar-color: #ffffff;
               align-items: center;
               justify-content: center;
               padding: 1rem;
+              cursor: pointer;
             }
 
             .text-wrapper {

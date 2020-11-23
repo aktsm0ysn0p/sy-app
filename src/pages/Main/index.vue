@@ -91,7 +91,7 @@ $bar-size: 2px;
 $bar-color: #ffffff;
 
 .lists-page {
-  // height: 100vh;
+
   color: #2c3e50;
   background: #F5F5F5;
   // padding-bottom: 20x;
@@ -139,7 +139,7 @@ $bar-color: #ffffff;
         }
 
         .like {
-          color: red;
+          color: #e23e4e;
           font-family: Avenir, Helvetica, Arial, sans-serif;
           font-weight: bold;
           font-family: 'uchiyama';

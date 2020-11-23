@@ -5,14 +5,21 @@
         <p>どの名言をに追加する？</p>
           <div v-for="stock in addStock" :key="stock.lid" class="quote-card">
             <label>
-              <input type="checkbox" @change="checkToggleAdd(stock.lid)" >
-              <h3 :class="{'done' : stock.isDone}">{{stock.title}}</h3>
-              <p>{{stock.since}}{{stock.name}}</p>
+              <div class="modal-input-wrapper">
+                <input type="checkbox" @change="checkToggleAdd(stock.lid)" >
+              </div>
+              <div :class="{'done' : stock.isDone}">
+                <h3 >{{stock.title}}</h3>
+                <div class="name-wrapper">
+                  <p>{{stock.name}}</p>
+                </div>
+              </div>
             </label>
           </div>
-          <!-- <p>{{isDones}}</p> -->
-          <button @click="onAdd">キャンセル</button>
-          <button @click="onSubmit"> 決定</button>
+          <div class="select-btn-wrapper">
+            <button @click="onAdd">キャンセル</button>
+            <button @click="onSubmit"> 決定</button>
+          </div>
       </div>
       <div v-else>
         <p >追加できるストックがありません</p>
@@ -64,10 +71,11 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* overflow-y: scroll; */
 }
 .modal-inner {
   z-index:2;
-  width:50%;
+  width:80%;
   padding: 1em;
   background:#fff;
 }
@@ -75,9 +83,52 @@ export default {
   color: #5ABD57;
 }
 .quote-card {
-  padding: 20px;
+  padding: 5px 10px;
   margin: 10px 0;
-  border: solid 1px #5ABD57;
-  background-color: #A9F791;
+  background: #b3e6ff;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  border-radius: 5px;
+}
+label {
+  display: flex;
+}
+
+.modal-input-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+h3 {
+  text-align: center;
+  /* font-weight: normal; */
+  font-family: 'shunnka';
+  padding: .5rem;
+}
+
+.name-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.select-btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+button {
+  display: inline-block;
+  padding: 0.75em 1em;
+  border: 1px solid #29D9A7;
+  border-radius: 5px;
+  color: #333;
+  text-align: center;
+  transition: all .5s;
+}
+
+button:hover {
+  background: #29D9A7;
 }
 </style>

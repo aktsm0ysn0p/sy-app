@@ -22,8 +22,10 @@ nav {
   padding: 10px 0;
   // background: #FCEE83;
   // background: #5BF077;
+  background: #172a4c;
   // background: linear-gradient(to bottom right, #5BF077, #407043);
-  background: linear-gradient(to bottom right, #a8ff78, #78ffd6);
+  // background: linear-gradient(to bottom right, #a8ff78, #78ffd6);
+  // background: linear-gradient(to bottom right, #4e54c8, #8f94fb);
   @media (max-width: 767px) {
     position: fixed;
     bottom: 0;
@@ -52,13 +54,15 @@ nav {
         .heart:hover,
         &.active-stocks .heart {
           // color: #D29EF0;
-          color: #F06F85;
+          // color: #F06F85;
+          color: #e23e4e;
         }
 
         .folder:hover,
         &.active-folders .folder {
           // color: #F0A06E;
-          color: #F0C84F;
+          // color: #F0C84F;
+          color: #77F895;
         }
       }
     }
