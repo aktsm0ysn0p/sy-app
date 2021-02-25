@@ -69,15 +69,17 @@ export default {
   height:100%;
   background-color:rgba(0,0,0,0.5);
   display: flex;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
   /* overflow-y: scroll; */
+  overflow: auto;
 }
 .modal-inner {
   z-index:2;
   width:80%;
   padding: 1em;
   background:#fff;
+  margin: auto;
 }
 .done {
   color: #5ABD57;
