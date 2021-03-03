@@ -65,7 +65,6 @@ export default {
     checkStock(id) {
       const target = this.stocks.find(stock => stock === id);
       target ? this.dele(id) : this.add(id) ;
-      console.log('click!');
     },
 
   },

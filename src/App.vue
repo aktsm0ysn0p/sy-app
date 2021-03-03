@@ -11,7 +11,6 @@ export default {
     this.$store.dispatch('Lists/start');
     this.$store.dispatch('Stocks/start');
     this.$store.dispatch('Folders/start')
-    console.log('Appで全部取得！！');
   }
 };
 </script>

@@ -40,7 +40,6 @@ export default {
       myRef.get().then(doSnapshot => {
         const payload = doSnapshot.data().stocks;
         commit('init', payload)
-        console.log('stocks取れたよ');
       }).catch(e => console.log(e))
 
     },

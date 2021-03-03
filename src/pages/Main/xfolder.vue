@@ -93,7 +93,9 @@ export default {
       const currentStock = [];
       this.currentFolder.stocks.forEach((stock) => {
         const f = this.lists.find((list) => list.lid === stock);
-        currentStock.push(f);
+        if (typeof f !== undefined) {
+          currentStock.push(f);
+        }
       });
       return currentStock;
     },

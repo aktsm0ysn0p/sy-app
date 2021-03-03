@@ -2,6 +2,7 @@ import firestore from '@/firebase/firestore'
 
 const myRef = firestore.collection('my').doc("cLME2ZkXIVYpUXb4Ta9w");
 
+
 export default {
   namespaced: true,
   // unsubscribe: null,
@@ -48,7 +49,6 @@ export default {
         const payload = doSnapshot.data().folders;
         commit('init', payload)
         state.newfolder = ''
-        console.log('folders取れたよ');
       }).catch(e => console.log(e))
     },
     //
@@ -84,7 +84,6 @@ export default {
           const f = addStockId;
           state.folders[index].stocks.push(f)
           const copy = state.folders.map(c => ({ ...c }))
-          console.log(copy);
           myRef.update(
             {
               folders: copy
@@ -100,7 +99,6 @@ export default {
         if (folder.fid === myfolderId) {
           const newfolderstock = folder.stocks.filter(stock => stock !== deleStockId)
           folder.stocks = newfolderstock
-          console.log(folder);
           const copy = state.folders.map(c => ({ ...c }))
           myRef.update(
             {
@@ -115,7 +113,6 @@ export default {
 
     deleData({ state, dispatch }, id) {
       const n = state.folders.filter(folder => folder.fid !== id)
-      console.log(n);
       myRef.update(
         {
           folders: n

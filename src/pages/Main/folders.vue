@@ -86,7 +86,6 @@ export default {
       console.log(this.openPen)
       if (this.openPen) {
         this.$nextTick(() => this.$refs.focusThis.focus())
-        console.log(this.$refs);
       }
 
 

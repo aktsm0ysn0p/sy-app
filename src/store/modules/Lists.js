@@ -19,7 +19,6 @@ export default {
         snapshot.forEach(doc => {
           state.lists.push(doc.data())
         })
-        console.log('lists取れたよ');
       }).catch(e => console.log(e))
     },
   },
