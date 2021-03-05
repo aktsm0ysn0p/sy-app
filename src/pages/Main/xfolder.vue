@@ -326,6 +326,14 @@ $bar-color: #ffffff;
         }
       }
     }
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: opacity .3s ease;
+    }
+    .fade-enter,
+    .fade-leave-to {
+        opacity: 0;
+    }
   }
 }
 </style>

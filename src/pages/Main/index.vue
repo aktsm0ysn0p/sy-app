@@ -8,7 +8,6 @@
           <p>前向きな気持ちになれる著名人の名言をまとめました。<br><span class="like">Like♡</span>ボタンから、あなたのお気に入りリストを作ってみよう。</p>
         </div>
         <img src="../../assets/img/IMG_4392.png" alt="" class="quote-img">
-
       </div>
       <div class="quote-wrapper">
         <div class="quote-card" v-for="list in lists" :key= "list.lid">
@@ -22,7 +21,7 @@
               <p>{{list.since}}</p>
             </div>
           </div>
-        </div>
+          </div>
       </div>
     </div>
   </div>
@@ -88,6 +87,17 @@ export default {
 $bar-style: solid;
 $bar-size: 2px;
 $bar-color: #ffffff;
+
+// .component-fade-enter-active,
+// .component-fade-leave-active {
+//     transition: opacity .3s ease;
+// }
+// .component-fade-enter,
+// .component-fade-leave-to {
+//     opacity: 0;
+//     transform: translateX(50px);
+// }
+
 
 .lists-page {
 
@@ -166,6 +176,8 @@ $bar-color: #ffffff;
       font-size: 1.125rem;
       line-height: 1.8;
       border-radius: 5px;
+      animation: fadeInUp;
+      animation-name: card;
 
       .frame-box-001 {
         padding: 1rem;
@@ -231,6 +243,14 @@ $bar-color: #ffffff;
     }
   }
 }
+@keyframes card { /*animetion-nameで設定した値を書く*/
+
+  0% {opacity: 0} /*アニメーション開始時は不透明度0%*/
+
+  100% {opacity: 1} /*アニメーション終了時は不透明度100%*/
+
+}
+
 
 
 
