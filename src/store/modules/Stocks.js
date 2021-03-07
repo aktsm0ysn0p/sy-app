@@ -22,6 +22,7 @@ export default {
         state.stocks.splice(index, 1)
       }
     },
+
   },
 
   getters: {
@@ -43,7 +44,7 @@ export default {
       }).catch(e => console.log(e))
 
     },
-    //
+
     addData({ state, commit }, id) {
       const n = state.stocks.slice()
       n.push(id)

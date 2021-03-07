@@ -9,19 +9,21 @@
         </div>
         <img src="../../assets/img/IMG_4392.png" alt="" class="quote-img">
       </div>
-      <div class="quote-wrapper">
-        <div class="quote-card" v-for="list in lists" :key= "list.lid">
-          <h3 class="frame-box-001">{{list.title}}</h3>
-          <div class="bottom-wrapper">
-            <div class="likes">
-              <div class="likes-icon" @click="checkStock(list.lid)" :class="{nowstock : stocks.find(stock=> stock === list.lid)}"></div>
-            </div>
-            <div class="text-wrapper">
-              <p>{{list.name}}</p>
-              <p>{{list.since}}</p>
+      <div>
+        <transition-group class="quote-wrapper" name="list" tag="div">
+          <div class="quote-card" v-for="list in lists" :key= "list.lid">
+            <h3 class="frame-box-001">{{list.title}}</h3>
+            <div class="bottom-wrapper">
+              <div class="likes">
+                <div class="likes-icon" @click="checkStock(list.lid)" :class="{nowstock : stocks.find(stock=> stock === list.lid)}"></div>
+              </div>
+              <div class="text-wrapper">
+                <p>{{list.name}}</p>
+                <p>{{list.since}}</p>
+              </div>
             </div>
           </div>
-          </div>
+        </transition-group>
       </div>
     </div>
   </div>
@@ -33,7 +35,6 @@ import Navber from '../../components/TheNavber'
 export default {
 
   name: 'Home',
-
 
   components: {
     Navber
@@ -50,7 +51,6 @@ export default {
     }
 
   },
-
 
   methods: {
     add(id) {
@@ -176,9 +176,27 @@ $bar-color: #ffffff;
       font-size: 1.125rem;
       line-height: 1.8;
       border-radius: 5px;
-      animation: fadeInUp;
-      animation-name: card;
+//-------- ここからVueのふわっと
+      transition: all 3s;
+//-------ここまで
+//-----------ここからCSSふわっと-----------
+      // animation-timing-function: ease;
+      // animation-name: card-animation;
+      // animation-duration: 3s;
+      // animation-fill-mode: forwards;
 
+      // @keyframes card-animation {
+      //   0% {
+      //     opacity: 0;
+      //     transform: translateY(100px);
+      //   }
+
+      //   100%{
+      //     opacity: 1;
+      //     transform: translateY(0px);
+      //   }
+      // }
+//----------ここまで-----------------------
       .frame-box-001 {
         padding: 1rem;
         position: relative;
@@ -241,15 +259,25 @@ $bar-color: #ffffff;
 
       }
     }
+    .list-enter,
+    .list-leave-to {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    .list-leave-active {
+      // 消えるときに位置がずれないように、
+      // positionをabsoluteにしておく
+      position: absolute;
+    }
   }
 }
-@keyframes card { /*animetion-nameで設定した値を書く*/
+// @keyframes card { /*animetion-nameで設定した値を書く*/
 
-  0% {opacity: 0} /*アニメーション開始時は不透明度0%*/
+//   0% {opacity: 0} /*アニメーション開始時は不透明度0%*/
 
-  100% {opacity: 1} /*アニメーション終了時は不透明度100%*/
+//   100% {opacity: 1} /*アニメーション終了時は不透明度100%*/
 
-}
+// }
 
 
 

@@ -4,12 +4,18 @@
     <div class="container">
       <div class="inner">
         <h2 class="inner-title">LIKES</h2>
+        <div class="edit-btns">
+          <button @click="onDele">Delete</button>
+        </div>
         <div class="inner-folder">
           <div v-if="my.length" class="quote-wrapper">
-            <div class="quote-card" v-for="meigenn in my" :key= "meigenn.lid">
+            <div
+              class="quote-card"
+              v-for="meigenn in my"
+              :key= "meigenn.lid"
+            >
               <h3 class="frame-box-001">{{meigenn.title}}</h3>
               <div class="bottom-wrapper">
-                <div @click="removeStock(meigenn.lid)" class="dele-wrapper"><font-awesome-icon icon="trash-alt" /></div>
                 <div class="text-wrapper">
                   <p>{{meigenn.name}}</p>
                   <p>{{meigenn.since}}</p>
@@ -21,20 +27,38 @@
         </div>
       </div>
     </div>
+    <transition name="fade">
+      <TheDelemodal
+        v-if="showDeleModal"
+        @emitingdele="onDele"
+        :deleStock="deleStock"
+        @checkToggleDele="checkToggleDele"
+        @onDeleSubmit="onDeleSubmit"
+      />
+    </transition>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
 import Navber from '../../components/TheNavber'
+import TheDelemodal from "../../components/TheDelemodal";
 
 export default {
 
   name: 'Stocks',
 
 
+  data() {
+    return {
+      showDeleModal: false,
+    }
+  },
+
+
   components: {
-    Navber
+    Navber,
+    TheDelemodal
   },
 
 
@@ -49,23 +73,50 @@ export default {
         m.push(f)
       })
       return m
-    }
+    },
+
+    deleStock() {
+      let deleStock = [];
+      this.stocks.forEach(stock => {
+        const f = this.lists.find(list => list.lid === stock);
+        deleStock.push(f);
+      });
+      deleStock.forEach((n) => {
+        this.$set(n, "isDone", false);
+      });
+      return deleStock;
+    },
 
   },
 
 
   methods: {
-    removeStock(id) {
-      this.$store.dispatch('Stocks/deleData', id);
+
+    onDele() {
+      this.showDeleModal = !this.showDeleModal;
+      this.deleStock.forEach((stock) => {
+        stock.isDone = false;
+      });
     },
 
-    update() {
-      this.stocks.forEach(stock => {
-      const f = this.lists.find(list => list.lid === stock);
-      this.myStockFolders.push(f);
+    checkToggleDele(id) {
+      this.deleStock.forEach((stock) => {
+        if (stock.lid === id) {
+          this.$set(stock, "isDone", !stock.isDone);
+          console.log(this.deleStock);
+        }
       });
-      return this.myStockFolders
     },
+
+    onDeleSubmit() {
+      const result = this.deleStock.filter(stock => stock.isDone);
+      result.forEach((re) => {
+        this.$store.dispatch('Stocks/deleData', re.lid);
+      });
+      this.showDeleModal = !this.showDeleModal;
+    },
+
+
 
   },
 
@@ -91,6 +142,24 @@ $bar-color: #ffffff;
     }
 
     .inner {
+      .edit-btns {
+        display: flex;
+        justify-content: flex-end;
+        button {
+          display: inline-block;
+          padding: 0.75em 1em;
+          border: 2px solid #29D9A7;
+          border-radius: 3em 0.5em 2em 0.5em/.4em 2em 0.5em 3em;
+          color: #333;
+          text-align: center;
+          font-family: 'zatsu';
+          transition: all .5s;
+
+          &:hover {
+            background: #29D9A7;
+          }
+        }
+      }
       .inner-title {
         padding: 1rem 0;
         font-size: 2rem;
@@ -151,15 +220,7 @@ $bar-color: #ffffff;
 
           .bottom-wrapper {
             display: flex;
-            justify-content: space-between;
-
-            .dele-wrapper {
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              padding: 1rem;
-              cursor: pointer;
-            }
+            justify-content: flex-end;
 
             .text-wrapper {
               display: flex;
@@ -180,6 +241,15 @@ $bar-color: #ffffff;
       }
 
     }
+
+  }
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: opacity .3s ease;
+  }
+  .fade-enter,
+  .fade-leave-to {
+    opacity: 0;
   }
 }
 </style>

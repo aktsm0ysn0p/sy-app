@@ -239,8 +239,6 @@ $bar-color: #ffffff;
         &:hover {
           background: #29D9A7;
         }
-
-
       }
     }
 

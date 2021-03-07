@@ -111,16 +111,16 @@ export default {
       })
     },
 
-    deleData({ state, dispatch }, id) {
-      const n = state.folders.filter(folder => folder.fid !== id)
-      myRef.update(
-        {
-          folders: n
-        }
-      ).then(() => {
-        dispatch('start')
-      }).catch(e => console.log(e))
-    },
+    // deleData({ state, dispatch }, id) {
+    //   const n = state.folders.filter(folder => folder.fid !== id)
+    //   myRef.update(
+    //     {
+    //       folders: n
+    //     }
+    //   ).then(() => {
+    //     dispatch('start')
+    //   }).catch(e => console.log(e))
+    // },
 
 
   },
