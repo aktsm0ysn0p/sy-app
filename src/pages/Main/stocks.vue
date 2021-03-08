@@ -1,6 +1,8 @@
 <template>
   <div class="stocks-page" v-if="my">
-    <Navber />
+    <transition name="fade">
+      <Navber v-if="!showDeleModal"/>
+    </transition>
     <div class="container">
       <div class="inner">
         <h2 class="inner-title">LIKES</h2>
@@ -146,17 +148,24 @@ $bar-color: #ffffff;
         display: flex;
         justify-content: flex-end;
         button {
+          // color: #2c3e50;  font-icon ようの色
+
+          transition: all .5s;
+
           display: inline-block;
           padding: 0.75em 1em;
           border: 2px solid #29D9A7;
           border-radius: 3em 0.5em 2em 0.5em/.4em 2em 0.5em 3em;
           color: #333;
           text-align: center;
-          font-family: 'zatsu';
-          transition: all .5s;
+          // font-family: 'zatsu';
+
+          font-family: 'uchiyama';
+
 
           &:hover {
             background: #29D9A7;
+            // opacity: .6;
           }
         }
       }

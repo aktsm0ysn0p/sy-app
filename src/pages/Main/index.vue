@@ -11,11 +11,13 @@
       </div>
       <div>
         <transition-group class="quote-wrapper" name="list" tag="div">
-          <div class="quote-card" v-for="list in lists" :key= "list.lid">
+          <div :class="{fadeIn: visible}" class="quote-card" v-for="list in lists" :key= "list.lid">
             <h3 class="frame-box-001">{{list.title}}</h3>
             <div class="bottom-wrapper">
               <div class="likes">
-                <div class="likes-icon" @click="checkStock(list.lid)" :class="{nowstock : stocks.find(stock=> stock === list.lid)}"></div>
+                <div class="likes-icon" @click="checkStock(list.lid)" :class="{nowstock : stocks.find(stock=> stock === list.lid)}"><font-awesome-icon icon="heart"/>
+                </div>
+                <div class="ripple"  :class="{clickrepple : stocks.find(stock=> stock === list.lid) }"></div>
               </div>
               <div class="text-wrapper">
                 <p>{{list.name}}</p>
@@ -35,6 +37,12 @@ import Navber from '../../components/TheNavber'
 export default {
 
   name: 'Home',
+
+  data() {
+    return {
+      visible: false,
+    }
+  },
 
   components: {
     Navber
@@ -66,7 +74,23 @@ export default {
       target ? this.dele(id) : this.add(id) ;
     },
 
+    // handleScroll() {
+    //   if (!this.visible) {
+    //     let top = this.$el.getBoundingClientRect().top
+    //     this.visible = top < window.innerHeight + 100
+    //   }
+    // }
+
   },
+
+  // created() {
+  //   window.addEventListener("scroll", this.handleScroll)
+  // },
+
+  // destroyed() {
+  //     window.removeEventListener("scroll", this.handleScroll);
+  //   },
+
 
 }
 
@@ -82,6 +106,31 @@ export default {
 @mixin fz_vw($font_size:10){
   font-size: $font_size * 1px;
   font-size: get_vw($font_size);
+}
+
+@keyframes heart {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+      color: #dd4646;
+    }
+}
+@keyframes repple {
+    0% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
 }
 
 $bar-style: solid;
@@ -231,18 +280,45 @@ $bar-color: #ffffff;
         justify-content: space-between;
 
         .likes {
-          position: relative;
+          cursor: pointer;
+          display: flex;
+          justify-content: center;
+          align-items: center;
           .likes-icon {
-            width: 100px;
-            height: 100px;
-            background: url(http://nelog.jp/wp-content/uploads/2016/03/heart_animation.png) no-repeat;
-            background-position: 0 0;
-            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            color: #bdbebd;
+            font-size: 1.7em;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            border-radius: 50%;
+            transition: all .7s;
+            left: 1.5px;
+            @media (min-width: 768px){
+              &:hover {
+                background: pink;
+              }
+            }
+
           }
           .nowstock {
-            background-position: -2800px 0;
-            -webkit-transition: background 1s steps(28);
-            transition: background 1s steps(28);
+            animation-name: heart;
+            animation-duration: .6s;
+            animation-fill-mode: forwards;
+          }
+          .ripple {
+            position: absolute;
+            width: 85px;
+            height: 85px;
+            background: #dd4646;
+            border-radius: 50%;
+            transform: scale(0);
+          }
+          .clickrepple {
+            animation-name: repple;
+            animation-duration: .6s;
+            animation-fill-mode: forwards;
           }
         }
 
@@ -265,19 +341,12 @@ $bar-color: #ffffff;
       transform: translateY(100px);
     }
     .list-leave-active {
-      // 消えるときに位置がずれないように、
-      // positionをabsoluteにしておく
       position: absolute;
     }
   }
+
+
 }
-// @keyframes card { /*animetion-nameで設定した値を書く*/
-
-//   0% {opacity: 0} /*アニメーション開始時は不透明度0%*/
-
-//   100% {opacity: 1} /*アニメーション終了時は不透明度100%*/
-
-// }
 
 
 

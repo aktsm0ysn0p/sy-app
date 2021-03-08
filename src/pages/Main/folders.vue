@@ -27,7 +27,7 @@
                 <div class="edit">
                   <input type="text" v-model="inputValue" ref="focusThis" >
                   <button @click="addFolder">add</button>
-                  <!-- <button @click="chansellNewFolder">cansell</button> -->
+                  <button @click="chansellNewFolder">cansell</button>
                 </div>
 
             </div>
@@ -82,13 +82,17 @@ export default {
     ...mapMutations('Folders',['setText']),
 
     onPen() {
+      // if (this.openPen) {
+      //   return
+      // }
       this.openPen = !this.openPen
-      console.log(this.openPen)
+      // console.log(this.openPen)
       if (this.openPen) {
         this.$nextTick(() => this.$refs.focusThis.focus())
       }
+    },
 
-
+    onCansel() {
 
     },
     // fo() {
@@ -102,7 +106,6 @@ export default {
 
     chansellNewFolder() {
       this.openPen = false
-
     },
 
     deleFolder(id, title) {
