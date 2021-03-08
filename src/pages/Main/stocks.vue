@@ -162,7 +162,6 @@ $bar-color: #ffffff;
 
           font-family: 'uchiyama';
 
-
           &:hover {
             background: #29D9A7;
             // opacity: .6;

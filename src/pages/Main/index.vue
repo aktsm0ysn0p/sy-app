@@ -343,6 +343,7 @@ $bar-color: #ffffff;
     .list-leave-active {
       position: absolute;
     }
+    
   }
 
 

@@ -155,6 +155,10 @@ $bar-color: #ffffff;
 
         .pen {
           color: #2c3e50;
+          transition: all .5s;
+          &:hover {
+            color: #29D9A7;
+          }
         }
 
       }
