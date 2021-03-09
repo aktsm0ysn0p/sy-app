@@ -123,7 +123,6 @@ $bar-color: #ffffff;
       display: block;
       width: 100%;
       object-fit: fill;
-      // position: relative;
       padding-bottom: 10px;
       max-width: 800px;
       margin: 0 auto;
@@ -159,9 +158,7 @@ $bar-color: #ffffff;
           font-weight: bold;
           font-family: 'uchiyama';
         }
-
       }
-      // z-index: 10;
     }
 
     .quote-wrapper {
@@ -285,10 +282,6 @@ $bar-color: #ffffff;
 
   }
 
-
 }
-
-
-
 
 </style>

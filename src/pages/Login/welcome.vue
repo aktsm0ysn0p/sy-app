@@ -4,9 +4,13 @@
       <div class="img-wrapper">
         <div class="img-text">
           <h1>Welcome!</h1>
-          <p>名言アプリ</p>
+          <p>Famous quotes App</p>
         </div>
         <img src="../../assets/img/IMG_4392.png" alt="" class="quote-img">
+      </div>
+      <div>
+
+
       </div>
 
       <router-link to="/signup">新規登録</router-link>
@@ -84,7 +88,8 @@ $bar-color: #ffffff;
       }
       p {
         text-align: center;
-        // font-family: 'Palatino Roman';
+        font-family: 'shunnka';
+        font-weight: bold;
         @include fz_vw(13);
         @media (min-width: 768px) {
           font-size: 25px;
@@ -108,6 +113,7 @@ $bar-color: #ffffff;
       color: #42b983;
       margin: 10px 0;
       padding: 10px;
+      font-family: 'zatsu';
     }
 
     input {

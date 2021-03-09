@@ -33,7 +33,7 @@ export default {
     signIn() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .then(() => {
-        alert("ログイン!")
+        alert("サインイン！")
         this.$router.push({ path: '/' })
       })
       .catch(error => {
