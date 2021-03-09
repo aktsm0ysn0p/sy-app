@@ -6,6 +6,8 @@ import './assets/scss/main.scss'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import config from './firebase/config'
+import Firebase from "firebase/app";
 
 library.add(fas)
 
@@ -31,6 +33,19 @@ Vue.config.productionTip = false
 // firebase.initializeApp(firebaseConfig);
 
 // sync(store, router);
+
+const firebaseApp = Firebase.initializeApp(config)
+const firestore = firebaseApp.firestore()
+firestore.settings({ timestampsInSnapshots: true })
+
+Firebase.getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = Firebase.auth().onAuthStateChanged(user => {
+      unsubscribe()
+      resolve(user);
+    }, reject);
+  });
+};
 new Vue({
   router,
   store,

@@ -137,17 +137,6 @@ $bar-style: solid;
 $bar-size: 2px;
 $bar-color: #ffffff;
 
-// .component-fade-enter-active,
-// .component-fade-leave-active {
-//     transition: opacity .3s ease;
-// }
-// .component-fade-enter,
-// .component-fade-leave-to {
-//     opacity: 0;
-//     transform: translateX(50px);
-// }
-
-
 .lists-page {
 
   color: #2c3e50;
@@ -343,7 +332,7 @@ $bar-color: #ffffff;
     .list-leave-active {
       position: absolute;
     }
-    
+
   }
 
 
