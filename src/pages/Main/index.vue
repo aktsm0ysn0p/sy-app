@@ -11,17 +11,19 @@
       </div>
       <div>
         <transition-group class="quote-wrapper" name="list" tag="div">
-          <div :class="{fadeIn: visible}" class="quote-card" v-for="list in lists" :key= "list.lid">
-            <h3 class="frame-box-001">{{list.title}}</h3>
-            <div class="bottom-wrapper">
-              <div class="likes">
-                <div class="likes-icon" @click="checkStock(list.lid)" :class="{nowstock : stocks.find(stock=> stock === list.lid)}"><font-awesome-icon icon="heart"/>
+          <div class="quote-card" v-for="list in lists" :key= "list.lid">
+            <div :class="{fadeIn: visible}" >
+              <h3 class="frame-box-001">{{list.title}}</h3>
+              <div class="bottom-wrapper">
+                <div class="likes">
+                  <div class="likes-icon" @click="checkStock(list.lid)" :class="{nowstock : stocks.find(stock=> stock === list.lid)}"><font-awesome-icon icon="heart"/>
+                  </div>
+                  <div class="ripple"  :class="{clickrepple : stocks.find(stock=> stock === list.lid) }"></div>
                 </div>
-                <div class="ripple"  :class="{clickrepple : stocks.find(stock=> stock === list.lid) }"></div>
-              </div>
-              <div class="text-wrapper">
-                <p>{{list.name}}</p>
-                <p>{{list.since}}</p>
+                <div class="text-wrapper">
+                  <p>{{list.name}}</p>
+                  <p>{{list.since}}</p>
+                </div>
               </div>
             </div>
           </div>
@@ -74,22 +76,22 @@ export default {
       target ? this.dele(id) : this.add(id) ;
     },
 
-    // handleScroll() {
-    //   if (!this.visible) {
-    //     let top = this.$el.getBoundingClientRect().top
-    //     this.visible = top < window.innerHeight + 100
-    //   }
-    // }
+    handleScroll() {
+      if (!this.visible) {
+        let top = this.$el.getBoundingClientRect().top
+        this.visible = top < window.innerHeight + 100
+      }
+    }
 
   },
 
-  // created() {
-  //   window.addEventListener("scroll", this.handleScroll)
-  // },
+  created() {
+    window.addEventListener("scroll", this.handleScroll)
+  },
 
-  // destroyed() {
-  //     window.removeEventListener("scroll", this.handleScroll);
-  //   },
+  destroyed() {
+      window.removeEventListener("scroll", this.handleScroll);
+    },
 
 
 }
@@ -97,6 +99,20 @@ export default {
 </script>
 
 <style lang="scss">
+
+.fadeIn {
+  animation: fadeIn 2s;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
 
 @function get_vw($size, $viewport:320){
   $rate: 100 / $viewport;
@@ -214,27 +230,8 @@ $bar-color: #ffffff;
       font-size: 1.125rem;
       line-height: 1.8;
       border-radius: 5px;
-//-------- ここからVueのふわっと
-      transition: all 3s;
-//-------ここまで
-//-----------ここからCSSふわっと-----------
-      // animation-timing-function: ease;
-      // animation-name: card-animation;
-      // animation-duration: 3s;
-      // animation-fill-mode: forwards;
 
-      // @keyframes card-animation {
-      //   0% {
-      //     opacity: 0;
-      //     transform: translateY(100px);
-      //   }
-
-      //   100%{
-      //     opacity: 1;
-      //     transform: translateY(0px);
-      //   }
-      // }
-//----------ここまで-----------------------
+      transition: all 1s;
       .frame-box-001 {
         padding: 1rem;
         position: relative;
