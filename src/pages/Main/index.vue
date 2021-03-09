@@ -10,7 +10,7 @@
         <img src="../../assets/img/IMG_4392.png" alt="" class="quote-img">
       </div>
       <div>
-        <transition-group class="quote-wrapper" name="list" tag="div">
+        <transition-group class="quote-wrapper"  tag="div">
           <QuoteCard
             class="quote-card"
             v-for="list in lists"
@@ -109,7 +109,6 @@ $bar-color: #ffffff;
 
   color: #2c3e50;
   background: #F5F5F5;
-  // padding-bottom: 20x;
 
   .container {
     width: 90%;
@@ -142,7 +141,6 @@ $bar-color: #ffffff;
         @media (min-width: 768px) {
           font-size: 55px;
         }
-        // font-family: 'andara';
       }
       p {
         text-align: center;
@@ -270,14 +268,6 @@ $bar-color: #ffffff;
         }
 
       }
-    }
-    .list-enter,
-    .list-leave-to {
-      opacity: 0;
-      transform: translateY(100px);
-    }
-    .list-leave-active {
-      position: absolute;
     }
 
   }

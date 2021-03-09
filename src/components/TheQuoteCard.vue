@@ -60,7 +60,7 @@ export default {
 
 <style scoped>
 .fadeIn {
-  animation: fadeIn 2s;
+  animation: fadeIn 1.5s;
 }
 @keyframes fadeIn {
   0% {

@@ -7,7 +7,7 @@
       <div class="inner">
         <h2 class="inner-title">LIKES</h2>
         <div class="edit-btns">
-          <button @click="onDele">Delete</button>
+          <button @click="onDele"><font-awesome-icon icon="trash-alt" size="2x" class="pen" /></button>
         </div>
         <div class="inner-folder">
           <div v-if="my.length" class="quote-wrapper">
@@ -147,24 +147,12 @@ $bar-color: #ffffff;
       .edit-btns {
         display: flex;
         justify-content: flex-end;
+        padding-right: 2rem;
         button {
-          // color: #2c3e50;  font-icon ようの色
-
           transition: all .5s;
-
-          display: inline-block;
-          padding: 0.75em 1em;
-          border: 2px solid #29D9A7;
-          border-radius: 3em 0.5em 2em 0.5em/.4em 2em 0.5em 3em;
-          color: #333;
-          text-align: center;
-          // font-family: 'zatsu';
-
-          font-family: 'uchiyama';
-
+          color: #2c3e50;
           &:hover {
-            background: #29D9A7;
-            // opacity: .6;
+            color: #29D9A7;
           }
         }
       }
@@ -192,7 +180,6 @@ $bar-color: #ffffff;
           background-image:
           linear-gradient(180deg, hsla(0, 0%, 45%, .1) 2rem, hsla(0, 100%, 100%, 0) 2.5rem),
           linear-gradient(180deg, hsla(200, 100%, 85%, 1), hsla(200, 100%, 85%, 1));
-          // linear-gradient(180deg, #F0BCD6, #F0BCD6);
           font-size: 1.125rem;
           line-height: 1.8;
           border-radius: 5px;

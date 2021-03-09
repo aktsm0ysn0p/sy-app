@@ -51,7 +51,6 @@ $bar-color: #ffffff;
     width: 90%;
     display: flex;
     flex-flow: column nowrap;
-    // justify-content: center;
     align-items: center;
     margin: 0 auto;
     padding: 30px;
@@ -63,7 +62,6 @@ $bar-color: #ffffff;
       display: block;
       width: 100%;
       object-fit: fill;
-      // position: relative;
       padding-bottom: 10px;
       max-width: 800px;
       margin: 0 auto;
@@ -83,42 +81,27 @@ $bar-color: #ffffff;
         @media (min-width: 768px) {
           font-size: 55px;
         }
-        // font-family: 'andara';
         font-weight: normal;
       }
       p {
         text-align: center;
         font-family: 'shunnka';
         font-weight: bold;
+        margin-top: 10px;
         @include fz_vw(13);
         @media (min-width: 768px) {
           font-size: 25px;
         }
 
-        .like {
-          color: #e23e4e;
-          font-family: Avenir, Helvetica, Arial, sans-serif;
-          font-weight: bold;
-          font-family: 'uchiyama';
-        }
-
       }
-      // z-index: 10;
+
     }
 
-    h2 {
-      font-weight: normal;
-    }
     a {
       color: #42b983;
       margin: 10px 0;
       padding: 10px;
       font-family: 'zatsu';
-    }
-
-    input {
-      margin: 10px 0;
-      padding: 10px;
     }
 
     .btn-wrapper {
@@ -138,10 +121,6 @@ $bar-color: #ffffff;
           opacity: .7;
         }
       }
-    }
-
-    p {
-      margin-top: 10px;
     }
   }
 

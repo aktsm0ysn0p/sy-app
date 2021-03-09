@@ -47,7 +47,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .signup {
   color: #2c3e50;
@@ -59,7 +58,6 @@ export default {
     width: 90%;
     display: flex;
     flex-flow: column nowrap;
-    // justify-content: center;
     align-items: center;
     margin: 0 auto;
     padding: 30px;
@@ -92,7 +90,7 @@ export default {
         display: inline-block;
         padding: 0.5em 1em;
         text-decoration: none;
-        background: #668ad8;/*ボタン色*/
+        background: #668ad8;
         color: #FFF;
         border-bottom: solid 4px #627295;
         border-radius: 3px;
