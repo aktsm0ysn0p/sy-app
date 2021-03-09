@@ -11,22 +11,15 @@
       </div>
       <div>
         <transition-group class="quote-wrapper" name="list" tag="div">
-          <div class="quote-card" v-for="list in lists" :key= "list.lid">
-            <div :class="{fadeIn: visible}" >
-              <h3 class="frame-box-001">{{list.title}}</h3>
-              <div class="bottom-wrapper">
-                <div class="likes">
-                  <div class="likes-icon" @click="checkStock(list.lid)" :class="{nowstock : stocks.find(stock=> stock === list.lid)}"><font-awesome-icon icon="heart"/>
-                  </div>
-                  <div class="ripple"  :class="{clickrepple : stocks.find(stock=> stock === list.lid) }"></div>
-                </div>
-                <div class="text-wrapper">
-                  <p>{{list.name}}</p>
-                  <p>{{list.since}}</p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <QuoteCard
+            class="quote-card"
+            v-for="list in lists"
+            :key= "list.lid"
+            :list="list"
+            :stocks="stocks"
+            @add="add"
+            @dele="dele"
+          />
         </transition-group>
       </div>
     </div>
@@ -35,19 +28,14 @@
 
 <script>
 import Navber from '../../components/TheNavber'
+import QuoteCard from '../../components/TheQuoteCard'
 
 export default {
 
   name: 'Home',
 
-  data() {
-    return {
-      visible: false,
-    }
-  },
-
   components: {
-    Navber
+    Navber,QuoteCard
   },
 
 
@@ -58,7 +46,7 @@ export default {
 
     stocks() {
       return this.$store.getters['Stocks/getterStocks']
-    }
+    },
 
   },
 
@@ -70,49 +58,13 @@ export default {
     dele(id) {
       this.$store.dispatch('Stocks/deleData', id);
     },
-  //----イベントmethods----
-    checkStock(id) {
-      const target = this.stocks.find(stock => stock === id);
-      target ? this.dele(id) : this.add(id) ;
-    },
-
-    handleScroll() {
-      if (!this.visible) {
-        let top = this.$el.getBoundingClientRect().top
-        this.visible = top < window.innerHeight + 100
-      }
-    }
 
   },
-
-  created() {
-    window.addEventListener("scroll", this.handleScroll)
-  },
-
-  destroyed() {
-      window.removeEventListener("scroll", this.handleScroll);
-    },
-
-
 }
 
 </script>
 
 <style lang="scss">
-
-.fadeIn {
-  animation: fadeIn 2s;
-}
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-}
 
 @function get_vw($size, $viewport:320){
   $rate: 100 / $viewport;
@@ -222,7 +174,6 @@ $bar-color: #ffffff;
 
     .quote-card {
       padding: 1rem 1rem 0;
-      // margin: 10px 0;
       box-shadow: 0 .25rem .25rem hsla(0, 0%, 0%, .1);
       background-image:
       linear-gradient(180deg, hsla(0, 0%, 45%, .1) 2rem, hsla(0, 100%, 100%, 0) 2.5rem),
@@ -230,6 +181,8 @@ $bar-color: #ffffff;
       font-size: 1.125rem;
       line-height: 1.8;
       border-radius: 5px;
+      transform: scale(0);
+      animation-fill-mode: forwards;
 
       transition: all 1s;
       .frame-box-001 {
