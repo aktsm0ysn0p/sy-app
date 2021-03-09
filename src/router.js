@@ -71,7 +71,7 @@ const router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
   const requiresAuth = to.matched.some(recode => recode.meta.requiresAuth);
   if (requiresAuth && !(await firebase.getCurrentUser())) {
-    next({ path: "/welcome", query: { redirect: to.fullPath } });
+    next({ path: '/welcome', query: { redirect: to.fullPath } });
   } else {
     next();
   }
