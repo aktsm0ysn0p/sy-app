@@ -3,7 +3,7 @@
     <h3 class="frame-box-001">{{quoteItem.title}}</h3>
     <div class="btn-wrapper">
       <div class="likes">
-        <div class="likes-icon" @click="stockIconClicked(quoteItem.lid)" :class="acitiveStocks"><font-awesome-icon icon="heart"/>
+        <div class="likes-icon" @click="stockIconClicked(quoteItem.lid)" :class="acitiveStock"><font-awesome-icon icon="heart"/>
         </div>
         <div class="ripple" :class="activeClass"></div>
       </div>
@@ -38,7 +38,6 @@ export default {
         nowstock : this.stocks.find(stock=> stock === this.quoteItem.lid)
       }
     }
-
   },
   created() {
     window.addEventListener("scroll", this.handleScroll)
