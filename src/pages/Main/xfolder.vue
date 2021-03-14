@@ -1,9 +1,12 @@
 <template>
     <div class="xfolder-page" v-if="currentFolder !== undefined">
       <div class="container">
-        <div class="back"
-          ><router-link to="/folders"><font-awesome-icon icon="long-arrow-alt-left" /><p>back</p></router-link></div
-        >
+        <div class="back">
+          <router-link to="/folders">
+            <font-awesome-icon icon="long-arrow-alt-left" />
+            <p>back</p>
+          </router-link>
+        </div>
         <h1>{{ currentFolder.title }}</h1>
         <div class="edit-btns">
           <button @click="onAdd">追加</button>
@@ -56,31 +59,26 @@ import TheDelemodal from "../../components/TheDelemodal";
 
 export default {
   name: "XFolder",
-
   components: {
     TheAddmodal,
     TheDelemodal,
   },
-
   data() {
     return {
       showAddModal: false,
       showDeleModal: false,
     };
   },
-
   computed: {
     ...mapState("Lists", ["lists"]),
     ...mapState("Stocks", ["stocks"]),
     ...mapState("Folders", ["folders"]),
-
     folderId() {
       if (typeof this.$route.params.id !== "number") {
         return Number(this.$route.params.id);
       }
       return this.$route.params.id;
     },
-
     currentFolder() {
       let currentFolder = [];
       currentFolder = this.folders.find(
@@ -88,7 +86,6 @@ export default {
       );
       return currentFolder;
     },
-
     currentStock() {
       const currentStock = [];
       this.currentFolder.stocks.forEach((stock) => {
@@ -99,7 +96,6 @@ export default {
       });
       return currentStock;
     },
-
     addStock() {
       const result = this.stocks.filter(
         (f) => !this.currentStock.some((c) => c.lid === f)
@@ -112,7 +108,6 @@ export default {
       });
       return addStock;
     },
-
     deleStock() {
       let deleStock = [];
       this.currentFolder.stocks.forEach((stock) => {
@@ -125,7 +120,6 @@ export default {
       return deleStock;
     },
   },
-
   methods: {
     onAdd() {
       this.showAddModal = !this.showAddModal;
@@ -133,14 +127,12 @@ export default {
         stock.isDone = false;
       });
     },
-
     onDele() {
       this.showDeleModal = !this.showDeleModal;
       this.deleStock.forEach((stock) => {
         stock.isDone = false;
       });
     },
-
     checkToggleAdd(id) {
       this.addStock.forEach((stock) => {
         if (stock.lid === id) {
@@ -149,7 +141,6 @@ export default {
         }
       });
     },
-
     checkToggleDele(id) {
       this.deleStock.forEach((stock) => {
         if (stock.lid === id) {
@@ -157,7 +148,6 @@ export default {
         }
       });
     },
-
     onAddSubmit() {
       const result = this.addStock.filter((stock) => stock.isDone);
       result.forEach((re) => {
@@ -168,7 +158,6 @@ export default {
       });
       this.showAddModal = !this.showAddModal;
     },
-
     onDeleSubmit() {
       const result = this.deleStock.filter((stock) => stock.isDone);
       result.forEach((re) => {
@@ -187,32 +176,32 @@ export default {
 $bar-style: solid;
 $bar-size: 2px;
 $bar-color: #ffffff;
-
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .3s ease;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 .xfolder-page {
   color: #2c3e50;
   background: linear-gradient(#ccc 1px, transparent 2px);
   background-size: auto 2rem;
   padding-bottom: 60px;
-
   .container {
     min-height: 100vh;
     width: 90%;
     margin: 0 auto;
     padding: 30px;
-    // @media (max-width: 767px) {
-    //   padding-bottom: 60px;
-    // }
-
     h1 {
       font-weight: normal;
       padding: 20px 0 10px;
       font-size: 2rem;
       font-family: 'zatsu';
     }
-
     .back {
       text-decoration: none;
-      // padding: 20px 0;
       a {
         text-decoration: none;
         color: #2c3e50;
@@ -221,7 +210,6 @@ $bar-color: #ffffff;
         }
       }
     }
-
     .edit-btns {
       display: flex;
       justify-content: flex-end;
@@ -235,19 +223,15 @@ $bar-color: #ffffff;
         text-align: center;
         font-family: 'zatsu';
         transition: all .5s;
-
         &:hover {
           background: #29D9A7;
         }
       }
     }
-
     .inner {
       .inner-folder {
-        // background-color: #eeeeee;
         padding: 10px;
         min-height: 30vmin;
-
         .quote-wrapper {
           display: grid;
           grid-template-columns: repeat(auto-fit, 280px);
@@ -255,10 +239,8 @@ $bar-color: #ffffff;
           justify-content: center;
           grid-gap: 1rem 1rem;
         }
-
         .quote-card {
           padding: 1rem 1rem 0;
-          // margin: 10px 0;
           box-shadow: 0 0.25rem 0.25rem hsla(0, 0%, 0%, 0.1);
           background-image: linear-gradient(
               180deg,
@@ -273,15 +255,12 @@ $bar-color: #ffffff;
           font-size: 1.125rem;
           line-height: 1.8;
           border-radius: 5px;
-
           .frame-box-001 {
             padding: 1rem;
             position: relative;
             text-align: center;
             font-size: 1rem;
             font-family: 'shunnka';
-
-
             &::before,
             &::after {
               content: "";
@@ -289,14 +268,12 @@ $bar-color: #ffffff;
               height: 30px;
               position: absolute;
             }
-
             &::before {
               border-left: $bar-style $bar-size $bar-color;
               border-top: $bar-style $bar-size $bar-color;
               top: 0;
               left: 0;
             }
-
             &::after {
               border-right: $bar-style $bar-size $bar-color;
               border-bottom: $bar-style $bar-size $bar-color;
@@ -304,17 +281,14 @@ $bar-color: #ffffff;
               right: 0;
             }
           }
-
           .bottom-wrapper {
             display: flex;
             justify-content: flex-end;
-
             .text-wrapper {
               display: flex;
               flex-direction: column;
               justify-content: space-between;
               padding: 1rem 0;
-
               p {
                 font-size: 0.8em;
                 text-align: center;
@@ -323,14 +297,6 @@ $bar-color: #ffffff;
           }
         }
       }
-    }
-    .fade-enter-active,
-    .fade-leave-active {
-        transition: opacity .3s ease;
-    }
-    .fade-enter,
-    .fade-leave-to {
-        opacity: 0;
     }
   }
 }

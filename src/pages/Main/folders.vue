@@ -5,34 +5,30 @@
       <div class="inner">
         <h1 class="inner-title">Custom Lists</h1>
         <div class="pen-wrapper">
-          <button @click="onPen"><font-awesome-icon icon="plus-circle" size="2x" class="pen" /></button>
+          <button @click="addNewFolder"><font-awesome-icon icon="plus-circle" size="2x" class="pen" /></button>
         </div>
-          <div class="inner-folder">
-            <div v-if="folders.length">
-              <div class="quote-card" v-for="myfolder in folders" :key= "myfolder.fid">
-                <router-link :to="{name: 'xfolder', params: {id: myfolder.fid}}" class="link" >
-                <h3>{{myfolder.title}}</h3>
-                </router-link>
-                <div class="dele-wrapper">
-                  <font-awesome-icon icon="trash-alt" @click="deleFolder(myfolder.fid, myfolder.title)"  />
-                </div>
-
+        <div class="inner-folder">
+          <div v-if="folders.length">
+            <div class="quote-card" v-for="myfolder in folders" :key= "myfolder.fid">
+              <router-link :to="{name: 'xfolder', params: {id: myfolder.fid}}" class="link" >
+              <h3>{{myfolder.title}}</h3>
+              </router-link>
+              <div class="dele-wrapper">
+                <font-awesome-icon icon="trash-alt" @click="deleFolderSubmit(myfolder.fid, myfolder.title)"  />
               </div>
             </div>
-            <p v-else>まだ何もありません</p>
           </div>
-
-            <transition>
-            <div v-show="openPen" class="edit-wrapper">
-                <div class="edit">
-                  <input type="text" v-model="inputValue" ref="focusThis" >
-                  <button @click="addFolder">add</button>
-                  <button @click="chansellNewFolder">cansell</button>
-                </div>
-
+          <p v-else>まだ何もありません</p>
+        </div>
+        <transition>
+          <div v-show="openPen" class="edit-wrapper">
+            <div class="edit">
+              <input type="text" v-model="inputValue" ref="focusThis" >
+              <button @click="addNewFolderSubmit">add</button>
+              <button @click="chansellNewFolder">cansell</button>
             </div>
-            </transition>
-
+          </div>
+        </transition>
       </div>
     </div>
   </div>
@@ -81,41 +77,27 @@ export default {
   methods: {
     ...mapMutations('Folders',['setText']),
 
-    onPen() {
-      // if (this.openPen) {
-      //   return
-      // }
+    addNewFolder() {
       this.openPen = !this.openPen
-      // console.log(this.openPen)
       if (this.openPen) {
         this.$nextTick(() => this.$refs.focusThis.focus())
       }
     },
 
-    onCansel() {
-
-    },
-    // fo() {
-    //   this.$refs.focusThis.focus()
-    // },
-
-    addFolder() {
+    addNewFolderSubmit() {
       this.$store.dispatch('Folders/addData')
-      // this.onPen();
     },
 
     chansellNewFolder() {
       this.openPen = false
     },
 
-    deleFolder(id, title) {
+    deleFolderSubmit(id, title) {
       if (!confirm(title + 'リストを本当に消しますか？')) {
         return
       }
       this.$store.dispatch('Folders/deleData', id)
     }
-
-
   },
 
 

@@ -8,15 +8,10 @@
         </div>
         <img src="../../assets/img/IMG_4392.png" alt="" class="quote-img">
       </div>
-      <div>
-
-
-      </div>
-
       <router-link to="/signup">新規登録</router-link>
       <router-link to="/signin">サインイン</router-link>
-      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -26,26 +21,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+$bar-style: solid;
+$bar-size: 2px;
+$bar-color: #ffffff;
 @function get_vw($size, $viewport:320){
   $rate: 100 / $viewport;
   @return $rate * $size * 1vw;
 }
-
 @mixin fz_vw($font_size:10){
   font-size: $font_size * 1px;
   font-size: get_vw($font_size);
 }
-
-$bar-style: solid;
-$bar-size: 2px;
-$bar-color: #ffffff;
-
 .welcome-page {
   color: #2c3e50;
   background: #F5F5F5;
-
-
   .container {
     min-height: 100vh;
     width: 90%;
@@ -57,7 +46,6 @@ $bar-color: #ffffff;
     @media (max-width: 767px) {
       padding-bottom: 80px;
     }
-
     .quote-img {
       display: block;
       width: 100%;
@@ -66,14 +54,11 @@ $bar-color: #ffffff;
       max-width: 800px;
       margin: 0 auto;
     }
-
     .img-text {
       margin: 0 auto;
       width: 80%;
       max-width: 800px;
       padding: 20px 0;
-
-
       h1 {
         text-align: center;
         padding: 1rem 0;
@@ -92,38 +77,31 @@ $bar-color: #ffffff;
         @media (min-width: 768px) {
           font-size: 25px;
         }
-
       }
-
     }
-
     a {
       color: #42b983;
       margin: 10px 0;
       padding: 10px;
       font-family: 'zatsu';
     }
-
     .btn-wrapper {
       padding: 20px 0;
       .button {
         display: inline-block;
         padding: 0.5em 1em;
         text-decoration: none;
-        background: #668ad8;/*ボタン色*/
+        background: #668ad8;
         color: #FFF;
         border-bottom: solid 4px #627295;
         border-radius: 3px;
         width: 20vh;
         transition: all .4s;
-
         &:hover {
           opacity: .7;
         }
       }
     }
   }
-
 }
-
 </style>

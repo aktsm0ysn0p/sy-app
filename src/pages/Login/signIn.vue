@@ -48,8 +48,6 @@ export default {
 .signin {
   color: #2c3e50;
   background: #F5F5F5;
-
-
   .container {
     min-height: 100vh;
     width: 90%;
@@ -61,24 +59,19 @@ export default {
     @media (max-width: 767px) {
       padding-bottom: 80px;
     }
-
     h2 {
       font-weight: normal;
     }
-
     .back{
       color: #2c3e50;
     }
-
     a {
       color: #42b983;
     }
-
     input {
       margin: 10px 0;
       padding: 10px;
     }
-
     .btn-wrapper {
       padding: 20px 0;
       .button {
@@ -91,19 +84,14 @@ export default {
         border-radius: 3px;
         width: 20vh;
         transition: all .4s;
-
         &:hover {
           opacity: .7;
         }
       }
     }
-
     p {
       margin: 10px 0;
     }
   }
-
 }
-
-
 </style>

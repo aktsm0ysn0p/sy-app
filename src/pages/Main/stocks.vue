@@ -47,27 +47,19 @@ import Navber from '../../components/TheNavber'
 import TheDelemodal from "../../components/TheDelemodal";
 
 export default {
-
   name: 'Stocks',
-
-
+  components: {
+    Navber,
+    TheDelemodal
+  },
   data() {
     return {
       showDeleModal: false,
     }
   },
-
-
-  components: {
-    Navber,
-    TheDelemodal
-  },
-
-
   computed: {
     ...mapState('Lists',['lists']),
     ...mapState('Stocks',['stocks']),
-
     my() {
       const m = [];
       this.stocks.forEach(stock => {
@@ -76,7 +68,6 @@ export default {
       })
       return m
     },
-
     deleStock() {
       let deleStock = [];
       this.stocks.forEach(stock => {
@@ -88,19 +79,14 @@ export default {
       });
       return deleStock;
     },
-
   },
-
-
   methods: {
-
     onDele() {
       this.showDeleModal = !this.showDeleModal;
       this.deleStock.forEach((stock) => {
         stock.isDone = false;
       });
     },
-
     checkToggleDele(id) {
       this.deleStock.forEach((stock) => {
         if (stock.lid === id) {
@@ -109,7 +95,6 @@ export default {
         }
       });
     },
-
     onDeleSubmit() {
       const result = this.deleStock.filter(stock => stock.isDone);
       result.forEach((re) => {
@@ -117,11 +102,7 @@ export default {
       });
       this.showDeleModal = !this.showDeleModal;
     },
-
-
-
   },
-
 }
 </script>
 
@@ -129,6 +110,14 @@ export default {
 $bar-style: solid;
 $bar-size: 2px;
 $bar-color: #ffffff;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .3s ease;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 .stocks-page {
   color: #2c3e50;
   padding-bottom: 20px;
@@ -142,7 +131,6 @@ $bar-color: #ffffff;
     @media (max-width: 767px) {
       padding-bottom: 60px;
     }
-
     .inner {
       .edit-btns {
         display: flex;
@@ -164,7 +152,6 @@ $bar-color: #ffffff;
       .inner-folder {
         padding: 10px;
         min-height: 30vmin;
-
         .quote-wrapper {
           display: grid;
           grid-template-columns: repeat(auto-fit, 280px);
@@ -172,7 +159,6 @@ $bar-color: #ffffff;
           justify-content: center;
           grid-gap: 1rem 1rem;
         }
-
         .quote-card {
           padding: 1rem 1rem 0;
           margin: 10px 0;
@@ -183,28 +169,24 @@ $bar-color: #ffffff;
           font-size: 1.125rem;
           line-height: 1.8;
           border-radius: 5px;
-
           .frame-box-001 {
             padding: 1rem;
             position: relative;
             text-align: center;
             font-size: 1rem;
             font-family: 'shunnka';
-
             &::before, &::after {
               content:'';
               width: 30px;
               height: 30px;
               position: absolute;
             }
-
             &::before {
               border-left: $bar-style $bar-size $bar-color;
               border-top: $bar-style $bar-size $bar-color;
               top: 0;
               left: 0;
             }
-
             &::after {
               border-right: $bar-style $bar-size $bar-color;
               border-bottom: $bar-style $bar-size $bar-color;
@@ -212,39 +194,23 @@ $bar-color: #ffffff;
               right: 0;
             }
           }
-
           .bottom-wrapper {
             display: flex;
             justify-content: flex-end;
-
             .text-wrapper {
               display: flex;
               flex-direction: column;
               justify-content: space-between;
               padding: 1rem 0;
-
               p {
                 font-size: .8em;
                 text-align: center;
               }
-
             }
-
           }
-
         }
       }
-
     }
-
-  }
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: opacity .3s ease;
-  }
-  .fade-enter,
-  .fade-leave-to {
-    opacity: 0;
   }
 }
 </style>

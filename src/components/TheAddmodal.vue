@@ -2,27 +2,27 @@
   <div class="overlay">
     <div class="modal-inner">
       <div v-if="addStock.length">
-        <p>どの名言をに追加する？</p>
-          <div v-for="stock in addStock" :key="stock.lid" class="quote-card">
-            <label>
-              <div class="modal-input-wrapper">
-                <input type="checkbox" @change="checkToggleAdd(stock.lid)" >
+        <p>どの名言を追加する？</p>
+        <div v-for="stock in addStock" :key="stock.lid" class="quote-card">
+          <label>
+            <div class="modal-input-wrapper">
+              <input type="checkbox" @change="checkToggleAdd(stock.lid)" >
+            </div>
+            <div :class="{'done' : stock.isDone}">
+              <h3 >{{stock.title}}</h3>
+              <div class="name-wrapper">
+                <p>{{stock.name}}</p>
               </div>
-              <div :class="{'done' : stock.isDone}">
-                <h3 >{{stock.title}}</h3>
-                <div class="name-wrapper">
-                  <p>{{stock.name}}</p>
-                </div>
-              </div>
-            </label>
-          </div>
-          <div class="select-btn-wrapper">
-            <button @click="onAdd">キャンセル</button>
-            <button @click="onSubmit"> 決定</button>
-          </div>
+            </div>
+          </label>
+        </div>
+        <div class="select-btn-wrapper">
+          <button @click="onAdd">キャンセル</button>
+          <button @click="onSubmit"> 決定</button>
+        </div>
       </div>
       <div v-else>
-        <p >追加できるストックがありません</p>
+        <p >追加するストックがありません</p>
         <button @click="onAdd">retuen</button>
       </div>
     </div>
@@ -31,31 +31,21 @@
 
 <script>
 export default {
-
   name: 'TheAddmodal',
-
-
   props: {
     addStock: Array,
   },
-
-
   methods: {
     onAdd() {
       this.$emit('emitingadd');
     },
-
     onSubmit() {
       this.$emit('onSubmit');
     },
-
     checkToggleAdd(id) {
       this.$emit('checkToggleAdd', id);
     }
-
   },
-
-
 }
 </script>
 
@@ -69,9 +59,6 @@ export default {
   height:100%;
   background-color:rgba(0,0,0,0.5);
   display: flex;
-  /* align-items: center;
-  justify-content: center; */
-  /* overflow-y: scroll; */
   overflow: auto;
 }
 .modal-inner {
@@ -95,31 +82,24 @@ export default {
 label {
   display: flex;
 }
-
 .modal-input-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-
 h3 {
   text-align: center;
-  /* font-weight: normal; */
   font-family: 'shunnka';
   padding: .5rem;
 }
-
 .name-wrapper {
   display: flex;
   justify-content: flex-end;
 }
-
 .select-btn-wrapper {
   display: flex;
   justify-content: space-between;
 }
-
 button {
   display: inline-block;
   padding: 0.75em 1em;
@@ -129,7 +109,6 @@ button {
   text-align: center;
   transition: all .5s;
 }
-
 button:hover {
   background: #29D9A7;
 }

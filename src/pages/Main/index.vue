@@ -13,97 +13,82 @@
         <transition-group class="quote-wrapper"  tag="div">
           <QuoteCard
             class="quote-card"
-            v-for="list in lists"
-            :key= "list.lid"
-            :list="list"
+            v-for="quoteItem in quotes"
+            :key= "quoteItem.lid"
+            :quoteItem="quoteItem"
             :stocks="stocks"
-            @add="add"
-            @dele="dele"
+            @addStock="addStock"
+            @deleStock="deleStock"
           />
         </transition-group>
       </div>
     </div>
   </div>
 </template>
-
+clickrepple
 <script>
 import Navber from '../../components/TheNavber'
 import QuoteCard from '../../components/TheQuoteCard'
-
 export default {
-
   name: 'Home',
-
   components: {
     Navber,QuoteCard
   },
-
-
   computed: {
-    lists() {
+    quotes() {
     return this.$store.getters['Lists/getterLists']
     },
-
     stocks() {
       return this.$store.getters['Stocks/getterStocks']
     },
-
   },
-
   methods: {
-    add(id) {
+    addStock(id) {
       this.$store.dispatch('Stocks/addData', id);
     },
-
-    dele(id) {
+    deleStock(id) {
       this.$store.dispatch('Stocks/deleData', id);
     },
-
   },
 }
-
 </script>
 
 <style lang="scss">
-
+$bar-style: solid;
+$bar-size: 2px;
+$bar-color: #ffffff;
 @function get_vw($size, $viewport:320){
   $rate: 100 / $viewport;
   @return $rate * $size * 1vw;
 }
-
 @mixin fz_vw($font_size:10){
   font-size: $font_size * 1px;
   font-size: get_vw($font_size);
 }
-
 @keyframes heart {
-    0% {
-      transform: scale(0);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-    100% {
-      transform: scale(1);
-      color: #dd4646;
-    }
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    color: #dd4646;
+  }
 }
 @keyframes repple {
-    0% {
-      transform: scale(0);
-    }
-    50% {
-      transform: scale(1.1);
-    }
-    100% {
-      transform: scale(1);
-      opacity: 0;
-    }
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
 }
-
-$bar-style: solid;
-$bar-size: 2px;
-$bar-color: #ffffff;
 
 .lists-page {
 
@@ -117,7 +102,6 @@ $bar-color: #ffffff;
     @media (max-width: 767px) {
       padding-bottom: 80px;
     }
-
     .quote-img {
       display: block;
       width: 100%;
@@ -126,14 +110,11 @@ $bar-color: #ffffff;
       max-width: 800px;
       margin: 0 auto;
     }
-
     .img-text {
       margin: 0 auto;
       width: 80%;
       max-width: 800px;
       padding: 20px 0;
-
-
       h1 {
         text-align: center;
         padding: 1rem 0;
@@ -149,7 +130,6 @@ $bar-color: #ffffff;
         @media (min-width: 768px) {
           font-size: 25px;
         }
-
         .like {
           color: #e23e4e;
           font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -158,7 +138,6 @@ $bar-color: #ffffff;
         }
       }
     }
-
     .quote-wrapper {
       display: grid;
       grid-template-columns: repeat(auto-fit, 280px);
@@ -166,7 +145,6 @@ $bar-color: #ffffff;
       justify-content: center;
       grid-gap: 1rem 1rem;
     }
-
     .quote-card {
       padding: 1rem 1rem 0;
       box-shadow: 0 .25rem .25rem hsla(0, 0%, 0%, .1);
@@ -178,7 +156,6 @@ $bar-color: #ffffff;
       border-radius: 5px;
       transform: scale(0);
       animation-fill-mode: forwards;
-
       transition: all 1s;
       .frame-box-001 {
         padding: 1rem;
@@ -186,21 +163,18 @@ $bar-color: #ffffff;
         text-align: center;
         font-size: 1rem;
         font-family: 'shunnka';
-
         &::before, &::after {
           content:'';
           width: 30px;
           height: 30px;
           position: absolute;
         }
-
         &::before {
           border-left: $bar-style $bar-size $bar-color;
           border-top: $bar-style $bar-size $bar-color;
           top: 0;
           left: 0;
         }
-
         &::after {
           border-right: $bar-style $bar-size $bar-color;
           border-bottom: $bar-style $bar-size $bar-color;
@@ -208,11 +182,9 @@ $bar-color: #ffffff;
           right: 0;
         }
       }
-
-      .bottom-wrapper {
+      .btn-wrapper {
         display: flex;
         justify-content: space-between;
-
         .likes {
           cursor: pointer;
           display: flex;
@@ -234,7 +206,6 @@ $bar-color: #ffffff;
                 background: pink;
               }
             }
-
           }
           .nowstock {
             animation-name: heart;
@@ -255,7 +226,6 @@ $bar-color: #ffffff;
             animation-fill-mode: forwards;
           }
         }
-
         .text-wrapper {
           display: flex;
           flex-direction: column;
@@ -266,12 +236,9 @@ $bar-color: #ffffff;
             text-align: center;
           }
         }
-
       }
     }
-
   }
-
 }
 
 </style>

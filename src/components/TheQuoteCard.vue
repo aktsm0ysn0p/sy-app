@@ -1,15 +1,15 @@
 <template>
   <div :class="{fadeIn: visible}" >
-    <h3 class="frame-box-001">{{list.title}}</h3>
-    <div class="bottom-wrapper">
+    <h3 class="frame-box-001">{{quoteItem.title}}</h3>
+    <div class="btn-wrapper">
       <div class="likes">
-        <div class="likes-icon" @click="checkStock(list.lid)" :class="{nowstock : stocks.find(stock=> stock === list.lid)}"><font-awesome-icon icon="heart"/>
+        <div class="likes-icon" @click="stockIconClicked(quoteItem.lid)" :class="acitiveStocks"><font-awesome-icon icon="heart"/>
         </div>
-        <div class="ripple"  :class="{clickrepple : stocks.find(stock=> stock === list.lid) }"></div>
+        <div class="ripple" :class="activeClass"></div>
       </div>
       <div class="text-wrapper">
-        <p>{{list.name}}</p>
-        <p>{{list.since}}</p>
+        <p>{{quoteItem.name}}</p>
+        <p>{{quoteItem.since}}</p>
       </div>
     </div>
   </div>
@@ -17,31 +17,25 @@
 
 <script>
 export default {
-
   name: 'QuoteCard',
-
   props: {
-    list: Object,
+    quoteItem: Object,
     stocks: Array,
   },
-
   data() {
     return {
       visible: false,
     }
   },
-
-  methods: {
-
-    checkStock(id) {
-      const target = this.stocks.find(stock => stock === id);
-      target ? this.$emit('dele', id) : this.$emit('add', id) ;
+  computed: {
+    activeClass() {
+      return {
+        clickrepple : this.stocks.find(stock=> stock === this.quoteItem.lid)
+      }
     },
-
-    handleScroll() {
-      if (!this.visible) {
-        let top = this.$el.getBoundingClientRect().top
-        this.visible = top < window.innerHeight + 100;
+    acitiveStock() {
+      return {
+        nowstock : this.stocks.find(stock=> stock === this.quoteItem.lid)
       }
     }
 
@@ -49,19 +43,25 @@ export default {
   created() {
     window.addEventListener("scroll", this.handleScroll)
   },
-
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
-
-
+  methods: {
+    stockIconClicked(id) {
+      const target = this.stocks.find(stock => stock === id);
+      target ? this.$emit('deleStock', id) : this.$emit('addStock', id) ;
+    },
+    handleScroll() {
+      if (!this.visible) {
+        let top = this.$el.getBoundingClientRect().top
+        this.visible = top < window.innerHeight + 100;
+      }
+    },
+  },
 }
 </script>
 
 <style scoped>
-.fadeIn {
-  animation: fadeIn 1.5s;
-}
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -71,5 +71,8 @@ export default {
     opacity: 1;
     transform: translateY(0px);
   }
+}
+.fadeIn {
+  animation: fadeIn 1.5s;
 }
 </style>

@@ -16,9 +16,7 @@ import firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/firestore"
 export default {
-
   name: 'Signout',
-
   components: {
     Navber
   },
@@ -41,13 +39,10 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss">
-
 .signout {
   color: #2c3e50;
   background: #F5F5F5;
-
   .container {
     min-height: 100vh;
     width: 90%;
@@ -59,35 +54,28 @@ export default {
     @media (max-width: 767px) {
       padding-bottom: 80px;
     }
-
     h2 {
       font-weight: normal;
     }
-
     .btn-wrapper {
       padding: 20px 0;
       .button {
         display: inline-block;
         padding: 0.5em 1em;
         text-decoration: none;
-        background: #668ad8;/*ボタン色*/
+        background: #668ad8;
         color: #FFF;
-        // border-bottom: solid 4px #627295;
         border-radius: 3px;
         width: 20vh;
         transition: all .4s;
-
         &:hover {
           opacity: .7;
         }
       }
     }
-
     p {
       margin-top: 10px;
     }
   }
 }
-
-
 </style>
