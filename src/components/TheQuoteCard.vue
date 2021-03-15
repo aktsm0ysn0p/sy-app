@@ -43,7 +43,7 @@ export default {
     window.addEventListener("scroll", this.handleScroll)
   },
   destroyed() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll)
   },
   methods: {
     stockIconClicked(id) {
@@ -53,7 +53,7 @@ export default {
     handleScroll() {
       if (!this.visible) {
         let top = this.$el.getBoundingClientRect().top
-        this.visible = top < window.innerHeight + 100;
+        this.visible = top < window.innerHeight + 50;
       }
     },
   },

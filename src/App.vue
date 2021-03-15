@@ -8,8 +8,8 @@
 export default {
 
   created() {
-    this.$store.dispatch('Lists/start');
-    this.$store.dispatch('Stocks/start');
+    this.$store.dispatch('Lists/start')
+    this.$store.dispatch('Stocks/start')
     this.$store.dispatch('Folders/start')
   }
 };

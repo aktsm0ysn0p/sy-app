@@ -59,7 +59,6 @@ const routes = [
     path: '*',
     component: nopage
   }
-
 ]
 
 const router = new VueRouter({

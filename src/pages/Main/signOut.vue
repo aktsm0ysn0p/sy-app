@@ -2,6 +2,7 @@
   <div class="signout">
     <Navber />
     <div class="container">
+      
       <h2>SING OUT</h2>
       <div class="btn-wrapper">
         <button @click="singout" class="button">サインアウト</button>
