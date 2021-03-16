@@ -25,7 +25,7 @@
     </div>
   </div>
 </template>
-clickrepple
+
 <script>
 import Navber from '../../components/TheNavber'
 import QuoteCard from '../../components/TheQuoteCard'
@@ -54,9 +54,6 @@ export default {
 </script>
 
 <style lang="scss">
-$bar-style: solid;
-$bar-size: 2px;
-$bar-color: #ffffff;
 @function get_vw($size, $viewport:320){
   $rate: 100 / $viewport;
   @return $rate * $size * 1vw;
@@ -65,36 +62,10 @@ $bar-color: #ffffff;
   font-size: $font_size * 1px;
   font-size: get_vw($font_size);
 }
-@keyframes heart {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-    color: #dd4646;
-  }
-}
-@keyframes repple {
-  0% {
-    transform: scale(0);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0;
-  }
-}
 
 .lists-page {
-
   color: #2c3e50;
   background: #F5F5F5;
-
   .container {
     width: 90%;
     margin: 0 auto;
@@ -151,92 +122,13 @@ $bar-color: #ffffff;
       background-image:
       linear-gradient(180deg, hsla(0, 0%, 45%, .1) 2rem, hsla(0, 100%, 100%, 0) 2.5rem),
       linear-gradient(180deg, hsla(200, 100%, 85%, 1), hsla(200, 100%, 85%, 1));
+      // background-image: url("../../assets/svg/mokomoko.svg");
       font-size: 1.125rem;
       line-height: 1.8;
       border-radius: 5px;
       transform: scale(0);
       animation-fill-mode: forwards;
       transition: all 1s;
-      .frame-box-001 {
-        padding: 1rem;
-        position: relative;
-        text-align: center;
-        font-size: 1rem;
-        font-family: 'shunnka';
-        &::before, &::after {
-          content:'';
-          width: 30px;
-          height: 30px;
-          position: absolute;
-        }
-        &::before {
-          border-left: $bar-style $bar-size $bar-color;
-          border-top: $bar-style $bar-size $bar-color;
-          top: 0;
-          left: 0;
-        }
-        &::after {
-          border-right: $bar-style $bar-size $bar-color;
-          border-bottom: $bar-style $bar-size $bar-color;
-          bottom: 0;
-          right: 0;
-        }
-      }
-      .btn-wrapper {
-        display: flex;
-        justify-content: space-between;
-        .likes {
-          cursor: pointer;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          .likes-icon {
-            width: 50px;
-            height: 50px;
-            color: #bdbebd;
-            font-size: 1.7em;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            border-radius: 50%;
-            transition: all .7s;
-            left: 1.5px;
-            @media (min-width: 768px){
-              &:hover {
-                background: pink;
-              }
-            }
-          }
-          .nowstock {
-            animation-name: heart;
-            animation-duration: .6s;
-            animation-fill-mode: forwards;
-          }
-          .ripple {
-            position: absolute;
-            width: 85px;
-            height: 85px;
-            background: #dd4646;
-            border-radius: 50%;
-            transform: scale(0);
-          }
-          .clickrepple {
-            animation-name: repple;
-            animation-duration: .6s;
-            animation-fill-mode: forwards;
-          }
-        }
-        .text-wrapper {
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          padding: 1rem 0;
-          p {
-            font-size: .8em;
-            text-align: center;
-          }
-        }
-      }
     }
   }
 }

@@ -5,28 +5,26 @@
       <div class="inner">
         <h1 class="inner-title">Custom Lists</h1>
         <div class="pen-wrapper">
-          <button @click="addNewFolder"><font-awesome-icon icon="plus-circle" size="2x" class="pen" /></button>
+          <button @click="addIconClicked"><font-awesome-icon icon="plus-circle" size="2x" class="pen" /></button>
         </div>
         <div class="inner-folder">
           <div v-if="folders.length">
-            <div class="quote-card" v-for="myfolder in folders" :key= "myfolder.fid">
-              <router-link :to="{name: 'xfolder', params: {id: myfolder.fid}}" class="link" >
-              <h3>{{myfolder.title}}</h3>
+            <div class="quote-card" v-for="folder in folders" :key= "folder.fid">
+              <router-link :to="{name: 'xfolder', params: {id: folder.fid}}" class="link" >
+                <h3>{{folder.title}}</h3>
               </router-link>
               <div class="dele-wrapper">
-                <font-awesome-icon icon="trash-alt" @click="deleFolderSubmit(myfolder.fid, myfolder.title)"  />
+                <font-awesome-icon icon="trash-alt" class="dele-icon" @click="deleFolder(folder.fid, folder.title)"  />
               </div>
             </div>
           </div>
           <p v-else>まだ何もありません</p>
         </div>
         <transition>
-          <div v-show="openPen" class="edit-wrapper">
-            <div class="edit">
-              <input type="text" v-model="inputValue" ref="focusThis" >
-              <button @click="addNewFolderSubmit">add</button>
-              <button @click="chansellNewFolder">cansell</button>
-            </div>
+          <div v-show="isOpenedAddModal" class="edit-wrapper">
+            <input type="text" v-model="inputValue" ref="focusThis" >
+            <button @click="addNewFolder">add</button>
+            <button @click="cansell">cansell</button>
           </div>
         </transition>
       </div>
@@ -39,25 +37,17 @@ import { mapMutations, mapState } from 'vuex'
 import Navber from '../../components/TheNavber'
 
 export default {
-
   name: 'Folders',
-
-
   components: {
     Navber
   },
-
   data() {
     return {
-      openPen: false,
-
+      isOpenedAddModal: false,
     }
   },
-
-
   computed: {
     ...mapState('Folders',['newfolder']),
-
     inputValue: {
       get() {
         return this.newfolder;
@@ -66,42 +56,31 @@ export default {
         this.setText(value);
       }
     },
-
     folders() {
       return this.$store.getters['Folders/getterFolders']
     }
-
   },
-
-
   methods: {
     ...mapMutations('Folders',['setText']),
-
-    addNewFolder() {
-      this.openPen = !this.openPen
-      if (this.openPen) {
+    addIconClicked() {
+      this.isOpenedAddModal = !this.isOpenedAddModal
+      if (this.isOpenedAddModal) {
         this.$nextTick(() => this.$refs.focusThis.focus())
       }
     },
-
-    addNewFolderSubmit() {
+    addNewFolder() {
       this.$store.dispatch('Folders/addData')
     },
-
-    chansellNewFolder() {
-      this.openPen = false
+    cansell() {
+      this.isOpenedAddModal = false
     },
-
-    deleFolderSubmit(id, title) {
+    deleFolder(id, title) {
       if (!confirm(title + 'リストを本当に消しますか？')) {
         return
       }
       this.$store.dispatch('Folders/deleData', id)
     }
   },
-
-
-
 }
 
 </script>
@@ -123,7 +102,6 @@ $bar-color: #ffffff;
     @media (max-width: 767px) {
       padding-bottom: 60px;
     }
-
     .inner {
       .inner-title {
         padding: 1rem 0;
@@ -134,7 +112,6 @@ $bar-color: #ffffff;
         display: flex;
         justify-content: flex-end;
         padding-right: 2rem;
-
         .pen {
           color: #2c3e50;
           transition: all .5s;
@@ -142,17 +119,14 @@ $bar-color: #ffffff;
             color: #29D9A7;
           }
         }
-
       }
       .inner-folder {
         // background-color: #eeeeee;
         padding: 10px;
         min-height: 30vmin;
-
         .quote-card {
           display: flex;
           justify-content: space-between;
-
           .link {
             text-decoration: none;
             display: block;
@@ -164,68 +138,48 @@ $bar-color: #ffffff;
             background: #9DFFB4;
             color:#2c3e50;
             flex-grow: 2;
-
             &:hover {
               text-decoration: red;
             }
           }
-
           h3 {
-            // padding: 30px;
             position: relative;
-            // text-align: center;
             font-size: 1rem;
             font-family: 'zatsu';
             color: #6A7274;
           }
-
           .dele-wrapper {
             padding-left: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
-
-            svg {
+            .dele-icon {
               font-size: 1rem;
+              transition: all .5s;
             }
-
+            &:hover {
+              color: #29D9A7;
+            }
           }
-
           .bottom-wrapper {
             flex-grow: 1;
-
             span {
               cursor: pointer;
               float: right;
             }
           }
-
         }
       }
-
-
       .edit-wrapper {
-
-        .edit {
-          // padding: 0.5em;
-          // margin-bottom: 5px;
-          // line-height: 1.5;
-          // border-left: 6px solid #FFA000;
-          // border-bottom: 2px solid #E0E0E0;
-          // background: #FFE082;
-          // color:#FFA000;
-          display: flex;
-          text-decoration: none;
-            // display: block;
-            padding: 0.5em;
-            margin-bottom: 5px;
-            line-height: 1.5;
-            border-left: 6px solid #77F895;
-            border-bottom: 2px solid #E0E0E0;
-            background: #9DFFB4;
-            color:#2c3e50;
-          // justify-content: space-between;
-
+        display: flex;
+        text-decoration: none;
+        padding: 0.5em;
+        margin-bottom: 5px;
+        line-height: 1.5;
+        border-left: 6px solid #77F895;
+        border-bottom: 2px solid #E0E0E0;
+        background: #9DFFB4;
+        color:#2c3e50;
           input {
             display: block;
             border: none;
@@ -234,7 +188,6 @@ $bar-color: #ffffff;
             line-height: 1.5;
             font-family: 'zatsu';
           }
-
           button {
             font-family: 'zatsu';
             font-weight: bold;
@@ -247,16 +200,12 @@ $bar-color: #ffffff;
             font-family: 'zatsu';
             margin-left: .5rem;
             background: #B6F2B1;
-
             &:hover {
               background: #eeeeee;
             }
           }
-        }
+
       }
-
-
-
     }
   }
 }
@@ -264,7 +213,6 @@ $bar-color: #ffffff;
   transform: translate(0px);
   transition: transform .5s;
 }
-
 .v-enter, .v-leave-to {
   transform: translateX(-100vw);
 }

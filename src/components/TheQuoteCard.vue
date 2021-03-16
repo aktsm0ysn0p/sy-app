@@ -1,17 +1,20 @@
 <template>
   <div :class="{fadeIn: visible}" >
     <h3 class="frame-box-001">{{quoteItem.title}}</h3>
-    <div class="btn-wrapper">
-      <div class="likes">
-        <div class="likes-icon" @click="stockIconClicked(quoteItem.lid)" :class="acitiveStock"><font-awesome-icon icon="heart"/>
+    <div class="bottom-wrapper">
+      <div class="btn-container">
+        <div class="likes">
+          <div class="likes-icon" @click="stockIconClicked(quoteItem.lid)" :class="{'nowstock': isStocked}"><font-awesome-icon icon="heart"/>
+          </div>
+          <div class="ripple" :class="{'clickRipple' : isStocked}"></div>
         </div>
-        <div class="ripple" :class="activeClass"></div>
       </div>
-      <div class="text-wrapper">
+      <div class="text-container">
         <p>{{quoteItem.name}}</p>
         <p>{{quoteItem.since}}</p>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -28,15 +31,8 @@ export default {
     }
   },
   computed: {
-    activeClass() {
-      return {
-        clickrepple : this.stocks.find(stock=> stock === this.quoteItem.lid)
-      }
-    },
-    acitiveStock() {
-      return {
-        nowstock : this.stocks.find(stock=> stock === this.quoteItem.lid)
-      }
+    isStocked() {
+      return this.stocks.find(stock=> stock === this.quoteItem.lid)
     }
   },
   created() {
@@ -60,7 +56,10 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+$bar-style: solid;
+$bar-size: 2px;
+$bar-color: #ffffff;
 @keyframes fadeIn {
   0% {
     opacity: 0;
@@ -71,7 +70,113 @@ export default {
     transform: translateY(0px);
   }
 }
+@keyframes heart {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    color: #dd4646;
+  }
+}
+@keyframes repple {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
 .fadeIn {
   animation: fadeIn 1.5s;
+}
+.nowstock {
+  animation-name: heart;
+  animation-duration: .6s;
+  animation-fill-mode: forwards;
+}
+.ripple {
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  background: #dd4646;
+  border-radius: 50%;
+  transform: scale(0);
+}
+.clickRipple {
+  animation-name: repple;
+  animation-duration: .6s;
+  animation-fill-mode: forwards;
+}
+.frame-box-001 {
+  padding: 1rem;
+  position: relative;
+  text-align: center;
+  font-size: 1rem;
+  font-family: 'shunnka';
+  &::before, &::after {
+    content:'';
+    width: 30px;
+    height: 30px;
+    position: absolute;
+  }
+  &::before {
+    border-left: $bar-style $bar-size $bar-color;
+    border-top: $bar-style $bar-size $bar-color;
+    top: 0;
+    left: 0;
+  }
+  &::after {
+    border-right: $bar-style $bar-size $bar-color;
+    border-bottom: $bar-style $bar-size $bar-color;
+    bottom: 0;
+    right: 0;
+  }
+}
+.bottom-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+.btn-container {
+  .likes {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .likes-icon {
+      width: 50px;
+      height: 50px;
+      color: #bdbebd;
+      font-size: 1.7em;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      border-radius: 50%;
+      transition: all .7s;
+      left: 1.5px;
+      @media (min-width: 768px){
+        &:hover {
+          background: pink;
+        }
+      }
+    }
+  }
+}
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 0;
+  p {
+    font-size: .8em;
+    text-align: center;
+  }
 }
 </style>
