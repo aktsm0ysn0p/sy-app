@@ -1,5 +1,5 @@
 <template>
-  <div class="stocks-page" v-if="my">
+  <div class="stocks-page" v-if="stockquotes">
     <transition name="fade">
       <Navber v-if="!showDeleModal"/>
     </transition>
@@ -10,20 +10,12 @@
           <button @click="onDele"><font-awesome-icon icon="trash-alt" size="2x" class="pen" /></button>
         </div>
         <div class="inner-folder">
-          <div v-if="my.length" class="quote-wrapper">
-            <div
-              class="quote-card"
-              v-for="meigenn in my"
-              :key= "meigenn.lid"
-            >
-              <h3 class="frame-box-001">{{meigenn.title}}</h3>
-              <div class="bottom-wrapper">
-                <div class="text-wrapper">
-                  <p>{{meigenn.name}}</p>
-                  <p>{{meigenn.since}}</p>
-                </div>
-              </div>
-            </div>
+          <div v-if="stockquotes.length" class="quote-wrapper">
+            <QuoteTag
+              v-for="stockItem in stockquotes"
+              :key= "stockItem.lid"
+              :stockItem="stockItem"
+            />
           </div>
           <p v-else>まだ何もありません</p>
         </div>
@@ -45,12 +37,14 @@
 import { mapState } from 'vuex';
 import Navber from '../../components/TheNavber'
 import TheDelemodal from "../../components/TheDelemodal";
+import QuoteTag from '../../components/QuoteTag'
 
 export default {
   name: 'Stocks',
   components: {
     Navber,
-    TheDelemodal
+    TheDelemodal,
+    QuoteTag
   },
   data() {
     return {
@@ -60,13 +54,13 @@ export default {
   computed: {
     ...mapState('Lists',['lists']),
     ...mapState('Stocks',['stocks']),
-    my() {
-      const m = [];
+    stockquotes() {
+      const stocks = [];
       this.stocks.forEach(stock => {
         const f = this.lists.find(list => list.lid === stock);
-        m.push(f)
+        stocks.push(f)
       })
-      return m
+      return stocks
     },
     deleStock() {
       let deleStock = [];
@@ -159,58 +153,9 @@ $bar-color: #ffffff;
           justify-content: center;
           grid-gap: 1rem 1rem;
         }
-        .quote-card {
-          padding: 1rem 1rem 0;
-          margin: 10px 0;
-          box-shadow: 0 .25rem .25rem hsla(0, 0%, 0%, .1);
-          background-image:
-          linear-gradient(180deg, hsla(0, 0%, 45%, .1) 2rem, hsla(0, 100%, 100%, 0) 2.5rem),
-          linear-gradient(180deg, hsla(200, 100%, 85%, 1), hsla(200, 100%, 85%, 1));
-          font-size: 1.125rem;
-          line-height: 1.8;
-          border-radius: 5px;
-          .frame-box-001 {
-            padding: 1rem;
-            position: relative;
-            text-align: center;
-            font-size: 1rem;
-            font-family: 'shunnka';
-            &::before, &::after {
-              content:'';
-              width: 30px;
-              height: 30px;
-              position: absolute;
-            }
-            &::before {
-              border-left: $bar-style $bar-size $bar-color;
-              border-top: $bar-style $bar-size $bar-color;
-              top: 0;
-              left: 0;
-            }
-            &::after {
-              border-right: $bar-style $bar-size $bar-color;
-              border-bottom: $bar-style $bar-size $bar-color;
-              bottom: 0;
-              right: 0;
-            }
-          }
-          .bottom-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            .text-wrapper {
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-              padding: 1rem 0;
-              p {
-                font-size: .8em;
-                text-align: center;
-              }
-            }
-          }
-        }
       }
     }
   }
 }
+
 </style>

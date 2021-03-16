@@ -1,5 +1,6 @@
 <template>
-  <div :class="{fadeIn: visible}" >
+  <div :class="{fadeIn: visible}" class="quote-card" >
+    <!-- <SampleLog /> -->
     <h3 class="frame-box-001">{{quoteItem.title}}</h3>
     <div class="bottom-wrapper">
       <div class="btn-container">
@@ -19,8 +20,12 @@
 </template>
 
 <script>
+// import SampleLog from '../assets/svg/mokomoko.svg'
 export default {
   name: 'QuoteCard',
+  // components: {
+  //   SampleLog
+  // },
   props: {
     quoteItem: Object,
     stocks: Array,
@@ -96,6 +101,21 @@ $bar-color: #ffffff;
 }
 .fadeIn {
   animation: fadeIn 1.5s;
+}
+
+.quote-card {
+  padding: 1rem 1rem 0;
+  box-shadow: 0 .25rem .25rem hsla(0, 0%, 0%, .1);
+  background-image:
+  linear-gradient(180deg, hsla(0, 0%, 45%, .1) 2rem, hsla(0, 100%, 100%, 0) 2.5rem),
+  linear-gradient(180deg, hsla(200, 100%, 85%, 1), hsla(200, 100%, 85%, 1));
+
+  font-size: 1.125rem;
+  line-height: 1.8;
+  border-radius: 5px;
+  transform: scale(0);
+  animation-fill-mode: forwards;
+  transition: all 1s;
 }
 .nowstock {
   animation-name: heart;

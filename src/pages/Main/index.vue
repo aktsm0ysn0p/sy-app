@@ -12,7 +12,6 @@
       <div>
         <transition-group class="quote-wrapper"  tag="div">
           <QuoteCard
-            class="quote-card"
             v-for="quoteItem in quotes"
             :key= "quoteItem.lid"
             :quoteItem="quoteItem"
@@ -115,20 +114,6 @@ export default {
       grid-template-rows: 1fr;
       justify-content: center;
       grid-gap: 1rem 1rem;
-    }
-    .quote-card {
-      padding: 1rem 1rem 0;
-      box-shadow: 0 .25rem .25rem hsla(0, 0%, 0%, .1);
-      background-image:
-      linear-gradient(180deg, hsla(0, 0%, 45%, .1) 2rem, hsla(0, 100%, 100%, 0) 2.5rem),
-      linear-gradient(180deg, hsla(200, 100%, 85%, 1), hsla(200, 100%, 85%, 1));
-      // background-image: url("../../assets/svg/mokomoko.svg");
-      font-size: 1.125rem;
-      line-height: 1.8;
-      border-radius: 5px;
-      transform: scale(0);
-      animation-fill-mode: forwards;
-      transition: all 1s;
     }
   }
 }
