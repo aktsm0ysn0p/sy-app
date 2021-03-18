@@ -22,16 +22,13 @@ export default {
         state.stocks.splice(index, 1)
       }
     },
-
   },
-
   getters: {
     getterStocks(state) {
       return state.stocks
     },
   },
   actions: {
-
     //初期化
     clear({ commit }) {
       commit('init', [])
@@ -42,9 +39,7 @@ export default {
         const payload = doSnapshot.data().stocks;
         commit('init', payload)
       }).catch(e => console.log(e))
-
     },
-
     addData({ state, commit }, id) {
       const n = state.stocks.slice()
       n.push(id)
@@ -56,7 +51,6 @@ export default {
         commit('add', id)
       }).catch(e => console.log(e))
     },
-
     deleData({ state, commit }, id) {
       const n = state.stocks.filter(stock => stock !== id)
       myRef.update(
@@ -67,11 +61,5 @@ export default {
         commit('remove', id)
       }).catch(e => console.log(e))
     },
-
-
   },
-
-
-
-
 }

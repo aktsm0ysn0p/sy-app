@@ -3,7 +3,7 @@
     <div class="modal-inner">
       <div v-if="deleStock.length">
         <p>どの名言を削除する？</p>
-        <div v-for="stock in deleStock" :key="stock.lid" class="quote-card">
+        <div v-for="stock in deleStock" :key="stock.lid" class="modal-card">
           <label>
             <div class="modal-input-wrapper">
               <input type="checkbox" @change="checkToggleDele(stock.lid)" >
@@ -71,7 +71,7 @@ export default {
   background:#fff;
   margin: auto;
 }
-.quote-card {
+.modal-card {
   padding: 5px 10px;
   margin: 10px 0;
   background: #b3e6ff;

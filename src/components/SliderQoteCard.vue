@@ -1,5 +1,5 @@
 <template>
-  <div :class="[selectClass(quoteItem.lid),{fadeIn: visible}]"  class="quote-card" >
+  <div :class="selectClass(quoteItem.lid)" class="slider-quote-card" >
     <h3 class="frame-box-001">{{quoteItem.title}}</h3>
     <div class="bottom-wrapper">
       <div class="btn-container">
@@ -18,15 +18,16 @@
 </template>
 
 <script>
+
 export default {
-  name: 'QuoteCard',
+  name: 'SliderQuoteCard',
   props: {
     quoteItem: Object,
     stocks: Array,
   },
   data() {
     return {
-      visible: false,
+      // visible: false,
     }
   },
   computed: {
@@ -36,34 +37,21 @@ export default {
     selectClass() {
       return function (id) {
         if (id % 4 === 0) {
-          return 'green'
+          return 'slider-green'
         } else if (id % 4 === 3 || id === 3) {
-          return 'pink'
+          return 'slider-pink'
         } else if (id % 4 === 2 || id === 2) {
-          return 'blue'
+          return 'slider-blue'
         } else if(id % 4 === 1 || id === 1) {
-          return 'yellow'
+          return 'slider-yellow'
         }
       }
     },
-  },
-  created() {
-    window.addEventListener("scroll", this.handleScroll)
-  },
-  destroyed() {
-    window.removeEventListener("scroll", this.handleScroll)
   },
   methods: {
     stockIconClicked(id) {
       const target = this.stocks.find(stock => stock === id);
       target ? this.$emit('deleStock', id) : this.$emit('addStock', id) ;
-    },
-    handleScroll() {
-      if (!this.visible) {
-        let top = this.$el.getBoundingClientRect().top
-        this.visible = top < window.innerHeight + 50;
-        console.log()
-      }
     },
   },
 }
@@ -73,16 +61,6 @@ export default {
 $bar-style: solid;
 $bar-size: 2px;
 $bar-color: #ffffff;
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(100px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
-}
 @keyframes heart {
   0% {
     transform: scale(0);
@@ -107,28 +85,11 @@ $bar-color: #ffffff;
     opacity: 0;
   }
 }
-@keyframes sample {
-  0% {
-    opacity: 0;
 
-  }
-  100% {
-    opacity: 1;
-    width: 130px;
-  }
-}
-.fadeIn {
-  animation: fadeIn 1s;
-}
-.sample {
-  // &:before {
-  //   animation: sample 3.7s;
-  // }
-}
-
-.quote-card {
+.slider-quote-card {
   width: 235px;
-  min-height: 235px;
+  // min-height: 235px;
+  height: 300px;
   padding: 1rem 1rem 0;
   margin: 10px 0;
   position: relative;
@@ -136,32 +97,34 @@ $bar-color: #ffffff;
   vertical-align: top;
   display: inline-block;
   color: #4b453c;
-  background: #F7E999;
   line-height: 1.8;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 
-  transform: scale(0);
-  animation-fill-mode: forwards;
-  transition: all 1s;
-  // &:before {
-  //   animation-fill-mode: forwards;
-  //   width: 0px;
-  //   // width: 130px;
-  //   display: block;
-  //   content: "";
-  //   background: rgba(227, 200, 114, 0.4);
-  //   height: 28px;
-  //   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  //   border-radius: 6px/18px 0;
-  //   position: absolute;
-  //   top: -13px;
-  //   left: 50px;
-  //   -webkit-transform: rotate(-2deg);
-  //   -moz-transform: rotate(-2deg);
-  //   -o-transform: rotate(-2deg);
-  //   -ms-transform: rotate(-2deg);
-  //   transform: rotate(-2deg);
-  // }
+  // // transform: scale(0);
+  // animation-fill-mode: forwards;
+  // transition: all 1s;
+
+  &:before, &:after {
+    content: "";
+    height: 98%;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+  }
+  &:before {
+    background: #FFBDA3;
+    box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    left: -5px;
+    top: 4px;
+    transform: rotate(-2.5deg);
+  }
+  &:after {
+    background: #CAF4B9;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    right: -3px;
+    top: 1px;
+    transform: rotate(1.4deg);
+  }
 }
 .nowstock {
   animation-name: heart;
@@ -246,20 +209,19 @@ $bar-color: #ffffff;
   }
 }
 
-.yellow {
+.slider-yellow {
   background: #F7E999;
 }
 
-.blue {
+.slider-blue {
   background: #b9dcf4;
-
 }
 
-.pink {
+.slider-pink {
   background: #FFBDA3;
 }
 
-.green {
+.slider-green {
   background: #CAF4B9;
 }
 </style>

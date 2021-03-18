@@ -9,7 +9,7 @@
         </div>
         <div class="inner-folder">
           <div v-if="folders.length">
-            <div class="quote-card" v-for="folder in folders" :key= "folder.fid">
+            <div class="folder-card" v-for="folder in folders" :key= "folder.fid">
               <router-link :to="{name: 'xfolder', params: {id: folder.fid}}" class="link" >
                 <h3>{{folder.title}}</h3>
               </router-link>
@@ -84,7 +84,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scooped>
 $bar-style: solid;
 $bar-size: 2px;
 $bar-color: #ffffff;
@@ -120,10 +120,9 @@ $bar-color: #ffffff;
         }
       }
       .inner-folder {
-        // background-color: #eeeeee;
         padding: 10px;
         min-height: 30vmin;
-        .quote-card {
+        .folder-card {
           display: flex;
           justify-content: space-between;
           .link {

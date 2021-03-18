@@ -3,7 +3,7 @@
     <div class="modal-inner">
       <div v-if="addStock.length">
         <p>どの名言を追加する？</p>
-        <div v-for="stock in addStock" :key="stock.lid" class="quote-card">
+        <div v-for="stock in addStock" :key="stock.lid" class="modal-card">
           <label>
             <div class="modal-input-wrapper">
               <input type="checkbox" @change="checkToggleAdd(stock.lid)" >
@@ -71,7 +71,7 @@ export default {
 .done {
   color: #5ABD57;
 }
-.quote-card {
+.modal-card {
   padding: 5px 10px;
   margin: 10px 0;
   background: #b3e6ff;

@@ -15,19 +15,11 @@
         <div class="inner">
           <div class="inner-folder">
             <div v-if="currentStock.length" class="quote-wrapper">
-              <div
-                class="quote-card"
-                v-for="stock in currentStock"
-                :key="stock.lid"
-              >
-                <h3 class="frame-box-001">{{ stock.title }}</h3>
-                <div class="bottom-wrapper">
-                  <div class="text-wrapper">
-                    <p>{{ stock.name }}</p>
-                    <p>{{ stock.since }}</p>
-                  </div>
-                </div>
-              </div>
+              <QuoteTag
+                v-for="stockItem in currentStock"
+                :key="stockItem.lid"
+                :stockItem="stockItem"
+              />
             </div>
             <p v-else>このフォルダまだ何もありません</p>
           </div>
@@ -56,12 +48,14 @@
 import { mapState } from "vuex";
 import TheAddmodal from "../../components/TheAddmodal";
 import TheDelemodal from "../../components/TheDelemodal";
+import QuoteTag from '../../components/QuoteTag'
 
 export default {
   name: "XFolder",
   components: {
     TheAddmodal,
     TheDelemodal,
+    QuoteTag
   },
   data() {
     return {
@@ -238,63 +232,6 @@ $bar-color: #ffffff;
           grid-template-rows: 1fr;
           justify-content: center;
           grid-gap: 1rem 1rem;
-        }
-        .quote-card {
-          padding: 1rem 1rem 0;
-          box-shadow: 0 0.25rem 0.25rem hsla(0, 0%, 0%, 0.1);
-          background-image: linear-gradient(
-              180deg,
-              hsla(0, 0%, 45%, 0.1) 2rem,
-              hsla(0, 100%, 100%, 0) 2.5rem
-            ),
-            linear-gradient(
-              180deg,
-              hsla(200, 100%, 85%, 1),
-              hsla(200, 100%, 85%, 1)
-            );
-          font-size: 1.125rem;
-          line-height: 1.8;
-          border-radius: 5px;
-          .frame-box-001 {
-            padding: 1rem;
-            position: relative;
-            text-align: center;
-            font-size: 1rem;
-            font-family: 'shunnka';
-            &::before,
-            &::after {
-              content: "";
-              width: 30px;
-              height: 30px;
-              position: absolute;
-            }
-            &::before {
-              border-left: $bar-style $bar-size $bar-color;
-              border-top: $bar-style $bar-size $bar-color;
-              top: 0;
-              left: 0;
-            }
-            &::after {
-              border-right: $bar-style $bar-size $bar-color;
-              border-bottom: $bar-style $bar-size $bar-color;
-              bottom: 0;
-              right: 0;
-            }
-          }
-          .bottom-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            .text-wrapper {
-              display: flex;
-              flex-direction: column;
-              justify-content: space-between;
-              padding: 1rem 0;
-              p {
-                font-size: 0.8em;
-                text-align: center;
-              }
-            }
-          }
         }
       }
     }
