@@ -4,7 +4,7 @@
       <div class="bottom-wrapper">
         <div class="text-wrapper">
           <p>{{stockItem.name}}</p>
-          <p>{{stockItem.since}}</p>
+          <!-- <p>{{stockItem.since}}</p> -->
         </div>
       </div>
   </div>

@@ -2,43 +2,55 @@
   <div class="signin">
     <div class="container">
       <h2>サインイン</h2>
-      <input type="email" placeholder="メールアドレス" v-model="email">
-      <input type="password" placeholder="パスワード" v-model="password">
+      <input type="email" placeholder="メールアドレス" v-model="inputSignInEmail">
+      <input type="password" placeholder="パスワード" v-model="inputSignInPass">
       <div class="btn-wrapper">
         <button @click="signIn" class="button">サインイン</button>
       </div>
-      <p>
+      <p @click="initUser">
         <router-link to="/signup">新規登録はこちらから</router-link>
       </p>
-      <p>
-        <router-link to="/welcome" class="back">タイトルにもどる</router-link>
+      <p @click="initUser">
+        <router-link to="/mypage" class="back">もどる</router-link>
       </p>
     </div>
   </div>
 </template>
 
 <script>
-import firebase from "firebase/app"
-import "firebase/auth"
-import "firebase/firestore"
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
   name: 'Signin',
-  data () {
-    return {
-      email: '',
-      password: ''
+  computed: {
+    ...mapGetters('MyQuotes',['userEmail', 'userPass']),
+    inputSignInEmail: {
+      get() {
+        return this.userEmail
+      },
+      set(value) {
+        this.initUserEmail(value)
+      }
+    },
+    inputSignInPass: {
+      get() {
+        return this.userPass
+      },
+      set(value) {
+        this.initUserPass(value)
+      }
     }
   },
   methods: {
+    ...mapMutations('MyQuotes', ['initUserEmail', 'initUserPass']),
+    initUser() {
+      this.$store.dispatch('MyQuotes/initUser')
+    },
     signIn() {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      this.$store.dispatch('MyQuoters/signIn')
       .then(() => {
-        alert("サインイン！")
-        this.$router.push({ path: '/' })
+          this.$router.push({ path: '/' })
       })
-      .catch(error => {
-          alert(error);
-      });
     }
   }
 }

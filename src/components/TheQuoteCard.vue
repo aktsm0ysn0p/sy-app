@@ -11,7 +11,7 @@
       </div>
       <div class="text-container">
         <p>{{quoteItem.name}}</p>
-        <p>{{quoteItem.since}}</p>
+        <!-- <p>{{quoteItem.since}}</p> -->
       </div>
     </div>
   </div>
@@ -136,7 +136,7 @@ $bar-color: #ffffff;
   vertical-align: top;
   display: inline-block;
   color: #4b453c;
-  background: #F7E999;
+  // background: #F7E999;
   line-height: 1.8;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 
@@ -237,8 +237,8 @@ $bar-color: #ffffff;
 }
 .text-container {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: column-reverse;
+  // justify-content: space-between;
   padding: 1rem 0;
   p {
     font-size: .8em;

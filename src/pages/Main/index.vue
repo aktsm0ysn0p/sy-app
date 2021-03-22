@@ -43,7 +43,6 @@
 <script>
 import Navber from '../../components/TheNavber'
 import QuoteCard from '../../components/TheQuoteCard'
-// import SliderQuoteCard from '../../components/SliderQoteCard'
 export default {
   name: 'Home',
   components: {
@@ -53,10 +52,10 @@ export default {
   },
   computed: {
     quotes() {
-    return this.$store.getters['Lists/getterLists']
+    return this.$store.getters['Lists/lists']
     },
     stocks() {
-      return this.$store.getters['Stocks/getterStocks']
+      return this.$store.getters['Stocks/stocks']
     },
   },
   data() {

@@ -20,9 +20,9 @@
         </router-link>
       </li>
       <li>
-        <router-link to="/signout" active-class="active-out">
-          <font-awesome-icon icon="sign-out-alt" size="2x" class="out" />
-          <p>Signout</p>
+        <router-link to="/mypage" active-class="active-out">
+          <font-awesome-icon icon="user" size="2x" class="out" />
+          <p>Mypage</p>
         </router-link>
       </li>
     </ul>

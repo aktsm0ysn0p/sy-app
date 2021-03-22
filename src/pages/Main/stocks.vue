@@ -1,7 +1,7 @@
 <template>
   <div class="stocks-page" v-if="stockquotes">
     <transition name="fade">
-      <Navber v-if="!showDeleModal"/>
+      <Navber />
     </transition>
     <div class="container">
       <div class="inner">
@@ -13,7 +13,7 @@
           <div v-if="stockquotes.length" class="quote-wrapper">
             <QuoteTag
               v-for="stockItem in stockquotes"
-              :key= "stockItem.lid"
+              :key="stockItem.lid"
               :stockItem="stockItem"
             />
           </div>
@@ -121,7 +121,7 @@ $bar-color: #ffffff;
     min-height: 100vh;
     width: 90%;
     margin: 0 auto;
-    padding: 30px;
+    padding: 20px 5px;
     @media (max-width: 767px) {
       padding-bottom: 60px;
     }

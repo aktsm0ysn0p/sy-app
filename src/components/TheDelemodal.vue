@@ -54,7 +54,7 @@ export default {
   color: #5ABD57;
 }
 .overlay {
-  z-index:1;
+  z-index:11;
   position:fixed;
   top:0;
   left:0;
@@ -65,7 +65,7 @@ export default {
   overflow: auto;
 }
 .modal-inner {
-  z-index:2;
+  z-index:22;
   width:80%;
   padding: 1em;
   background:#fff;

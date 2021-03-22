@@ -11,7 +11,7 @@
       </div>
       <div class="text-container">
         <p>{{quoteItem.name}}</p>
-        <p>{{quoteItem.since}}</p>
+        <!-- <p>{{quoteItem.since}}</p> -->
       </div>
     </div>
   </div>

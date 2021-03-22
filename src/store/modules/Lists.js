@@ -23,9 +23,16 @@ export default {
     },
   },
   getters: {
-    getterLists(state) {
+    lists(state) {
       return state.lists
     },
+    lastIdNum(state) {
+      const copylists = state.lists.slice()
+      let lastNum = copylists[state.lists.length - 1]
+      let copy = lastNum.lid + 1
+
+      return copy
+    }
   },
   actions: {
     clear({ commit }) {
@@ -33,6 +40,20 @@ export default {
     },
     start({ commit }) {
       commit('fetchLists')
+    },
+    addList({ state, commit }, {quoteTitle, quoteName}) {
+      const copylists = state.lists.slice()
+      let picQuote = copylists[state.lists.length - 1]
+      let nextNum = picQuote.lid + 1
+      listsRef.add({
+        lid: nextNum,
+        title: quoteTitle,
+        name: quoteName
+      }).then(() => {
+        commit('init', [])
+      }).then(() => {
+        commit('fetchLists')
+      })
     }
   },
 

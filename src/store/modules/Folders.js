@@ -2,7 +2,6 @@ import firestore from '@/firebase/firestore'
 
 const myRef = firestore.collection('my').doc("cLME2ZkXIVYpUXb4Ta9w");
 
-
 export default {
   namespaced: true,
   // unsubscribe: null,
@@ -29,16 +28,13 @@ export default {
         state.stock.splice(index, 1)
       }
     },
-
   },
-
   getters: {
     getterFolders(state) {
       return state.folders
     },
   },
   actions: {
-
     //初期化
     clear({ commit }) {
       commit('init', [])
@@ -110,7 +106,6 @@ export default {
         }
       })
     },
-
     deleData({ state, dispatch }, id) {
       const n = state.folders.filter(folder => folder.fid !== id)
       myRef.update(
@@ -121,11 +116,5 @@ export default {
         dispatch('start')
       }).catch(e => console.log(e))
     },
-
-
   },
-
-
-
-
 }

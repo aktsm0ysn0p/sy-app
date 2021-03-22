@@ -21,7 +21,7 @@
                 :stockItem="stockItem"
               />
             </div>
-            <p v-else>このフォルダまだ何もありません</p>
+            <p v-else>このフォルダにはまだ名言がありません</p>
           </div>
         </div>
         <transition name="fade">

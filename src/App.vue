@@ -20,12 +20,13 @@ export default {
   mounted() {
     setTimeout(() => {
       this.loading = false;
-    }, 3000);
+    }, 1000);
   },
   created() {
     this.$store.dispatch('Lists/start')
     this.$store.dispatch('Stocks/start')
     this.$store.dispatch('Folders/start')
+    this.$store.dispatch('MyQuotes/start')
   }
 };
 </script>

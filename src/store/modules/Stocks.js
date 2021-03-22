@@ -24,7 +24,7 @@ export default {
     },
   },
   getters: {
-    getterStocks(state) {
+    stocks(state) {
       return state.stocks
     },
   },
