@@ -205,9 +205,9 @@ export default {
         }).catch(e => console.log(e))
     },
     deleQuoteCall({ dispatch }, deleArry) {
-      // dispatch('Stocks/deleMyQuote', deleArry, { root: true })
+      dispatch('Stocks/deleMyQuote', deleArry, { root: true })
       dispatch('Folders/findDeleMyQuote', deleArry, { root: true })
-      // dispatch('deleQuote', deleArry)
+      dispatch('deleQuote', deleArry)
     },
     deleQuote({ state, commit }, deleArry) {
       const arr01 = [...new Set(state.myQuotes)],

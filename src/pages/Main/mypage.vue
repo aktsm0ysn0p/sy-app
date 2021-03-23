@@ -129,7 +129,7 @@ export default {
         let newdeleArray = []
           result.forEach(dele => {
             newdeleArray.push(dele.lid)
-            // this.$store.dispatch('Lists/deleList', dele.lid)
+            this.$store.dispatch('Lists/deleList', dele.lid)
         })
         console.log(newdeleArray)
         this.$store.dispatch('MyQuotes/deleQuoteCall', newdeleArray)

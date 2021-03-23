@@ -129,7 +129,7 @@ export default {
         dispatch('start')
       }).catch(e => console.log(e))
     },
-    findDeleMyQuote({ state }, deleArray) {
+    findDeleMyQuote({ state, commit }, deleArray) {
       const checkStock = []
       const checkFolderId = []
       state.folders.forEach( folder => {
@@ -139,10 +139,29 @@ export default {
           checkStock.push([...sameStocks])
         }
       })
-      console.log(checkStock)
-      console.log(checkFolderId)
-
-      
+      if (!checkFolderId.length) {
+        console.log('Foldersの中にあなたが作った名言は入ってなかったです')
+        return
+      }
+      for (let i = 0; i < checkFolderId.length; i++) {
+        const fid = checkFolderId[i]
+        const deleArray = checkStock[i]
+        const currentFolder = state.folders.find(folder => folder.fid === fid)
+        console.log(currentFolder.stocks)
+        const arr01 = [...new Set(currentFolder.stocks)],
+              arr02 = [...new Set(deleArray)]
+        const newFolderStockArray = [...arr01, ...arr02].filter(value => !arr01.includes(value) || !arr02.includes(value))
+        console.log(newFolderStockArray)
+        console.log('↑folders.stocksに残るやつ')
+        commit('updateFolderStock', { id: fid, newArray: newFolderStockArray })
+      }
+      const newFolders = state.folders.slice()
+      console.log(newFolders)
+      myRef.update(
+        {
+          folders: newFolders
+        }
+      ).catch(e => console.log(e))
     }
   },
 }
