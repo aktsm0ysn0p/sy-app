@@ -27,7 +27,8 @@ export default {
     },
     update(state, newStocks) {
       state.stocks = newStocks
-    }
+    },
+
   },
   getters: {
     stocks(state) {
@@ -57,23 +58,12 @@ export default {
         commit('add', id)
       }).catch(e => console.log(e))
     },
-    // deleData({ state, commit }, id) {
-    //   const n = state.stocks.filter(stock => stock !== id)
-    //   console.log(n)
-    //   console.log('↑n')
-    //   myRef.update(
-    //     {
-    //       stocks: n
-    //     }
-    //   ).then(() => {
-    //     commit('remove', id)
-    //   }).catch(e => console.log(e))
-    // },
-    deleData2({ state, commit }, deleArry) {
+    deleData({ state, commit }, deleArry) {
       const arr01 = [...new Set(state.stocks)],
             arr02 = [...new Set(deleArry)]
       const newStockArray = [...arr01, ...arr02].filter(value => !arr01.includes(value) || !arr02.includes(value))
       console.log(newStockArray)
+      console.log('↑Stocksに残るやつ')
       myRef.update(
         {
           stocks: newStockArray
@@ -82,22 +72,14 @@ export default {
         commit('update', newStockArray)
       }).catch(e => console.log(e))
     },
-    deleMyQuote({ state, commit }, id) {
-      const copySample = state.stocks.slice()
-      const sample = copySample.find(stock => stock === id)
-      if (typeof sample === undefined) {
+    deleMyQuote({ state, dispatch }, deleArray) {
+      const sameStocks = [...new Set(state.stocks)].filter(value => deleArray.includes(value))
+      console.log(sameStocks)
+      if (!sameStocks.length) {
         console.log('この名言はストックにないよ')
         return
       }
-      const n = state.stocks.filter(stock => stock !== id)
-      myRef.update(
-        {
-          stocks: n
-        }
-      ).then(() => {
-        console.log('Stocks 1')
-        commit('remove', id)
-      })
+      dispatch('deleData', sameStocks)
     }
   },
 }

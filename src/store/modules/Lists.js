@@ -3,7 +3,6 @@ const listsRef = firestore.collection('lists')
 
 export default {
   namespaced: true,
-  // unsubscribe: null,
   state() {
     return {
       lists: [],

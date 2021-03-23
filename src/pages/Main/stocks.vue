@@ -95,17 +95,6 @@ export default {
         }
       });
     },
-    // onDeleSubmit() {
-    //   const result = this.deleStock.filter(stock => stock.isDone)
-    //   if (result.length) {
-    //     result.forEach((re) => {
-    //       this.$store.dispatch('Stocks/deleData', re.lid);
-    //     })
-    //   } else {
-    //     console.log('まだなにも選択されていません')
-    //   }
-    //   this.showDeleModal = !this.showDeleModal;
-    // },
     onDeleSubmit() {
       const result = this.deleStock.filter(stock => stock.isDone)
       if (result.length) {
@@ -114,7 +103,7 @@ export default {
             newdeleArray.push(dele.lid)
           })
         console.log(newdeleArray)
-        this.$store.dispatch('Stocks/deleData2', newdeleArray)
+        this.$store.dispatch('Stocks/deleData', newdeleArray)
       } else {
         console.log('まだなにも選択されていません')
       }

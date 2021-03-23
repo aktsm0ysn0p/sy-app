@@ -89,6 +89,9 @@ export default {
         state.myQuotes.splice(index, 1)
       }
     },
+    updateMyQuotes(state, newMyQuotes) {
+      state.myQuotes = newMyQuotes
+    }
   },
   actions: {
     start({dispatch}) {
@@ -201,16 +204,22 @@ export default {
           commit('addMyQuotes', lastNum)
         }).catch(e => console.log(e))
     },
-    deleQuote({ state, dispatch, commit }, id) {
-      const newQuote = state.myQuotes.filter(quote => quote !== id)
-      console.log(`今のnewQuote→${newQuote}`)
-      dispatch('Lists/deleList', id, { root: true })
-      dispatch('Stocks/deleMyQuote', id, { root: true })
+    deleQuoteCall({ dispatch }, deleArry) {
+      // dispatch('Stocks/deleMyQuote', deleArry, { root: true })
+      dispatch('Folders/findDeleMyQuote', deleArry, { root: true })
+      // dispatch('deleQuote', deleArry)
+    },
+    deleQuote({ state, commit }, deleArry) {
+      const arr01 = [...new Set(state.myQuotes)],
+            arr02 = [...new Set(deleArry)]
+      const newMyQuotesArray = [...arr01, ...arr02].filter(value => !arr01.includes(value) || !arr02.includes(value))
+      console.log(newMyQuotesArray)
+      console.log('↑MyQuotesに残るやつ')
       usersdb.doc(state.docId).update({
-        myquotes: newQuote
+        myquotes: newMyQuotesArray
       })
       .then(() => {
-        commit('remove', id)
+        commit('updateMyQuotes', newMyQuotesArray)
       }).catch(e => console.log(e))
     }
   }

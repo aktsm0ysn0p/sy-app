@@ -113,7 +113,7 @@ export default {
       this.deleteQuote = !this.deleteQuote
       this.deleMyQuotes.forEach((stock) => {
         stock.isDone = false;
-      });
+      })
     },
     checkToggleDele(id) {
       this.deleMyQuotes.forEach((quote) => {
@@ -121,15 +121,18 @@ export default {
           this.$set(quote, "isDone", !quote.isDone);
           console.log(this.deleMyQuotes)
         }
-      });
+      })
     },
     onDeleSubmit() {
       const result = this.deleMyQuotes.filter(quote => quote.isDone)
-      console.log(result)
       if (result.length) {
-        result.forEach((re) => {
-          this.$store.dispatch('MyQuotes/deleQuote', re.lid)
-        });
+        let newdeleArray = []
+          result.forEach(dele => {
+            newdeleArray.push(dele.lid)
+            // this.$store.dispatch('Lists/deleList', dele.lid)
+        })
+        console.log(newdeleArray)
+        this.$store.dispatch('MyQuotes/deleQuoteCall', newdeleArray)
       } else {
         console.log(`なにも選択されていません`)
       }

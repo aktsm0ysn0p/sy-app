@@ -145,11 +145,14 @@ export default {
     onAddSubmit() {
       const result = this.addStock.filter((stock) => stock.isDone)
       if (result.length) {
-        result.forEach((re) => {
-          this.$store.dispatch("Folders/addFolderStock", {
-            myfolderId: this.currentFolder.fid,
-            addStockId: re.lid,
-          })
+        let newFolderAddArray = []
+        result.forEach(add => {
+          newFolderAddArray.push(add.lid)
+        })
+        console.log(newFolderAddArray)
+        this.$store.dispatch("Folders/addFolderStock", {
+          myfolderId: this.currentFolder.fid,
+          addArray: newFolderAddArray,
         })
       } else {
         console.log(`なにも選択されていません`)
@@ -159,11 +162,13 @@ export default {
     onDeleSubmit() {
       const result = this.deleStock.filter((stock) => stock.isDone)
       if (result.length) {
-        result.forEach((re) => {
-          this.$store.dispatch("Folders/deleFolderStock", {
+        let newFolderDeleArray = []
+        result.forEach(dele => {
+          newFolderDeleArray.push(dele.lid)
+        })
+        this.$store.dispatch("Folders/deleFolderStock", {
             myfolderId: this.currentFolder.fid,
-            deleStockId: re.lid,
-          })
+            deleArry: newFolderDeleArray,
         })
       } else {
         console.log(`なにも選択されていません`)
