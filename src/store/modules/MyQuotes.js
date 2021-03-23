@@ -4,8 +4,6 @@ import "firebase/auth"
 import "firebase/firestore"
 import firestore from '@/firebase/firestore'
 const usersdb = firestore.collection("users")
-
-
 const already = {
   english: 'The email address is already in use by another account.',
   japanese: 'このメールアドレスはすでに別のアカウントで使用されています。'
@@ -14,12 +12,10 @@ const shortPass = {
   english: 'Password should be at least 6 characters',
   japanese: 'パスワードは6文字以上である必要があります'
 }
-
 export default {
   namespaced: true,
   state() {
     return {
-      checkAuth: false,
       docId: '',
       myQuotes: [],
       quoteTitle: '',
@@ -31,7 +27,7 @@ export default {
     }
   },
   getters: {
-    checkAuth(state) {
+    checkerAuth(state) {
       return state.checkAuth
     },
     userEmail(state) {
@@ -55,12 +51,6 @@ export default {
 
   },
   mutations: {
-    initCheckAuth(state) {
-      state.checkAuth = false
-    },
-    checkAuth(state) {
-      state.checkAuth = true
-    },
     initUserEmail(state, payload) {
       state.user.email = payload
     },
@@ -82,6 +72,9 @@ export default {
     pushMyQuotes(state, payload) {
       state.myQuotes.push(payload)
     },
+    addMyQuotes(state, payload) {
+      state.myQuotes.push(payload)
+    },
     addUser(state) {
       usersdb.add(
         {
@@ -89,18 +82,21 @@ export default {
           myquotes: []
         }
       )
-    }
+    },
+    remove(state, id) {
+      const index = state.myQuotes.findIndex(quote => quote === id)
+      if (index !== -1) {
+        state.myQuotes.splice(index, 1)
+      }
+    },
   },
   actions: {
-    start({commit, dispatch}) {
+    start({dispatch}) {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           console.log(`ログイン！ メールアドレス： ${user.email}`)
           const currentEmail = user.email
-          commit('checkAuth')
           dispatch('getMyQuotes2', currentEmail)
-        } else {
-          commit('initCheckAuth')
         }
       })
     },
@@ -160,6 +156,13 @@ export default {
         })
       })
     },
+    getMyQuotesByDoc({ state, commit }) {
+      usersdb.doc(state.docId).get().then(doSnapshot => {
+        const payload = doSnapshot.data().myquotes
+        console.log(`これがmyQuotes: ${payload}`)
+        commit('initMyQuotes', payload)
+      })
+    },
     initQuote({ commit }) {
       commit('initQuoteTitle', '')
       commit('initQuoteName', '')
@@ -169,13 +172,12 @@ export default {
       commit('initUserPass', '')
     },
     checkOut({ commit }) {
-      commit('initCheckAuth')
       commit('initUserEmail', '')
       commit('initUserPass', '')
       commit('initDocId', '')
       commit('initMyQuotes', [])
     },
-    addQuote({ state, dispatch }, lastNum) {
+    addQuote({ state, dispatch, commit }, lastNum) {
       const quoteTitle = state.quoteTitle && state.quoteTitle.trim();
       const quoteName = state.quoteName && state.quoteName.trim();
       if (!quoteTitle || !quoteName) {
@@ -183,7 +185,6 @@ export default {
         return
       }
       dispatch('Lists/addList', { quoteTitle: quoteTitle, quoteName: quoteName }, { root: true })
-        .then(() => {
           let copy
           if (state.myQuotes.length) {
             copy = state.myQuotes.slice()
@@ -191,19 +192,26 @@ export default {
           } else {
             copy = [lastNum]
           }
+          console.log(copy)
           usersdb.doc(state.docId).update({
             myquotes: copy
           })
-        })
         .then(() => {
-        dispatch('initQuote')
+          dispatch('initQuote')
+          commit('addMyQuotes', lastNum)
+        }).catch(e => console.log(e))
+    },
+    deleQuote({ state, dispatch, commit }, id) {
+      const newQuote = state.myQuotes.filter(quote => quote !== id)
+      console.log(`今のnewQuote→${newQuote}`)
+      dispatch('Lists/deleList', id, { root: true })
+      dispatch('Stocks/deleMyQuote', id, { root: true })
+      usersdb.doc(state.docId).update({
+        myquotes: newQuote
       })
-
+      .then(() => {
+        commit('remove', id)
+      }).catch(e => console.log(e))
     }
   }
 }
-//.then(() => {
-      //   commit('checkAuth')
-      // }).then(() => {
-      //   dispatch('getMyQuotes')
-      // })

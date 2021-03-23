@@ -27,6 +27,8 @@ export default {
     this.$store.dispatch('Stocks/start')
     this.$store.dispatch('Folders/start')
     this.$store.dispatch('MyQuotes/start')
+    console.log('App.js起動')
+
   }
 };
 </script>

@@ -33,10 +33,6 @@ export default {
   name: 'CreateQuote',
   data() {
     return {
-      user: {
-        id: "",
-        email: "",
-      },
       errorTitle: false,
       errorName: false
     }

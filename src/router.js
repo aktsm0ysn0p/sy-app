@@ -9,7 +9,7 @@ import Mypage from './pages/Main/mypage.vue'
 import SignUp from './pages/Login/signUp'
 import SignIn from './pages/Login/signIn'
 import Welcome from './pages/Login/welcome'
-// import firebase from "firebase/app";
+import firebase from "firebase/app"
 
 Vue.use(VueRouter)
 
@@ -35,7 +35,8 @@ const routes = [
   },
   {
     path: '/mypage',
-    component: Mypage
+    component: Mypage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/welcome',
@@ -63,14 +64,14 @@ const router = new VueRouter({
   routes
 })
 
-// router.beforeEach(async (to, from, next) => {
-//   const requiresAuth = to.matched.some(recode => recode.meta.requiresAuth);
-//   if (requiresAuth && !(await firebase.getCurrentUser())) {
-//     next({ path: '/welcome', query: { redirect: to.fullPath } });
-//   } else {
-//     next();
-//   }
-// });
+router.beforeEach(async (to, from, next) => {
+  const requiresAuth = to.matched.some(recode => recode.meta.requiresAuth);
+  if (requiresAuth && !(await firebase.getCurrentUser())) {
+    next({ path: '/welcome', query: { redirect: to.fullPath } });
+  } else {
+    next();
+  }
+});
 
 
 export default router

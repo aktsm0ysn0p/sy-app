@@ -143,24 +143,32 @@ export default {
       });
     },
     onAddSubmit() {
-      const result = this.addStock.filter((stock) => stock.isDone);
-      result.forEach((re) => {
-        this.$store.dispatch("Folders/addFolderStock", {
-          myfolderId: this.currentFolder.fid,
-          addStockId: re.lid,
-        });
-      });
+      const result = this.addStock.filter((stock) => stock.isDone)
+      if (result.length) {
+        result.forEach((re) => {
+          this.$store.dispatch("Folders/addFolderStock", {
+            myfolderId: this.currentFolder.fid,
+            addStockId: re.lid,
+          })
+        })
+      } else {
+        console.log(`なにも選択されていません`)
+      }
       this.showAddModal = !this.showAddModal;
     },
     onDeleSubmit() {
-      const result = this.deleStock.filter((stock) => stock.isDone);
-      result.forEach((re) => {
-        this.$store.dispatch("Folders/deleFolderStock", {
-          myfolderId: this.currentFolder.fid,
-          deleStockId: re.lid,
-        });
-      });
-      this.showDeleModal = !this.showDeleModal;
+      const result = this.deleStock.filter((stock) => stock.isDone)
+      if (result.length) {
+        result.forEach((re) => {
+          this.$store.dispatch("Folders/deleFolderStock", {
+            myfolderId: this.currentFolder.fid,
+            deleStockId: re.lid,
+          })
+        })
+      } else {
+        console.log(`なにも選択されていません`)
+      }
+      this.showDeleModal = !this.showDeleModal
     },
   },
 };

@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import Navber from '../../components/TheNavber'
 import TheDelemodal from "../../components/TheDelemodal";
 import QuoteTag from '../../components/QuoteTag'
@@ -52,28 +52,34 @@ export default {
     }
   },
   computed: {
-    ...mapState('Lists',['lists']),
-    ...mapState('Stocks',['stocks']),
+    ...mapGetters('Lists',['lists']),
+    ...mapGetters('Stocks',['stocks']),
     stockquotes() {
       const stocks = [];
       this.stocks.forEach(stock => {
-        const f = this.lists.find(list => list.lid === stock);
+        const f = this.lists.find(list => list.lid === stock)
         stocks.push(f)
       })
+      console.log(stocks)
       return stocks
     },
     deleStock() {
       let deleStock = [];
       this.stocks.forEach(stock => {
-        const f = this.lists.find(list => list.lid === stock);
+        const f = this.lists.find(list => list.lid === stock)
         deleStock.push(f);
       });
       deleStock.forEach((n) => {
         this.$set(n, "isDone", false);
       });
+      // console.log(deleStock)
       return deleStock;
     },
   },
+  // created() {
+  //   console.log(this.stocks)
+  //   console.log(this.lists)
+  // },
   methods: {
     onDele() {
       this.showDeleModal = !this.showDeleModal;
@@ -89,11 +95,29 @@ export default {
         }
       });
     },
+    // onDeleSubmit() {
+    //   const result = this.deleStock.filter(stock => stock.isDone)
+    //   if (result.length) {
+    //     result.forEach((re) => {
+    //       this.$store.dispatch('Stocks/deleData', re.lid);
+    //     })
+    //   } else {
+    //     console.log('まだなにも選択されていません')
+    //   }
+    //   this.showDeleModal = !this.showDeleModal;
+    // },
     onDeleSubmit() {
-      const result = this.deleStock.filter(stock => stock.isDone);
-      result.forEach((re) => {
-        this.$store.dispatch('Stocks/deleData', re.lid);
-      });
+      const result = this.deleStock.filter(stock => stock.isDone)
+      if (result.length) {
+        let newdeleArray = []
+          result.forEach(dele => {
+            newdeleArray.push(dele.lid)
+          })
+        console.log(newdeleArray)
+        this.$store.dispatch('Stocks/deleData2', newdeleArray)
+      } else {
+        console.log('まだなにも選択されていません')
+      }
       this.showDeleModal = !this.showDeleModal;
     },
   },

@@ -1,5 +1,6 @@
 <template>
   <div class="welcome-page">
+    <Navber />
     <div class="container">
       <div class="img-wrapper">
         <div class="img-text">
@@ -15,8 +16,12 @@
 </template>
 
 <script>
+import Navber from '../../components/TheNavber'
 export default {
-  name: 'welcome'
+  name: 'welcome',
+  components: {
+    Navber,
+  },
 }
 </script>
 
