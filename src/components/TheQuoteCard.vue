@@ -14,6 +14,7 @@
         <!-- <p>{{quoteItem.since}}</p> -->
       </div>
     </div>
+    <div class="pin"></div>
   </div>
 </template>
 
@@ -126,6 +127,12 @@ $bar-color: #ffffff;
   // }
 }
 
+.pin {
+  position: absolute;
+  top: 0;
+  left: 10;
+
+}
 .quote-card {
   width: 235px;
   min-height: 235px;
@@ -139,6 +146,7 @@ $bar-color: #ffffff;
   // background: #F7E999;
   line-height: 1.8;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
 
   transform: scale(0);
   animation-fill-mode: forwards;

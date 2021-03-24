@@ -12,6 +12,7 @@
           <img src="../../assets/img/Einstein_right.png" class="quote-img right">
         </div>
       </div>
+      <div class="a">ヤッホー</div>
       <div>
         <div class="quote-wrapper">
           <QuoteCard
@@ -31,7 +32,13 @@
 <script>
 import Navber from '../../components/TheNavber'
 import QuoteCard from '../../components/TheQuoteCard'
-// import gsap from "gsap"
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+
+gsap.registerPlugin(ScrollTrigger)
+
+
 export default {
   name: 'Home',
   components: {
@@ -46,7 +53,22 @@ export default {
       return this.$store.getters['Stocks/stocks']
     },
   },
+  mounted(){
+    this.scrollItem()
+  },
   methods: {
+    scrollItem() {
+      gsap.to('.a', {
+        x: 50,
+        // rotation: 90,
+        duration: 2,
+        scrollTrigger: {
+          trigger: '.a',
+          start: 'center center',
+          markers: true
+        }
+      })
+    },
     addStock(id) {
       this.$store.dispatch('Stocks/addData', id);
     },
@@ -58,6 +80,11 @@ export default {
 </script>
 
 <style lang="scss">
+.a {
+  background: pink;
+  width: 200px;
+  height: 200px;
+}
 @function get_vw($size, $viewport:320){
   $rate: 100 / $viewport;
   @return $rate * $size * 1vw;

@@ -1,16 +1,18 @@
 <template>
   <div id="app">
-    <Loading v-show="loading" />
+    <Loading2 v-show="loading" />
     <router-view v-show="!loading"></router-view>
   </div>
 </template>
 
 <script>
-import Loading from './components/Loading'
+// import Loading from './components/Loading'
+import Loading2 from './components/Loading2'
 export default {
   name: 'App',
   components: {
-    Loading
+    // Loading,
+    Loading2,
   },
   data() {
     return {
@@ -20,7 +22,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.loading = false;
-    }, 1000);
+    }, 3000);
   },
   created() {
     this.$store.dispatch('Lists/start')

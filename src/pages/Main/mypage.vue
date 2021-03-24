@@ -51,6 +51,7 @@ import { mapGetters } from 'vuex'
 import QuoteTag from '../../components/QuoteTag'
 import TheDelemodal from "../../components/TheDelemodal"
 
+
 export default {
   name: 'Mypage',
   components: {
@@ -126,6 +127,10 @@ export default {
     onDeleSubmit() {
       const result = this.deleMyQuotes.filter(quote => quote.isDone)
       if (result.length) {
+        if (!confirm('名言を削除するとLikesやListsからも完全に削除されますが、本当に消しますか？')) {
+          this.deleteQuote = !this.deleteQuote
+          return
+        }
         let newdeleArray = []
           result.forEach(dele => {
             newdeleArray.push(dele.lid)
