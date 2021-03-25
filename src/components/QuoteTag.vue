@@ -4,7 +4,6 @@
       <div class="bottom-wrapper">
         <div class="text-wrapper">
           <p>{{stockItem.name}}</p>
-          <!-- <p>{{stockItem.since}}</p> -->
         </div>
       </div>
   </div>
@@ -48,11 +47,8 @@ $bar-color: #ffffff;
   vertical-align: top;
   display: inline-block;
   color: #4b453c;
-  // background: #F7E999;
   line-height: 1.8;
-  // text-align: center;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-  // transform: rotate(2deg);
   &:before {
     display: block;
     content: "";

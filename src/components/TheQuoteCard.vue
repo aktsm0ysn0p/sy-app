@@ -266,21 +266,15 @@ $bar-color: #ffffff;
   left: 75px;
   opacity: 0;
 }
-
-
 .yellow {
   background: #F7E999;
 }
-
 .blue {
   background: #b9dcf4;
-
 }
-
 .pink {
   background: #FFBDA3;
 }
-
 .green {
   background: #CAF4B9;
 }
@@ -338,7 +332,6 @@ $bar-color: #ffffff;
     z-index: -20;
   }
 }
-
 .overlap-pink {
   position: relative;
   z-index: 10;
@@ -393,15 +386,4 @@ $bar-color: #ffffff;
     z-index: -20;
   }
 }
-
-    // width: 90px;
-    // display: block;
-    // top: -75px;
-    // left: 75px;
-
-
-    // width: 80px;
-    // display: block;
-    // top: -65px;
-    // left: 78px;
 </style>

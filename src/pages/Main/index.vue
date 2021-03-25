@@ -190,7 +190,6 @@ export default {
           padding: 1rem 0;
           font-family: 'uchiyama';
           opacity: 0;
-
           @include fz_vw(20);
           @media (min-width: 768px) {
             font-size: 60px;
@@ -213,7 +212,6 @@ export default {
       order: 3;
       @media (max-width: 480px) {
       }
-
     }
     .left {
       animation: leftSlider 1.5s ease .5s normal;
