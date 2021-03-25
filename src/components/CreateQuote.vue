@@ -111,7 +111,7 @@ $bar-style: solid;
 $bar-size: 2px;
 $bar-color: #ffffff;
 .overlay {
-  z-index:11;
+  z-index:110;
   position:fixed;
   top:0;
   left:0;

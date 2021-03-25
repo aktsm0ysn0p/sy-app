@@ -16,13 +16,14 @@ export default {
   },
   data() {
     return {
-      loading: true
+      loading: false
     }
   },
   mounted() {
     setTimeout(() => {
       this.loading = false;
-    }, 3000);
+    }, 1000);
+    // 3000がベスト
   },
   created() {
     this.$store.dispatch('Lists/start')

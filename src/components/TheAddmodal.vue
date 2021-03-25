@@ -51,7 +51,7 @@ export default {
 
 <style scoped>
 .overlay {
-  z-index:1;
+  z-index:110;
   position:fixed;
   top:0;
   left:0;

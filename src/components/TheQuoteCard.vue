@@ -1,5 +1,6 @@
 <template>
-  <div :class="[selectClass(quoteItem.lid),{fadeIn: visible}]"  class="quote-card" >
+  <div class="sample" :class="[overlapColor(quoteItem.lid),{fadeIn: visible}]">
+  <div :class="[selectColor(quoteItem.lid),{fadeIn: visible}]"  class="quote-card" >
     <h3 class="frame-box-001">{{quoteItem.title}}</h3>
     <div class="bottom-wrapper">
       <div class="btn-container">
@@ -11,10 +12,11 @@
       </div>
       <div class="text-container">
         <p>{{quoteItem.name}}</p>
-        <!-- <p>{{quoteItem.since}}</p> -->
       </div>
     </div>
-    <div class="pin"></div>
+    <img src="../assets/img/clip2.png" class="clip" :class="{clipFadeIn: visible}">
+  </div>
+
   </div>
 </template>
 
@@ -34,7 +36,7 @@ export default {
     isStocked() {
       return this.stocks.find(stock=> stock === this.quoteItem.lid)
     },
-    selectClass() {
+    selectColor() {
       return function (id) {
         if (id % 4 === 0) {
           return 'green'
@@ -44,6 +46,19 @@ export default {
           return 'blue'
         } else if(id % 4 === 1 || id === 1) {
           return 'yellow'
+        }
+      }
+    },
+    overlapColor() {
+      return function (id) {
+        if (id % 4 === 0) {
+          return 'overlap-green'
+        } else if (id % 4 === 3 || id === 3) {
+          return 'overlap-pink'
+        } else if (id % 4 === 2 || id === 2) {
+          return 'overlap-blue'
+        } else if(id % 4 === 1 || id === 1) {
+          return 'overlap-yellow'
         }
       }
     },
@@ -57,13 +72,13 @@ export default {
   methods: {
     stockIconClicked(id) {
       const target = this.stocks.find(stock => stock === id);
+      console.log('kitataaa');
       target ? this.$emit('deleStock', id) : this.$emit('addStock', id) ;
     },
     handleScroll() {
       if (!this.visible) {
         let top = this.$el.getBoundingClientRect().top
-        this.visible = top < window.innerHeight + 50;
-        console.log()
+        this.visible = top < window.innerHeight + 5;
       }
     },
   },
@@ -82,6 +97,16 @@ $bar-color: #ffffff;
   100% {
     opacity: 1;
     transform: translateY(0px);
+  }
+}
+@keyframes clipFadeIn {
+  0% {
+    opacity: 0;
+    top: -130px;
+  }
+  100% {
+    opacity: 1;
+    top: -75px;
   }
 }
 @keyframes heart {
@@ -120,56 +145,35 @@ $bar-color: #ffffff;
 }
 .fadeIn {
   animation: fadeIn 1s;
+  animation-delay: .5s;
+  animation-fill-mode: forwards;
+}
+.clipFadeIn {
+  animation: clipFadeIn 1.5s;
+  animation-delay: .7s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
 }
 .sample {
-  // &:before {
-  //   animation: sample 3.7s;
-  // }
-}
-
-.pin {
-  position: absolute;
-  top: 0;
-  left: 10;
+  opacity: 0;
 
 }
 .quote-card {
   width: 235px;
   min-height: 235px;
   padding: 1rem 1rem 0;
-  margin: 10px 0;
+  margin: 10px 0 80px;
   position: relative;
   font-size: 1.125rem;
   vertical-align: top;
   display: inline-block;
   color: #4b453c;
-  // background: #F7E999;
   line-height: 1.8;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
   position: relative;
-
   transform: scale(0);
   animation-fill-mode: forwards;
   transition: all 1s;
-  // &:before {
-  //   animation-fill-mode: forwards;
-  //   width: 0px;
-  //   // width: 130px;
-  //   display: block;
-  //   content: "";
-  //   background: rgba(227, 200, 114, 0.4);
-  //   height: 28px;
-  //   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  //   border-radius: 6px/18px 0;
-  //   position: absolute;
-  //   top: -13px;
-  //   left: 50px;
-  //   -webkit-transform: rotate(-2deg);
-  //   -moz-transform: rotate(-2deg);
-  //   -o-transform: rotate(-2deg);
-  //   -ms-transform: rotate(-2deg);
-  //   transform: rotate(-2deg);
-  // }
 }
 .nowstock {
   animation-name: heart;
@@ -254,6 +258,16 @@ $bar-color: #ffffff;
   }
 }
 
+.clip {
+  position: absolute;
+  width: 90px;
+  display: block;
+  top: -75px;
+  left: 75px;
+  opacity: 0;
+}
+
+
 .yellow {
   background: #F7E999;
 }
@@ -270,4 +284,124 @@ $bar-color: #ffffff;
 .green {
   background: #CAF4B9;
 }
+.overlap-yellow {
+  position: relative;
+  z-index: 10;
+  width: 235px;
+  min-height: 235px;
+    &::before, &::after {
+    content: "";
+    width: 100%;
+    height: 75%;
+    position: absolute;
+    border: 120px solid #F7E999;
+    left: 0;
+    box-sizing: border-box;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    transition: 0.3s all ease-out;
+  }
+  &::before {
+    transform: rotate(2deg);
+    top: 1rem;
+    z-index: -10;
+  }
+  &::after {
+    transform: rotate(-2deg);
+    top: 1rem;
+    z-index: -20;
+  }
+}
+.overlap-blue {
+  position: relative;
+  z-index: 10;
+  width: 235px;
+  min-height: 235px;
+    &::before, &::after {
+    content: "";
+    width: 100%;
+    height: 75%;
+    position: absolute;
+    border: 120px solid #b9dcf4;
+    left: 0;
+    box-sizing: border-box;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    transition: 0.3s all ease-out;
+  }
+  &::before {
+    transform: rotate(2deg);
+    top: 1rem;
+    z-index: -10;
+  }
+  &::after {
+    transform: rotate(-2deg);
+    top: 1rem;
+    z-index: -20;
+  }
+}
+
+.overlap-pink {
+  position: relative;
+  z-index: 10;
+  width: 235px;
+  min-height: 235px;
+    &::before, &::after {
+    content: "";
+    width: 100%;
+    height: 75%;
+    position: absolute;
+    border: 120px solid #FFBDA3;
+    left: 0;
+    box-sizing: border-box;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    transition: 0.3s all ease-out;
+  }
+  &::before {
+    transform: rotate(2deg);
+    top: 1rem;
+    z-index: -10;
+  }
+  &::after {
+    transform: rotate(-2deg);
+    top: 1rem;
+    z-index: -20;
+  }
+}
+.overlap-green {
+  position: relative;
+  z-index: 10;
+  width: 235px;
+  min-height: 235px;
+    &::before, &::after {
+    content: "";
+    width: 100%;
+    height: 75%;
+    position: absolute;
+    border: 120px solid #CAF4B9;
+    left: 0;
+    box-sizing: border-box;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    transition: 0.3s all ease-out;
+  }
+  &::before {
+    transform: rotate(2deg);
+    top: 1rem;
+    z-index: -10;
+  }
+  &::after {
+    transform: rotate(-2deg);
+    top: 1rem;
+    z-index: -20;
+  }
+}
+
+    // width: 90px;
+    // display: block;
+    // top: -75px;
+    // left: 75px;
+
+
+    // width: 80px;
+    // display: block;
+    // top: -65px;
+    // left: 78px;
 </style>

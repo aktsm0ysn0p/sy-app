@@ -1,0 +1,11 @@
+タブレット縦 @media (max-width: 896px)
+タブレット横  パソコンと同じ
+
+スマホ縦  @media (max-width: 480px)
+スマホ横  @media (max-width: 896px)
+
+小型スマホ縦  @media (max-width: 320px)
+小型スマホ横  @media (max-width: 568px)
+
+
+@media (min-width: 768px)

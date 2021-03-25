@@ -39,7 +39,7 @@ nav {
     left: 0;
     right: 0;
     opacity: .8;
-    z-index: 10;
+    z-index: 100;
   }
   ul {
     li {

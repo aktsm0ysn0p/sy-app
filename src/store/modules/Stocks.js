@@ -58,6 +58,16 @@ export default {
         commit('add', id)
       }).catch(e => console.log(e))
     },
+    clickdeleData({ state, commit }, id) {
+      const n = state.stocks.filter(stock => stock !== id)
+      myRef.update(
+        {
+          stocks: n
+        }
+      ).then(() => {
+        commit('remove', id)
+      }).catch(e => console.log(e))
+    },
     deleData({ state, commit }, deleArry) {
       const arr01 = [...new Set(state.stocks)],
             arr02 = [...new Set(deleArry)]

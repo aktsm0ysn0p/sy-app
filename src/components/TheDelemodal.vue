@@ -45,7 +45,7 @@ export default {
     onDeleSubmit() {
       this.$emit('onDeleSubmit');
     },
-    
+
 
   }
 }
@@ -56,7 +56,7 @@ export default {
   color: #5ABD57;
 }
 .overlay {
-  z-index:11;
+  z-index:110;
   position:fixed;
   top:0;
   left:0;
