@@ -6,24 +6,21 @@
 </template>
 
 <script>
-// import Loading from './components/Loading'
 import Loading2 from './components/Loading2'
 export default {
   name: 'App',
   components: {
-    // Loading,
     Loading2,
   },
   data() {
     return {
-      loading: false
+      loading: true
     }
   },
   mounted() {
     setTimeout(() => {
       this.loading = false;
-    }, 1000);
-    // 3000がベスト
+    }, 3000);
   },
   created() {
     this.$store.dispatch('Lists/start')
@@ -41,14 +38,8 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* text-align: center; */
-  /* height: 100%; */
 }
-
-/* html, body {
-  height: 100%;
-} */
-  /*要素のフォントサイズやマージン・パディングをリセットしています*/
+/*要素のフォントサイズやマージン・パディングをリセットしています*/
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
@@ -182,5 +173,4 @@ ul {
   list-style: none;
   padding: 0;
 }
-
 </style>

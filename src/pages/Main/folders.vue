@@ -202,7 +202,6 @@ $bar-color: #ffffff;
               background: #eeeeee;
             }
           }
-
       }
     }
   }

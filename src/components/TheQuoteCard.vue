@@ -1,22 +1,21 @@
 <template>
   <div class="sample" :class="[overlapColor(quoteItem.lid),{fadeIn: visible}]">
-  <div :class="[selectColor(quoteItem.lid),{fadeIn: visible}]"  class="quote-card" >
-    <h3 class="frame-box-001">{{quoteItem.title}}</h3>
-    <div class="bottom-wrapper">
-      <div class="btn-container">
-        <div class="likes">
-          <div class="likes-icon" @click="stockIconClicked(quoteItem.lid)" :class="{'nowstock': isStocked}"><font-awesome-icon icon="heart"/>
+    <div :class="[selectColor(quoteItem.lid),{fadeIn: visible}]"  class="quote-card" >
+      <h3 class="frame-box-001">{{quoteItem.title}}</h3>
+      <div class="bottom-wrapper">
+        <div class="btn-container">
+          <div class="likes">
+            <div class="likes-icon" @click="stockIconClicked(quoteItem.lid)" :class="{'nowstock': isStocked}"><font-awesome-icon icon="heart"/>
+            </div>
+            <div class="ripple" :class="{'clickRipple' : isStocked}"></div>
           </div>
-          <div class="ripple" :class="{'clickRipple' : isStocked}"></div>
+        </div>
+        <div class="text-container">
+          <p>{{quoteItem.name}}</p>
         </div>
       </div>
-      <div class="text-container">
-        <p>{{quoteItem.name}}</p>
-      </div>
+      <img src="../assets/img/clip2.png" class="clip" :class="{clipFadeIn: visible}">
     </div>
-    <img src="../assets/img/clip2.png" class="clip" :class="{clipFadeIn: visible}">
-  </div>
-
   </div>
 </template>
 
@@ -156,7 +155,6 @@ $bar-color: #ffffff;
 }
 .sample {
   opacity: 0;
-
 }
 .quote-card {
   width: 235px;

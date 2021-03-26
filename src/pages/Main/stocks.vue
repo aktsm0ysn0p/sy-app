@@ -72,14 +72,9 @@ export default {
       deleStock.forEach((n) => {
         this.$set(n, "isDone", false);
       });
-      // console.log(deleStock)
       return deleStock;
     },
   },
-  // created() {
-  //   console.log(this.stocks)
-  //   console.log(this.lists)
-  // },
   methods: {
     onDele() {
       this.showDeleModal = !this.showDeleModal;
@@ -165,6 +160,7 @@ $bar-color: #ffffff;
           grid-template-rows: 1fr;
           justify-content: center;
           grid-gap: 1rem 1rem;
+          place-items: center
         }
       }
     }

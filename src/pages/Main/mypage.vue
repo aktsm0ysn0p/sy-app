@@ -25,17 +25,17 @@
         </div>
       </div>
       <transition name="fade2">
-          <CreateQuote
-            v-if="createQuote"
-            @onCretatModal="onCretatModal"
-          />
-          <TheDelemodal
-            v-if="deleteQuote"
-            @emitingdele="onDeleModal"
-            :deleStock="deleMyQuotes"
-            @checkToggleDele="checkToggleDele"
-            @onDeleSubmit="onDeleSubmit"
-          />
+        <CreateQuote
+          v-if="createQuote"
+          @onCretatModal="onCretatModal"
+        />
+        <TheDelemodal
+          v-if="deleteQuote"
+          @emitingdele="onDeleModal"
+          :deleStock="deleMyQuotes"
+          @checkToggleDele="checkToggleDele"
+          @onDeleSubmit="onDeleSubmit"
+        />
       </transition>
     </div>
   </div>
@@ -100,11 +100,11 @@ export default {
   },
   created() {
     this.myQuotes.forEach((quote) => {
-          const target = this.lists.find(list => list.lid === quote)
-          if (typeof target === undefined) {
-            console.log(target)
-          }
-        })
+      const target = this.lists.find(list => list.lid === quote)
+      if (typeof target === undefined) {
+        console.log(target)
+      }
+    })
   },
   methods: {
     onCretatModal() {
@@ -228,7 +228,6 @@ $bar-color: #ffffff;
       justify-content: center;
       grid-gap: 1rem 1rem;
     }
-
   }
 }
 </style>

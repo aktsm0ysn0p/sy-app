@@ -130,7 +130,6 @@ export default {
     checkToggleAdd(id) {
       this.addStock.forEach((stock) => {
         if (stock.lid === id) {
-          // stock.isDone = !stock.isDone;
           this.$set(stock, "isDone", !stock.isDone);
         }
       });
@@ -245,6 +244,7 @@ $bar-color: #ffffff;
           grid-template-rows: 1fr;
           justify-content: center;
           grid-gap: 1rem 1rem;
+          place-items: center
         }
       }
     }

@@ -167,8 +167,7 @@ export default {
   display: block;
   opacity: 0;
   @media (max-width: 480px) {
-    width:30%;
-    display: inline-block;
+    display: none;
   }
   @media (max-width: 767px) {
     width: 20%;

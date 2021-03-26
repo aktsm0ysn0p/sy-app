@@ -12,8 +12,6 @@
         </div>
       </div>
       <SubTitle />
-      <!-- <img src="../../assets/img/clip2.png" alt=""> -->
-      <div>
         <div class="quote-wrapper">
           <QuoteCard
             v-for="quoteItem in quotes"
@@ -24,7 +22,6 @@
             @deleStock="deleStock"
           />
         </div>
-      </div>
     </div>
   </div>
 </template>
@@ -33,13 +30,6 @@
 import Navber from '../../components/TheNavber'
 import SubTitle from '../../components/TheSubTitle'
 import QuoteCard from '../../components/TheQuoteCard'
-// import { gsap } from 'gsap'
-// import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-
-// gsap.registerPlugin(ScrollTrigger)
-
-
 export default {
   name: 'Home',
   components: {
@@ -55,22 +45,7 @@ export default {
       return this.$store.getters['Stocks/stocks']
     },
   },
-  mounted(){
-    // this.scrollItem()
-  },
   methods: {
-    // scrollItem() {
-    //   gsap.to('.a', {
-    //     x: 50,
-    //     // rotation: 90,
-    //     duration: 2,
-    //     scrollTrigger: {
-    //       trigger: '.a',
-    //       start: 'center center',
-    //       markers: true
-    //     }
-    //   })
-    // },
     addStock(id) {
       this.$store.dispatch('Stocks/addData', id);
     },
@@ -83,12 +58,6 @@ export default {
 </script>
 
 <style lang="scss">
-//タイトル左＿向かい合わせ
-.a {
-  background: pink;
-  width: 200px;
-  height: 200px;
-}
 @function get_vw($size, $viewport:320){
   $rate: 100 / $viewport;
   @return $rate * $size * 1vw;
@@ -137,18 +106,6 @@ export default {
     transform: translateY(0);
   }
 }
-.title {
-  animation: TitleSlideIn 2.5s;
-  animation-timing-function: ease;
-  animation-delay: 1.5s;
-  animation-fill-mode: forwards;
-  @media (max-width: 480px) {
-      animation: TitleSlideInMobile 2s;
-      animation-delay: 1s;
-      animation-fill-mode: forwards;
-      animation-timing-function: ease;
-  }
-}
 .lists-page {
   color: #2c3e50;
   background: #F5F5F5;
@@ -173,54 +130,60 @@ export default {
         align-items: flex-start;
         justify-content: space-between;
         align-items: center;
-      }
-      .text-container {
-        margin: 0 auto;
-        width: 80%;
-        max-width: 800px;
-        padding: 20px 0;
-        order: 1;
-        @media (max-width: 480px) {
-        order: 2;
-      }
-        //タイトル左＿向かい合わせ  order: 1;
-        //タイトルセンター order: 2;
-        h1 {
-          text-align: center;
-          padding: 1rem 0;
-          font-family: 'uchiyama';
-          opacity: 0;
-          @include fz_vw(20);
-          @media (min-width: 768px) {
-            font-size: 60px;
+        .text-container {
+          margin: 0 auto;
+          width: 80%;
+          max-width: 800px;
+          padding: 20px 0;
+          order: 1;
+          @media (max-width: 480px) {
+            order: 2;
+          }
+          h1 {
+            text-align: center;
+            padding: 1rem 0;
+            font-family: 'uchiyama';
+            opacity: 0;
+            @include fz_vw(20);
+            @media (min-width: 768px) {
+              font-size: 60px;
+            }
+          }
+          .title {
+            animation: TitleSlideIn 2.5s;
+            animation-timing-function: ease;
+            animation-delay: 1.5s;
+            animation-fill-mode: forwards;
+            @media (max-width: 480px) {
+              animation: TitleSlideInMobile 2s;
+              animation-delay: 1s;
+              animation-fill-mode: forwards;
+              animation-timing-function: ease;
+            }
           }
         }
-      }
-    }
-    .quote-img {
-      display: block;
-      width: 25%;
-      max-width: 300px;
-      opacity: 0;
-      @media (max-width: 480px) {
-        width: 32%;
-      }
-    }
-    .right {
-      animation: rightSlider 1.5s ease .5s  normal;
-      animation-fill-mode: forwards;
-      order: 3;
-      @media (max-width: 480px) {
-      }
-    }
-    .left {
-      animation: leftSlider 1.5s ease .5s normal;
-      animation-fill-mode: forwards;
-      order: 2;
-      //タイトル左＿向かい合わせ  order: 2;
-      //タイトルセンター order: 1;
-      @media (max-width: 480px) {
-        order: 1;
+        .quote-img {
+          display: block;
+          width: 25%;
+          max-width: 300px;
+          opacity: 0;
+          @media (max-width: 480px) {
+            width: 32%;
+          }
+        }
+        .right {
+          animation: rightSlider 1.5s ease .5s  normal;
+          animation-fill-mode: forwards;
+          order: 3;
+        }
+        .left {
+          animation: leftSlider 1.5s ease .5s normal;
+          animation-fill-mode: forwards;
+          order: 2;
+          @media (max-width: 480px) {
+            order: 1;
+          }
+        }
       }
     }
     .quote-wrapper {
@@ -233,12 +196,6 @@ export default {
     }
   }
 }
-// //  スマホ縦↓
-// @media screen and (max-width: 480px) {
-//     .img-wrapper {
-//     height: 300px;
-//   }
-// }
 
 
 

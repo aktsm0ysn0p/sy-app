@@ -81,9 +81,7 @@ export default {
           return 'yellow'
         }
     },
-
   },
-
   methods: {
     ...mapMutations('MyQuotes',['initQuoteTitle', 'initQuoteName']),
     onCreateModal() {
@@ -101,8 +99,6 @@ export default {
       }
     }
   }
-
-
 }
 </script>
 
@@ -182,7 +178,6 @@ $bar-color: #ffffff;
           }
         }
       }
-
     }
     .edit-wrapper {
       .edit-text-container {
