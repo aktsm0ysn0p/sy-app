@@ -91,8 +91,6 @@ export default {
       this.$emit('onCretatModal')
     },
     addNewQuote() {
-      console.log(this.errorTitle)
-      console.log(this.errorName)
       if (!this.errorTitle && !this.errorName) {
         this.$store.dispatch('MyQuotes/addQuote', this.lastIdNum)
         this.$emit('onCretatModal')

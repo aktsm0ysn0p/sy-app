@@ -22,8 +22,6 @@ export default {
       if (index !== -1) {
         state.stocks.splice(index, 1)
       }
-      console.log('stocks 2 fin')
-      console.log(state.stocks)
     },
     update(state, newStocks) {
       state.stocks = newStocks
@@ -72,8 +70,6 @@ export default {
       const arr01 = [...new Set(state.stocks)],
             arr02 = [...new Set(deleArry)]
       const newStockArray = [...arr01, ...arr02].filter(value => !arr01.includes(value) || !arr02.includes(value))
-      console.log(newStockArray)
-      console.log('↑Stocksに残るやつ')
       myRef.update(
         {
           stocks: newStockArray
@@ -84,7 +80,6 @@ export default {
     },
     deleMyQuote({ state, dispatch }, deleArray) {
       const sameStocks = [...new Set(state.stocks)].filter(value => deleArray.includes(value))
-      console.log(sameStocks)
       if (!sameStocks.length) {
         console.log('この名言はストックにないよ')
         return

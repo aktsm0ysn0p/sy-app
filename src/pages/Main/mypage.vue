@@ -51,7 +51,6 @@ import { mapGetters } from 'vuex'
 import QuoteTag from '../../components/QuoteTag'
 import TheDelemodal from "../../components/TheDelemodal"
 
-
 export default {
   name: 'Mypage',
   components: {
@@ -94,7 +93,6 @@ export default {
           this.$set(n, "isDone", false);
         })
       }
-      console.log(deleQuote)
       return deleQuote
     }
   },
@@ -120,7 +118,6 @@ export default {
       this.deleMyQuotes.forEach((quote) => {
         if (quote.lid === id) {
           this.$set(quote, "isDone", !quote.isDone);
-          console.log(this.deleMyQuotes)
         }
       })
     },
@@ -136,7 +133,6 @@ export default {
             newdeleArray.push(dele.lid)
             this.$store.dispatch('Lists/deleList', dele.lid)
         })
-        console.log(newdeleArray)
         this.$store.dispatch('MyQuotes/deleQuoteCall', newdeleArray)
       } else {
         console.log(`なにも選択されていません`)

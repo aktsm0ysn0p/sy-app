@@ -50,7 +50,6 @@ export default {
       this.$store.dispatch('Stocks/addData', id);
     },
     deleStock(id) {
-      console.log(id)
       this.$store.dispatch('Stocks/clickdeleData', id);
     },
   },

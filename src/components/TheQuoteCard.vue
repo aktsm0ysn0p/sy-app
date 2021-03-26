@@ -71,7 +71,6 @@ export default {
   methods: {
     stockIconClicked(id) {
       const target = this.stocks.find(stock => stock === id);
-      console.log('kitataaa');
       target ? this.$emit('deleStock', id) : this.$emit('addStock', id) ;
     },
     handleScroll() {

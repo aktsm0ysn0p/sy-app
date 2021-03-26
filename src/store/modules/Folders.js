@@ -2,16 +2,8 @@ import firestore from '@/firebase/firestore'
 
 const myRef = firestore.collection('my').doc("cLME2ZkXIVYpUXb4Ta9w");
 
-// const jjj = [
-//   {id: 0, name: [3,4,5]},
-//   { id: 9, name: [3,4,5]},
-//   {id: 5, name: [3,4,5]},
-//   {id: 2, name: [3,4,5]},
-//   {id: 3, name: [3,4,5]},
-// ]
 export default {
   namespaced: true,
-  // unsubscribe: null,
   state() {
     return {
       folders: [],
@@ -93,8 +85,6 @@ export default {
         return
       }
       const newFolderStocks = [...state.folders[index].stocks, ...addArray]
-      console.log(myfolderId)
-      console.log(newFolderStocks)
       commit('updateFolderStock', { id: myfolderId, newArray: newFolderStocks })
       const newFolders = state.folders.slice()
       myRef.update(
@@ -105,12 +95,9 @@ export default {
     },
     deleFolderStock({ state, commit }, { myfolderId, deleArry }) {
       const currentFolder = state.folders.find(folder => folder.fid === myfolderId)
-      console.log(currentFolder.stocks)
       const arr01 = [...new Set(currentFolder.stocks)],
             arr02 = [...new Set(deleArry)]
       const newFolderStockArray = [...arr01, ...arr02].filter(value => !arr01.includes(value) || !arr02.includes(value))
-      console.log(newFolderStockArray)
-      console.log('↑folders.stocksに残るやつ')
       commit('updateFolderStock', { id: myfolderId, newArray: newFolderStockArray })
       const newFolders = state.folders.slice()
       myRef.update(
@@ -147,16 +134,12 @@ export default {
         const fid = checkFolderId[i]
         const deleArray = checkStock[i]
         const currentFolder = state.folders.find(folder => folder.fid === fid)
-        console.log(currentFolder.stocks)
         const arr01 = [...new Set(currentFolder.stocks)],
               arr02 = [...new Set(deleArray)]
         const newFolderStockArray = [...arr01, ...arr02].filter(value => !arr01.includes(value) || !arr02.includes(value))
-        console.log(newFolderStockArray)
-        console.log('↑folders.stocksに残るやつ')
         commit('updateFolderStock', { id: fid, newArray: newFolderStockArray })
       }
       const newFolders = state.folders.slice()
-      console.log(newFolders)
       myRef.update(
         {
           folders: newFolders
@@ -165,12 +148,3 @@ export default {
     }
   },
 }
-    // deleMyQuote({ state, dispatch }, deleArray) {
-    //   const sameStocks = [...new Set(state.stocks)].filter(value => deleArray.includes(value))
-    //   console.log(sameStocks)
-    //   if (!sameStocks.length) {
-    //     console.log('この名言はストックにないよ')
-    //     return
-    //   }
-    //   dispatch('deleData', sameStocks)
-    // }

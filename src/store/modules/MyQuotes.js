@@ -97,7 +97,6 @@ export default {
     start({dispatch}) {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
-          console.log(`ログイン！ メールアドレス： ${user.email}`)
           const currentEmail = user.email
           dispatch('getMyQuotes2', currentEmail)
         }
@@ -149,9 +148,7 @@ export default {
       usersdb.get().then(doSnapshot => {
         doSnapshot.forEach(doc => {
           if (doc.data().email === crrentEmail) {
-            console.log('ログインユーザのドキュメント発見！')
             const payload = doc.data().myquotes
-            console.log(`これがmyQuotes: ${payload}`)
             commit('initMyQuotes', payload)
             commit('initUserEmail', crrentEmail)
             commit('initDocId', doc.id)
@@ -162,7 +159,6 @@ export default {
     getMyQuotesByDoc({ state, commit }) {
       usersdb.doc(state.docId).get().then(doSnapshot => {
         const payload = doSnapshot.data().myquotes
-        console.log(`これがmyQuotes: ${payload}`)
         commit('initMyQuotes', payload)
       })
     },
@@ -195,7 +191,6 @@ export default {
           } else {
             copy = [lastNum]
           }
-          console.log(copy)
           usersdb.doc(state.docId).update({
             myquotes: copy
           })
@@ -213,8 +208,6 @@ export default {
       const arr01 = [...new Set(state.myQuotes)],
             arr02 = [...new Set(deleArry)]
       const newMyQuotesArray = [...arr01, ...arr02].filter(value => !arr01.includes(value) || !arr02.includes(value))
-      console.log(newMyQuotesArray)
-      console.log('↑MyQuotesに残るやつ')
       usersdb.doc(state.docId).update({
         myquotes: newMyQuotesArray
       })

@@ -60,7 +60,6 @@ export default {
         const f = this.lists.find(list => list.lid === stock)
         stocks.push(f)
       })
-      console.log(stocks)
       return stocks
     },
     deleStock() {
@@ -86,7 +85,6 @@ export default {
       this.deleStock.forEach((stock) => {
         if (stock.lid === id) {
           this.$set(stock, "isDone", !stock.isDone);
-          console.log(this.deleStock);
         }
       });
     },
@@ -97,7 +95,6 @@ export default {
           result.forEach(dele => {
             newdeleArray.push(dele.lid)
           })
-        console.log(newdeleArray)
         this.$store.dispatch('Stocks/deleData', newdeleArray)
       } else {
         console.log('まだなにも選択されていません')

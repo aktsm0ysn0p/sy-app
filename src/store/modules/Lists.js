@@ -12,19 +12,16 @@ export default {
   mutations: {
     init(state, payload) {
       state.lists = payload
-      console.log('Listes 3')
     },
     fetchLists(state) {
       listsRef.orderBy('lid').get().then(snapshot => {
         snapshot.forEach(doc => {
           state.lists.push(doc.data())
         })
-        console.log('listes 4 fin')
       }).catch(e => console.log(e))
     },
     initTargetDocId(state, payload) {
       state.targetDocId = payload
-      console.log('lists 1')
     },
     add(state, payload) {
       state.lists.push(payload)
@@ -87,21 +84,3 @@ export default {
     },
   },
 }
-
-
-    // addList({ state, commit, dispatch }, {quoteTitle, quoteName}) {
-    //   const copylists = state.lists.slice()
-    //   let picQuote = copylists[state.lists.length - 1]
-    //   let nextNum = picQuote.lid + 1
-    //   listsRef.add({
-    //     lid: nextNum,
-    //     title: quoteTitle,
-    //     name: quoteName
-    //   }).then(() => {
-    //     commit('init', [])
-    //   }).then(() => {
-    //     commit('fetchLists')
-    //   }).then(() => {
-    //     dispatch('MyQuotes/addQuote2', state.lastIdNum, { root: true })
-    //   }).catch(e => console.log(e))
-    // },

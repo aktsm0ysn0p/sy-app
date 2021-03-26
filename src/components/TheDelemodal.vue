@@ -45,8 +45,6 @@ export default {
     onDeleSubmit() {
       this.$emit('onDeleSubmit');
     },
-
-
   }
 }
 </script>

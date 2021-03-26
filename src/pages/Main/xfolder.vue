@@ -148,7 +148,6 @@ export default {
         result.forEach(add => {
           newFolderAddArray.push(add.lid)
         })
-        console.log(newFolderAddArray)
         this.$store.dispatch("Folders/addFolderStock", {
           myfolderId: this.currentFolder.fid,
           addArray: newFolderAddArray,
