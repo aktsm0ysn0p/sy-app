@@ -47,7 +47,7 @@ export default {
       this.$store.dispatch('MyQuotes/initUser')
     },
     signIn() {
-      this.$store.dispatch('MyQuoters/signIn')
+      this.$store.dispatch('MyQuotes/signIn')
       .then(() => {
           this.$router.push({ path: '/' })
       })
