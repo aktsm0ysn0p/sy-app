@@ -5,7 +5,7 @@
       <div class="img-wrapper">
         <div class="img-text">
           <h1>Welcome!</h1>
-          <p>サインインすると名言が追加できます</p>
+          <p>サインインすると名言が追加できるよ</p>
           <p>あなたのお気に入りの名言を登録してみよう！</p>
         </div>
         <img src="../../assets/img/IMG_4392.png" alt="" class="quote-img">
