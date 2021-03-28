@@ -123,7 +123,6 @@ $bar-color: #ffffff;
     margin: auto;
     display: flex;
     flex-direction: column;
-    // align-items: center;
     .sample-wrapper {
       display: flex;
       flex-direction: column;

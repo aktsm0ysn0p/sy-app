@@ -21,12 +21,6 @@ export default {
       state.newfolder = ''
       state.folders.push(n)
     },
-    remove(state, id) {
-      const index = state.stocks.findIndex(stock => stock === id)
-      if (index !== -1) {
-        state.stock.splice(index, 1)
-      }
-    },
     updateFolderStock(state, {id, newArray}) {
       const index = state.folders.findIndex(folder => folder.fid === id)
       if (index !== -1) {
@@ -53,9 +47,10 @@ export default {
       }).catch(e => console.log(e))
     },
     //
-    addData({ state, dispatch }) {
+    addData({ state, dispatch, }) {
       let text = state.newfolder && state.newfolder.trim();
       if (!text) {
+        alert('1文字以上入力してください')
         return
       }
       let id;
@@ -76,6 +71,16 @@ export default {
           folders: copy
         }
       ).then( () => {
+        dispatch('start')
+      }).catch(e => console.log(e))
+    },
+    deleData({ state, dispatch }, id) {
+      const n = state.folders.filter(folder => folder.fid !== id)
+      myRef.update(
+        {
+          folders: n
+        }
+      ).then(() => {
         dispatch('start')
       }).catch(e => console.log(e))
     },
@@ -105,16 +110,6 @@ export default {
           folders: newFolders
         }
       ).catch(e => console.log(e))
-    },
-    deleData({ state, dispatch }, id) {
-      const n = state.folders.filter(folder => folder.fid !== id)
-      myRef.update(
-        {
-          folders: n
-        }
-      ).then(() => {
-        dispatch('start')
-      }).catch(e => console.log(e))
     },
     findDeleMyQuote({ state, commit }, deleArray) {
       const checkStock = []

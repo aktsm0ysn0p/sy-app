@@ -1,4 +1,3 @@
-// import firestore from '@/firebase/firestore'
 import firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/firestore"
@@ -27,9 +26,6 @@ export default {
     }
   },
   getters: {
-    checkerAuth(state) {
-      return state.checkAuth
-    },
     userEmail(state) {
       return state.user.email
     },
@@ -69,9 +65,6 @@ export default {
     initQuoteName(state, payload) {
       state.quoteName = payload
     },
-    pushMyQuotes(state, payload) {
-      state.myQuotes.push(payload)
-    },
     addMyQuotes(state, payload) {
       state.myQuotes.push(payload)
     },
@@ -83,12 +76,6 @@ export default {
         }
       )
     },
-    remove(state, id) {
-      const index = state.myQuotes.findIndex(quote => quote === id)
-      if (index !== -1) {
-        state.myQuotes.splice(index, 1)
-      }
-    },
     updateMyQuotes(state, newMyQuotes) {
       state.myQuotes = newMyQuotes
     }
@@ -98,7 +85,7 @@ export default {
       firebase.auth().onAuthStateChanged(user => {
         if (user) {
           const currentEmail = user.email
-          dispatch('getMyQuotes2', currentEmail)
+          dispatch('getMyQuotes', currentEmail)
         }
       })
     },
@@ -133,18 +120,7 @@ export default {
         alert(error.message)
       })
     },
-    getMyQuotes({ state, commit }) {
-      usersdb.get().then(doSnapshot => {
-        doSnapshot.forEach(doc => {
-          if (doc.data().email === state.user.email) {
-            const payload = doc.data().myquotes
-            commit('initMyQuotes', payload)
-            commit('initDocId', doc.id)
-          }
-        })
-      })
-    },
-    getMyQuotes2({ commit }, crrentEmail) {
+    getMyQuotes({ commit }, crrentEmail) {
       usersdb.get().then(doSnapshot => {
         doSnapshot.forEach(doc => {
           if (doc.data().email === crrentEmail) {
@@ -154,12 +130,6 @@ export default {
             commit('initDocId', doc.id)
           }
         })
-      })
-    },
-    getMyQuotesByDoc({ state, commit }) {
-      usersdb.doc(state.docId).get().then(doSnapshot => {
-        const payload = doSnapshot.data().myquotes
-        commit('initMyQuotes', payload)
       })
     },
     initQuote({ commit }) {
