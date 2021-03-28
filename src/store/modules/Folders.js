@@ -17,14 +17,31 @@ export default {
     setText(state, value) {
       state.newfolder = value
     },
-    add(state, n) {
+    addFolder(state, newFolder) {
       state.newfolder = ''
-      state.folders.push(n)
+      state.folders.push(newFolder)
     },
-    updateFolderStock(state, {id, newArray}) {
+    removeFolder(state, fid) {
+      const index = state.folders.findIndex(folder => folder.fid === fid)
+      if (index !== -1) {
+        state.folders.splice(index, 1)
+      }
+    },
+    updateAddFolderStock(state, {id, addArray}) {
       const index = state.folders.findIndex(folder => folder.fid === id)
       if (index !== -1) {
-        state.folders[index].stocks = newArray
+        state.folders[index].stocks = [...state.folders[index].stocks, ...addArray]
+        console.log(state.folders[index].stocks)
+      }
+    },
+    updateDeleFolderStock(state, {id, deleArray}) {
+      const index = state.folders.findIndex(folder => folder.fid === id)
+      if (index !== -1) {
+        const currentFolder = state.folders.find(folder => folder.fid === id)
+        const arr01 = [...new Set(currentFolder.stocks)],
+              arr02 = [...new Set(deleArray)]
+        state.folders[index].stocks = [...arr01, ...arr02].filter(value => !arr01.includes(value) || !arr02.includes(value))
+        console.log('1')
       }
     }
   },
@@ -47,7 +64,7 @@ export default {
       }).catch(e => console.log(e))
     },
     //
-    addData({ state, dispatch, }) {
+    addData({ state, commit}) {
       let text = state.newfolder && state.newfolder.trim();
       if (!text) {
         alert('1文字以上入力してください')
@@ -59,38 +76,30 @@ export default {
       } else {
         id = state.folders.slice(-1)[0].fid + 1
       }
-      const n = {
+      const newFolder = {
         fid: id,
         title: state.newfolder,
         stocks: []
       }
-      const copy = state.folders.slice()
-      copy.push(n)
+      commit('addFolder', newFolder)
+      const updateFolders = state.folders.slice()
       myRef.update(
         {
-          folders: copy
+          folders: updateFolders
         }
-      ).then( () => {
-        dispatch('start')
-      }).catch(e => console.log(e))
+      ).catch(e => console.log(e))
     },
-    deleData({ state, dispatch }, id) {
-      const n = state.folders.filter(folder => folder.fid !== id)
+    deleData({ state, commit }, fid) {
+      commit('removeFolder', fid)
+      const updateFolders = state.folders.slice()
       myRef.update(
         {
-          folders: n
+          folders: updateFolders
         }
-      ).then(() => {
-        dispatch('start')
-      }).catch(e => console.log(e))
+      ).catch(e => console.log(e))
     },
     addFolderStock({ state, commit }, { myfolderId, addArray }) {
-      const index = state.folders.findIndex(folder => folder.fid === myfolderId)
-      if (index === -1) {
-        return
-      }
-      const newFolderStocks = [...state.folders[index].stocks, ...addArray]
-      commit('updateFolderStock', { id: myfolderId, newArray: newFolderStocks })
+      commit('updateAddFolderStock', { id: myfolderId, addArray: addArray })
       const newFolders = state.folders.slice()
       myRef.update(
         {
@@ -98,20 +107,20 @@ export default {
         }
       ).catch(e => console.log(e))
     },
-    deleFolderStock({ state, commit }, { myfolderId, deleArry }) {
-      const currentFolder = state.folders.find(folder => folder.fid === myfolderId)
-      const arr01 = [...new Set(currentFolder.stocks)],
-            arr02 = [...new Set(deleArry)]
-      const newFolderStockArray = [...arr01, ...arr02].filter(value => !arr01.includes(value) || !arr02.includes(value))
-      commit('updateFolderStock', { id: myfolderId, newArray: newFolderStockArray })
+    deleFolderStock({ state, commit }, { myfolderId, deleArray }) {
+      commit('updateDeleFolderStock', {
+        id: myfolderId,
+        deleArray: deleArray
+      })
       const newFolders = state.folders.slice()
       myRef.update(
         {
           folders: newFolders
         }
-      ).catch(e => console.log(e))
+      ).then(() => console.log('2'))
+        .catch(e => console.log(e))
     },
-    findDeleMyQuote({ state, commit }, deleArray) {
+    findDeleMyQuote({ state, dispatch }, deleArray) {
       const checkStock = []
       const checkFolderId = []
       state.folders.forEach( folder => {
@@ -125,21 +134,12 @@ export default {
         console.log('Foldersの中にあなたが作った名言は入ってなかったです')
         return
       }
-      for (let i = 0; i < checkFolderId.length; i++) {
-        const fid = checkFolderId[i]
-        const deleArray = checkStock[i]
-        const currentFolder = state.folders.find(folder => folder.fid === fid)
-        const arr01 = [...new Set(currentFolder.stocks)],
-              arr02 = [...new Set(deleArray)]
-        const newFolderStockArray = [...arr01, ...arr02].filter(value => !arr01.includes(value) || !arr02.includes(value))
-        commit('updateFolderStock', { id: fid, newArray: newFolderStockArray })
-      }
-      const newFolders = state.folders.slice()
-      myRef.update(
-        {
-          folders: newFolders
-        }
-      ).catch(e => console.log(e))
+      checkFolderId.forEach((folderId, index) => {
+        dispatch('deleFolderStock',{
+          myfolderId: folderId,
+          deleArray: checkStock[index],
+        })
+      })
     }
   },
 }

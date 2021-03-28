@@ -22,7 +22,6 @@ export default {
     },
     initTargetDocId(state, payload) {
       state.targetDocId = payload
-      console.log('initTargetDocIdにきたよ２')
     },
     add(state, payload) {
       state.lists.push(payload)
@@ -31,7 +30,6 @@ export default {
       const index = state.lists.findIndex(list => list.lid === id)
       if (index !== -1) {
         state.lists.splice(index, 1)
-        console.log('removeきたよ5 fin')
       }
     },
   },
@@ -80,7 +78,6 @@ export default {
         })
       }).then(() => {
         listsRef.doc(state.targetDocId).delete()
-        console.log('List消したよ4')
       }).then(() => {
         commit('remove', id)
       }).catch(e => console.log(e))

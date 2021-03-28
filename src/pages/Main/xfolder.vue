@@ -166,7 +166,7 @@ export default {
         })
         this.$store.dispatch("Folders/deleFolderStock", {
             myfolderId: this.currentFolder.fid,
-            deleArry: newFolderDeleArray,
+            deleArray: newFolderDeleArray,
         })
       } else {
         console.log(`なにも選択されていません`)

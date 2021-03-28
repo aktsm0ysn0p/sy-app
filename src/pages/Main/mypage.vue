@@ -70,29 +70,21 @@ export default {
     ...mapGetters('Lists',['lists']),
     createdQuotes() {
       const mycreatedQuotes = []
-      if (this.myQuotes.length) {
-        this.myQuotes.forEach((quote) => {
-          const target = this.lists.find(list => list.lid === quote)
-          if (typeof target !== undefined) {
-            mycreatedQuotes.push(target)
-          }
-        })
-      }
-        return mycreatedQuotes
+      this.myQuotes.forEach((quote) => {
+        const target = this.lists.find(list => list.lid === quote)
+          mycreatedQuotes.push(target)
+      })
+      return mycreatedQuotes
     },
     deleMyQuotes() {
       const deleQuote = []
       this.myQuotes.forEach((quote) => {
         const target = this.lists.find(list => list.lid === quote)
-        if (typeof target !== undefined) {
           deleQuote.push(target)
-        }
       })
-      if (deleQuote.length) {
-        deleQuote.forEach((n) => {
-          this.$set(n, "isDone", false);
-        })
-      }
+      deleQuote.forEach((n) => {
+        this.$set(n, "isDone", false);
+      })
       return deleQuote
     }
   },
