@@ -30,6 +30,10 @@
 import Navber from '../../components/TheNavber'
 import SubTitle from '../../components/TheSubTitle'
 import QuoteCard from '../../components/TheQuoteCard'
+// import { gsap } from "gsap";
+// import { ScrollTrigger } from 'gsap/ScrollTrigger'
+// gsap.registerPlugin(ScrollTrigger)
+// gsap.defaults({ease: "none", duration: 2})
 export default {
   name: 'Home',
   components: {
@@ -45,7 +49,25 @@ export default {
       return this.$store.getters['Stocks/stocks']
     },
   },
+  mounted() {
+    // this.sample()
+  },
   methods: {
+    // sample() {
+    //   const tl = gsap.timeline()
+    //   tl.from(".sub-title-wrapper", {yPercent: 200})
+    //     .from(".quote-wrapper", {yPercent: 800})
+
+    //   ScrollTrigger.create({
+    //     animation: tl,
+    //     trigger: ".container",
+    //     start: "top top",
+    //     end: "+=4000",
+    //     scrub: true,
+    //     pin: true,
+    //     anticipatePin: 1
+    //   })
+    // },
     addStock(id) {
       this.$store.dispatch('Stocks/addData', id);
     },
